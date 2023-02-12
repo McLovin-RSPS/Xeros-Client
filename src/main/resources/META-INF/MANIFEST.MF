@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Main-Class: com.client.ClientWindow
+Class-Path: snakeyaml-1.17.jar forms-1.1-preview.jar forms_rt-7.0.3.jar 
+ ObjectPool-2.11.jar logback-classic-1.2.3.jar javassist-3.22.0-GA.jar a
+ sm-commons-3.0.jar logback-core-1.2.3.jar asm-tree-3.0.jar commons-io-2
+ .6.jar jackson-annotations-2.8.0.jar jdom-1.0.jar gson-2.8.6.jar guava-
+ 19.0.jar commons-lang3-3.9.jar reflections8-0.11.7.jar jackson-core-2.8
+ .6.jar TweenEngine-8.3.jar jackson-databind-2.8.6.jar Notify-3.7.jar as
+ m-3.0.jar slf4j-api-1.7.25.jar jackson-dataformat-yaml-2.8.6.jar
+

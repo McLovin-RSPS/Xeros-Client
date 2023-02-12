@@ -1221,7 +1221,7 @@ public class Client extends RSApplet {
 	}
 
 	public String indexLocation(int cacheIndex, int index) {
-		return Signlink.getCacheDirectory() + Configuration.INDEX_DATA_DIRECTORY + "index" + cacheIndex + "/" + (index != -1 ? index + ".gz" : "");
+		return "D:\\projects\\OsrsQuery2\\repository\\oldschool\\211\\dump317\\index" + cacheIndex + "/" + (index != -1 ? index + ".gz" : "");
 	}
 
 	public void repackCacheAll() {
@@ -1233,9 +1233,9 @@ public class Client extends RSApplet {
 			}
 		}
 
-		packCustomMaps();
-		packCustomModels();
-		packCustomAnimations();
+		//packCustomMaps();
+		//packCustomModels();
+		//packCustomAnimations();
 	}
 
 	public byte[] fileToByteArray(File file) {
@@ -10833,7 +10833,7 @@ public class Client extends RSApplet {
 			} catch (Exception _ex) {
 			}
 			try {
-				for (int l3 = 0; l3 < 119; l3++)
+				for (int l3 = 0; l3 < 125; l3++)
 					mapFunctions[l3] = new Sprite("MapFunctions/" + l3);
 			} catch (Exception _ex) {
 			}
@@ -17149,7 +17149,7 @@ public class Client extends RSApplet {
 					int j19 = inStream.readUShort();
 
 					try {
-						//System.out.println("Item container size: " + j19);
+						System.out.println("Item container size: " + j19);
 						for (int j22 = 0; j22 < j19; j22++) {
 							int i25 = inStream.readUnsignedByte();
 							if (i25 == 255) {
@@ -17157,7 +17157,7 @@ public class Client extends RSApplet {
 							}
 							class9_1.inventoryItemId[j22] = inStream.method436();
 							class9_1.inventoryAmounts[j22] = i25;
-							//System.out.println(String.format("Added item [%d, %d] to container %d", class9_1.inv[j22], i25, i7));
+//							System.out.println(String.format("Added item [%d, %d] to container %d", class9_1.inventoryItemId[j22], i25, i7));
 						}
 						for (int j25 = j19; j25 < class9_1.inventoryItemId.length; j25++) {
 							class9_1.inventoryItemId[j25] = 0;
@@ -17410,15 +17410,16 @@ public class Client extends RSApplet {
 					}
 					RSInterface class9_2 = RSInterface.interfaceCache[i9];
 					while (inStream.currentOffset < packetSize) {
-						int j20 = (i9 == 23231 ? inStream.readUnsignedByte() : inStream.readSmart());
-						int i23 = inStream.readUShort();
-						int l25 = inStream.readUnsignedByte();
+						int j20 = (i9 == 23231 ? inStream.readUnsignedByte() : inStream.readDWord());
+						int i23 = inStream.readUShort(); //Item ID
+						int l25 = inStream.readUnsignedByte(); // Amount
 						if (l25 == 255)
 							l25 = inStream.readDWord();
 						if (j20 >= 0 && j20 < class9_2.inventoryItemId.length) {
 							class9_2.inventoryItemId[j20] = i23;
 							class9_2.inventoryAmounts[j20] = l25;
 						}
+						System.out.println(i9 + " / " + i23 + " / " + l25  + " / " + j20) ;
 					}
 					incomingPacket = -1;
 					return true;
@@ -17561,7 +17562,7 @@ public class Client extends RSApplet {
 				items.inventoryItemId[slot] = itemId;
 				items.inventoryAmounts[slot] = amount;
 
-				//System.out.println("item: "+itemId+", amount: "+amount);
+				System.out.println("item: "+itemId+", amount: "+amount);
 			}
 		}
 		return true;
@@ -17875,7 +17876,7 @@ public class Client extends RSApplet {
 		openWalkableWidgetID = -1;
 		anIntArray1030 = new int[5];
 		aBoolean1031 = false;
-		mapFunctions = new Sprite[119];
+		mapFunctions = new Sprite[125];
 		dialogID = -1;
 		maxStats = new int[Skills.SKILLS_COUNT];
 		anIntArray1045 = new int[25000];

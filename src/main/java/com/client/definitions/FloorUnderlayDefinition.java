@@ -28,18 +28,6 @@ public final class FloorUnderlayDefinition {
 				break;
 			} else if(opcode == 1) {
 				anInt390 = stream.read3Bytes();
-				if (Client.snowVisible) {
-					if (anInt390 == 0x35720A || 
-						anInt390 == 0x50680B || 
-						anInt390 == 0x78680B || 
-						anInt390 == 0x6CAC10 || 
-						anInt390 == 0x819531 || 
-						anInt390 == 0x4C5610 ||
-						anInt390 == 0x6A3C00 || 
-						anInt390 == 0x58680B) {
-						anInt390 = 0xffffff;
-					}
-				}
 				method262(anInt390);
 			}
 		}

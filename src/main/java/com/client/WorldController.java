@@ -1700,12 +1700,12 @@ public final class WorldController {
                     Rasterizer.drawTexturedTriangle(j6, l6, l5, i6, k6, k5,
                             class43.anInt718, class43.anInt719,
                             class43.anInt717, i2, i3, l1, l3, i4, k4, k2, j2,
-                            j3, class43.anInt720, k3, j3, j2);
+                            j3, class43.anInt720);
                 } else {
                     Rasterizer.drawTexturedTriangle(j6, l6, l5, i6, k6, k5,
                             class43.anInt718, class43.anInt719,
                             class43.anInt717, l2, l1, i3, j4, k4, i4, k3, j3,
-                            j2, class43.anInt720, k3, j3, j2);
+                            j2, class43.anInt720);
                 }
             } else {
                 int i7 = anIntArray485[class43.anInt720];
@@ -1743,7 +1743,7 @@ public final class WorldController {
                     Rasterizer.drawTexturedTriangle(j5, l5, l6, i5, k5, k6,
                             class43.anInt716, class43.anInt717,
                             class43.anInt719, i2, i3, l1, l3, i4, k4, k2, j2,
-                            j3, class43.anInt720, k2, j2, j3);
+                            j3, class43.anInt720);
                     return;
                 }
                 int j7 = anIntArray485[class43.anInt720];
@@ -1876,10 +1876,7 @@ public final class WorldController {
                                 shapedTile.viewSpaceZ[0],
                                 shapedTile.viewSpaceZ[1],
                                 shapedTile.viewSpaceZ[3],
-                                shapedTile.triangleTexture[j2],
-                                shapedTile.viewSpaceZ[l2],
-                                shapedTile.viewSpaceZ[j3],
-                                shapedTile.viewSpaceZ[l3]);
+                                shapedTile.triangleTexture[j2]);
                     } else {
                         Rasterizer.drawTexturedTriangle(l4, i5, j5, i4, j4, k4,
                                 shapedTile.triangleHslA[j2],
@@ -1894,10 +1891,7 @@ public final class WorldController {
                                 shapedTile.viewSpaceZ[l2],
                                 shapedTile.viewSpaceZ[j3],
                                 shapedTile.viewSpaceZ[l3],
-                                shapedTile.triangleTexture[j2],
-                                shapedTile.viewSpaceZ[l2],
-                                shapedTile.viewSpaceZ[j3],
-                                shapedTile.viewSpaceZ[l3]);
+                                shapedTile.triangleTexture[j2]);
                     }
                 } else {
                     int k5 = anIntArray485[shapedTile.triangleTexture[j2]];

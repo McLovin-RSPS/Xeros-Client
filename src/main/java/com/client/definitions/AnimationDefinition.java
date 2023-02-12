@@ -167,6 +167,25 @@ public final class AnimationDefinition {
 						frameSounds[var4] = var6;
 					}
 				}
+            } else if (i == 14) {
+                skeletalId = stream.readInt();
+            } else if (i == 15) {
+                int count = stream.readUShort();
+                skeletalsoundEffect = new int[count];
+                skeletalsoundRange = new int[count];
+                for (int index = 0; index < count; ++index) {
+                    skeletalsoundEffect[index] = stream.readUShort();
+                    skeletalsoundRange[index] = stream.read24BitInt();
+                }
+            } else if (i == 16) {
+                skeletalRangeBegin = stream.readUShort();
+                skeletalRangeEnd = stream.readUShort();
+            } else if (i == 17) {
+                int count = stream.readUnsignedByte();
+                unknown = new int[count];
+                for (int index = 0; index < count; ++index) {
+                    unknown[index] = stream.readUnsignedByte();
+                }
 			} else if (i == 127) {
 				// Hidden
 			} else System.out.println("Error unrecognised seq config code: " + i);
@@ -223,6 +242,12 @@ public final class AnimationDefinition {
 	public int anInt363;
 	public int anInt364;
 	public int anInt365;
+    private int skeletalRangeBegin = -1;
+    private int skeletalRangeEnd = -1;
+    private int skeletalId = -1;
+    private int[] skeletalsoundEffect;
+    private int[] unknown;
+    private int[] skeletalsoundRange;
 
 	public static void dump() {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("./temp/animation_dump.txt"))) {

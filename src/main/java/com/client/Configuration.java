@@ -15,9 +15,9 @@ public class Configuration {
 	 * Cache version is written to the cache folder inside a version file.
 	 * This is read on startup to tell if the cache is out of date or not.
 	 */
-	public static final int CACHE_VERSION = 49; // Set this to the same value, v0.030 = 30, v1.120 = 1120
+	public static final int CACHE_VERSION = 65; // Set this to the same value, v0.030 = 30, v1.120 = 1120
 
-	public static final String CACHE_LINK = "https://www.dropbox.com/s/6p49m3f5b2x19bh/.skotos_v2.zip?dl=1";
+	public static final String CACHE_LINK = "https://www.drakops.com/317/.skotos_v2.rar";
 
 	/**
 	 * The server version. The cache path is append with a _v1/2/3 etc for the version number
@@ -30,11 +30,11 @@ public class Configuration {
 
 	public static final String CLIENT_TITLE = "Skotos";
 	public static final String WEBSITE = "Xeros.io";
-	public static final String DEDICATED_SERVER_ADDRESS = "localhost";//51.222.245.179
-	public static final String TEST_SERVER_ADDRESS = "localhost";//51.79.50.152
+	public static final String DEDICATED_SERVER_ADDRESS = "127.0.0.1";//51.222.245.179
+	public static final String TEST_SERVER_ADDRESS = "127.0.0.1";//51.79.50.152
 	public static final int PORT = 52777;
 	public static final int TEST_PORT = 43595;
-	public static final int CACHE_FOLDER_VERSION = 65;
+	public static final int CACHE_FOLDER_VERSION = 0;
 	public static final String CACHE_NAME = "." + CLIENT_TITLE.toLowerCase() + (CACHE_FOLDER_VERSION != 0 ? "_" + CACHE_FOLDER_VERSION : "") + "_v" + SERVER_VERSION;
 	public static final String DEV_CACHE_NAME = "local_cache";
 	public static final String CACHE_NAME_DEV = CACHE_NAME + "_dev";
@@ -48,7 +48,7 @@ public class Configuration {
 
 	public static boolean developerMode;
 	public static boolean loadExternalCacheArchives = false; // Always true because I can't seem to pack them correctly
-	public static boolean packIndexData;
+	public static boolean packIndexData = false;
 	public static boolean dumpMaps;
 	public static boolean dumpAnimationData;
 	public static boolean dumpDataLists;

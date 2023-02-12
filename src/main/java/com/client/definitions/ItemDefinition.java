@@ -1513,8 +1513,8 @@ public final class ItemDefinition {
 		spriteTranslateY = var1.spriteTranslateY * 1;
 		originalModelColors = var2.originalModelColors;
 		modifiedModelColors = var2.modifiedModelColors;
-		// originalTextureColors = var2.originalTextureColors;
-		// modifiedTextureColors = var2.modifiedTextureColors;
+		 originalTextureColors = var2.originalTextureColors;
+		 modifiedTextureColors = var2.modifiedTextureColors;
 		name = var2.name;
 		membersObject = var2.membersObject;
 		stackable = var2.stackable;
@@ -1645,6 +1645,10 @@ public final class ItemDefinition {
 				stackable = true;
 			else if (opcode == 12)
 				value = stream.readDWord();
+			else if(opcode == 13)
+				this.field2142 = stream.readSignedByte();
+			else if(opcode == 14)
+				this.field2157 = stream.readSignedByte();
 			else if (opcode == 16)
 				membersObject = true;
 			else if (opcode == 23) {
@@ -1661,6 +1665,8 @@ public final class ItemDefinition {
 					femaleModel = -1;
 			} else if (opcode == 26)
 				anInt164 = stream.readUShort();
+			else if(opcode == 27)
+				this.field2158 = stream.readSignedByte();
 			else if (opcode >= 30 && opcode < 35) {
 				if (groundOptions == null)
 					groundOptions = new String[5];
@@ -1691,6 +1697,8 @@ public final class ItemDefinition {
 					stream.readUnsignedByte();
 			} else if (opcode == 65) {
 				searchableItem = true;
+			} else if (opcode == 75){
+				this.field2182 = stream.readSignedWord();
 			} else if (opcode == 78)
 				anInt185 = stream.readUShort();
 			else if (opcode == 79)
@@ -1786,9 +1794,14 @@ public final class ItemDefinition {
 			Model aclass30_sub2_sub4_sub6s[] = { model, model_1 };
 			model = new Model(2, aclass30_sub2_sub4_sub6s);
 		}
-		if (modifiedModelColors != null) {
-			for (int i1 = 0; i1 < modifiedModelColors.length; i1++)
-				model.method476(modifiedModelColors[i1], originalModelColors[i1]);
+		if (originalModelColors != null) {
+			for (int i1 = 0; i1 < originalModelColors.length; i1++)
+				model.recolor(originalModelColors[i1], modifiedModelColors[i1]);
+
+		}
+		if (originalTextureColors != null) {
+			for (int k2 = 0; k2 < originalTextureColors.length; k2++)
+				model.retexture(originalTextureColors[k2], modifiedTextureColors[k2]);
 
 		}
 		return model;
@@ -1842,9 +1855,14 @@ public final class ItemDefinition {
 			model.method475(0, aByte205, 0);
 		if (i == 1 && aByte154 != 0)
 			model.method475(0, aByte154, 0);
-		if (modifiedModelColors != null) {
-			for (int i1 = 0; i1 < modifiedModelColors.length; i1++)
-				model.method476(modifiedModelColors[i1], originalModelColors[i1]);
+		if (originalModelColors != null) {
+			for (int i1 = 0; i1 < originalModelColors.length; i1++)
+				model.recolor(originalModelColors[i1], modifiedModelColors[i1]);
+
+		}
+		if (originalTextureColors != null) {
+			for (int k2 = 0; k2 < originalTextureColors.length; k2++)
+				model.retexture(originalTextureColors[k2], modifiedTextureColors[k2]);
 
 		}
 		return model;
@@ -2548,9 +2566,14 @@ public final class ItemDefinition {
 			return null;
 		if (anInt167 != 128 || anInt192 != 128 || anInt191 != 128)
 			model.method478(anInt167, anInt191, anInt192);
-		if (modifiedModelColors != null) {
-			for (int l = 0; l < modifiedModelColors.length; l++)
-				model.method476(modifiedModelColors[l], originalModelColors[l]);
+		if (originalModelColors != null) {
+			for (int l = 0; l < originalModelColors.length; l++)
+				model.recolor(originalModelColors[l], modifiedModelColors[l]);
+
+		}
+		if (originalTextureColors != null) {
+			for (int k2 = 0; k2 < originalTextureColors.length; k2++)
+				model.retexture(originalTextureColors[k2], modifiedTextureColors[k2]);
 
 		}
 		model.light(64 + anInt196, 768 + anInt184, -50, -10, -50, true);
@@ -2572,9 +2595,14 @@ public final class ItemDefinition {
 		Model model = Model.method462(modelId);
 		if (model == null)
 			return null;
-		if (modifiedModelColors != null) {
-			for (int l = 0; l < modifiedModelColors.length; l++)
-				model.method476(modifiedModelColors[l], originalModelColors[l]);
+		if (originalModelColors != null) {
+			for (int l = 0; l < originalModelColors.length; l++)
+				model.recolor(originalModelColors[l], modifiedModelColors[l]);
+
+		}
+		if (originalTextureColors != null) {
+			for (int k2 = 0; k2 < originalTextureColors.length; k2++)
+				model.retexture(originalTextureColors[k2], modifiedTextureColors[k2]);
 
 		}
 		return model;
@@ -2638,5 +2666,8 @@ public final class ItemDefinition {
 	private byte aByte205; // aByte205
 	public boolean searchableItem;
 	private static BufferedWriter writer;
-
+	public int field2142 = -1;
+	public int field2157 = -1;
+	public int field2158 = -1;
+	private int field2182;
 }

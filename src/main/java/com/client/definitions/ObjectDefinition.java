@@ -722,13 +722,15 @@ public final class ObjectDefinition {
 		while (l-- > 0)
 			model_3.method473();
 		if (modifiedModelColors != null) {
-			for (int k2 = 0; k2 < modifiedModelColors.length; k2++)
-				model_3.method476(modifiedModelColors[k2], originalModelColors[k2]);
+			for (int k2 = 0; k2 < modifiedModelColors.length; k2++) {
+				model_3.recolor(modifiedModelColors[k2], originalModelColors[k2]);
+			}
 
 		}
 		if (originalTexture != null) {
-			for (int k2 = 0; k2 < originalTexture.length; k2++)
-				model_3.replaceTexture(originalTexture[k2], modifiedTexture[k2]);
+			for (int k2 = 0; k2 < originalTexture.length; k2++) {
+				model_3.retexture(originalTexture[k2], modifiedTexture[k2]);
+			}
 
 		}
 		if (flag)
@@ -739,7 +741,7 @@ public final class ObjectDefinition {
 		// !aBoolean769);
 		// ORIGINAL^
 
-		model_3.light(64 + aByte737, 1300 + aByte742 * 25, -50, -10, -50, !aBoolean769);
+		model_3.light(85 + aByte737, 768 + aByte742 * 25, -50, -10, -50, !aBoolean769);
 
 		if (supportItems == 1)
 			model_3.itemDropHeight = model_3.modelHeight;
@@ -831,9 +833,8 @@ public final class ObjectDefinition {
 					originalTexture[i2] = (short) stream.readUShort();
 					modifiedTexture[i2] = (short) stream.readUShort();
 				}
-//			} else if (type == 60) {
-//				mapFunctionId = stream.readUnsignedWord();
-//				System.out.println("60 - " + name + ", " + type + ", " + mapFunctionId);
+			} else if (type == 61) {
+				stream.readUShort();
 			} else if (type == 62)
 				aBoolean751 = true;
 			else if (type == 64)

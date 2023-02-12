@@ -18,8 +18,8 @@ final class ObjectManager {
 		regionSizeY = 104;
 		tileHeights = ai;
 		tileFlags = abyte0;
-		underlays = new byte[4][regionSizeX][regionSizeY];
-		overlays = new byte[4][regionSizeX][regionSizeY];
+		underlays = new short[4][regionSizeX][regionSizeY];
+		overlays = new short[4][regionSizeX][regionSizeY];
 		overlayTypes = new byte[4][regionSizeX][regionSizeY];
 		overlayOrientations = new byte[4][regionSizeX][regionSizeY];
 		anIntArrayArrayArray135 = new int[4][regionSizeX + 1][regionSizeY + 1];
@@ -77,7 +77,9 @@ final class ObjectManager {
 			return z;
 		}
 	}
-
+	public static long method7315(int var0) {
+		return (long)Math.pow(2.0, (double)var0) - 1L;
+	}
 	private static int calculateNoise(int i, int j) {
 		int k = i + j * 57;
 		k = k << 13 ^ k;
@@ -135,7 +137,7 @@ final class ObjectManager {
 				for (int z = 0; z < regionSizeY; z++) {
 					int xForwardOffset = x + 5;
 					if (xForwardOffset < regionSizeX) {
-						int underlayId = underlays[l][xForwardOffset][z] & 0xff;
+						int underlayId = underlays[l][xForwardOffset][z] & 0x3FFF;
 						if (underlayId > 0) {
 							FloorUnderlayDefinition flo = FloorUnderlayDefinition.underlays[underlayId - 1];
 							hues[z] += flo.blendHue;
@@ -147,7 +149,8 @@ final class ObjectManager {
 					}
 					int xBackwardOffset = x - 5;
 					if (xBackwardOffset >= 0) {
-						int underlayId = underlays[l][xBackwardOffset][z] & 0xff;
+						int var15 = (int)method7315(8);
+						int underlayId = underlays[l][xBackwardOffset][z] & var15;
 						if (underlayId > 0) {
 							FloorUnderlayDefinition flo_1 = FloorUnderlayDefinition.underlays[underlayId - 1];
 							hues[z] -= flo_1.blendHue;
@@ -199,12 +202,12 @@ final class ObjectManager {
 						if (l < maximumPlane) {
 							maximumPlane = l;
 						}
-						int underlayA = underlays[l][x][z] & 0xff;
-						int underlayB = underlays[l][nextX][z] & 0xff;
-						int underlayC = underlays[l][nextX][nextZ] & 0xff;
-						int underlayD = underlays[l][x][nextZ] & 0xff;
+						int underlayA = underlays[l][x][z] & 0x3FFF;
+						int underlayB = underlays[l][nextX][z] & 0x3FFF;
+						int underlayC = underlays[l][nextX][nextZ] & 0x3FFF;
+						int underlayD = underlays[l][x][nextZ] & 0x3FFF;
 
-						int overlayA = overlays[l][x][z] & 0xff;
+						int overlayA = overlays[l][x][z] & 0x3FFF;
 						if (underlayA > 0 || overlayA > 0) {
 							int tileHeightA = tileHeights[l][x][z];
 							int tileHeightB = tileHeights[l][x + 1][z];
@@ -912,7 +915,7 @@ final class ObjectManager {
 				int absZ = (i1 + l);
 				tileFlags[l][k][i] = 0;
 				do {
-					int l1 = stream.readUnsignedByte();
+					int l1 = stream.readUShort();
 					if (l1 == 0)
 						if (l == 0) {
 							tileHeights[0][k][i] = -calculateVertexHeight(0xe3b7b + k + k1, 0x87cce + i + j) * 8;
@@ -964,17 +967,17 @@ final class ObjectManager {
 						overlayTypes[l][k][i] = 0; // tile shape
 					}
 					if (l1 <= 49) {
-						overlays[l][k][i] = stream.readSignedByte();
+						overlays[l][k][i] = (short) stream.readShort2();
 						overlayTypes[l][k][i] = (byte) ((l1 - 2) / 4);
 						overlayOrientations[l][k][i] = (byte) ((l1 - 2) + i1 & 3);
 					} else if (l1 <= 81)
 						tileFlags[l][k][i] = (byte) (l1 - 49);
 					else
-						underlays[l][k][i] = (byte) (l1 - 81);
+						underlays[l][k][i] = (short) (l1 - 81);
 				} while (true);
 			}
 			do {
-				int i2 = stream.readUnsignedByte();
+				int i2 = stream.readUShort();
 				if (i2 == 0)
 					break;
 				if (i2 == 1) {
@@ -982,7 +985,7 @@ final class ObjectManager {
 					return;
 				}
 				if (i2 <= 49)
-					stream.readUnsignedByte();
+					stream.readShort2();
 			} while (true);
 		} catch (Exception e) {
 		}
@@ -1356,7 +1359,7 @@ final class ObjectManager {
 	private final int[] chromas;
 	private final int[] anIntArray128;
 	private final int[][][] tileHeights;
-	private final byte[][][] overlays;
+	private final short[][][] overlays;
 	static int anInt131;
 	private final byte[][][] shading;
 	private final int[][][] anIntArrayArrayArray135;
@@ -1364,7 +1367,7 @@ final class ObjectManager {
 	private static final int anIntArray137[] = { 1, 0, -1, 0 };
 	private final int[][] tileLighting;
 	private static final int anIntArray140[] = { 16, 32, 64, 128 };
-	private final byte[][][] underlays;
+	private final short[][][] underlays;
 	private static final int anIntArray144[] = { 0, -1, 0, 1 };
 	static int maximumPlane = 99; // anInt145
 	private final int regionSizeX;

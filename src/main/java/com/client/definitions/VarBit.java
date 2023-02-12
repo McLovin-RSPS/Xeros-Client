@@ -21,10 +21,16 @@ public final class VarBit {
 	}
 
 	private void readValues(Buffer stream) {
-		stream.readUnsignedByte();
+		int opcode = stream.readUnsignedByte();
+		if (opcode == 0) {
+			return;
+		} else if (opcode == 1) {
 		anInt648 = stream.readUShort();
 		anInt649 = stream.readUnsignedByte();
 		anInt650 = stream.readUnsignedByte();
+		} else {
+			System.out.println("Invalid varbit opcode: " + opcode);
+		}
 	}
 
 	private VarBit() {

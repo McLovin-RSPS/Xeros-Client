@@ -3108,8 +3108,7 @@ public class Model extends Renderable {
                         anIntArray1668[texture_a], anIntArray1668[texture_b], anIntArray1668[texture_c],
                         camera_verticesY[texture_a], camera_verticesY[texture_b], camera_verticesY[texture_c],
                         viewportTextureZ[texture_a], viewportTextureZ[texture_b], viewportTextureZ[texture_c],
-                        materials[i],
-                        camera_verticesZ[j], camera_verticesZ[k], camera_verticesZ[l]);
+                        materials[i]);
             } else {
                 Rasterizer.drawTexturedTriangle(
                         projected_verticesY[j], projected_verticesY[k], projected_verticesY[l],
@@ -3118,8 +3117,7 @@ public class Model extends Renderable {
                         anIntArray1668[texture_a], anIntArray1668[texture_b], anIntArray1668[texture_c],
                         camera_verticesY[texture_a], camera_verticesY[texture_b], camera_verticesY[texture_c],
                         viewportTextureZ[texture_a], viewportTextureZ[texture_b], viewportTextureZ[texture_c],
-                        materials[i],
-                        camera_verticesZ[j], camera_verticesZ[k], camera_verticesZ[l]);
+                        materials[i]);
             }
         } else {
             if (type == 0) {
@@ -3280,8 +3278,7 @@ public class Model extends Renderable {
                                 anIntArray1668[texture_a], anIntArray1668[texture_b], anIntArray1668[texture_c],
                                 camera_verticesY[texture_a], camera_verticesY[texture_b], camera_verticesY[texture_c],
                                 viewportTextureZ[texture_a], viewportTextureZ[texture_b], viewportTextureZ[texture_c],
-                                materials[i],
-                                camera_verticesZ[i1], camera_verticesZ[j1], camera_verticesZ[k1]);
+                                materials[i]);
                     } else {
                         Rasterizer.drawTexturedTriangle(
                                 i7, j7, k7,
@@ -3290,8 +3287,7 @@ public class Model extends Renderable {
                                 anIntArray1668[texture_a], anIntArray1668[texture_b], anIntArray1668[texture_c],
                                 camera_verticesY[texture_a], camera_verticesY[texture_b], camera_verticesY[texture_c],
                                 viewportTextureZ[texture_a], viewportTextureZ[texture_b], viewportTextureZ[texture_c],
-                                materials[i],
-                                camera_verticesZ[i1], camera_verticesZ[j1], camera_verticesZ[k1]);
+                                materials[i]);
                     }
                 } else {
                     if (l7 == 0)
@@ -3327,8 +3323,7 @@ public class Model extends Renderable {
                                 anIntArray1668[texture_a], anIntArray1668[texture_b], anIntArray1668[texture_c],
                                 camera_verticesY[texture_a], camera_verticesY[texture_b], camera_verticesY[texture_c],
                                 viewportTextureZ[texture_a], viewportTextureZ[texture_b], viewportTextureZ[texture_c],
-                                materials[i],
-                                camera_verticesZ[i1], camera_verticesZ[j1], camera_verticesZ[k1]);
+                                materials[i]);
                         Rasterizer.drawTexturedTriangle(
                                 i7, k7, anIntArray1679[3],
                                 j3, j5, anIntArray1678[3],
@@ -3336,8 +3331,7 @@ public class Model extends Renderable {
                                 anIntArray1668[texture_a], anIntArray1668[texture_b], anIntArray1668[texture_c],
                                 camera_verticesY[texture_a], camera_verticesY[texture_b], camera_verticesY[texture_c],
                                 viewportTextureZ[texture_a], viewportTextureZ[texture_b], viewportTextureZ[texture_c],
-                                materials[i],
-                                camera_verticesZ[i1], camera_verticesZ[j1], camera_verticesZ[k1]);
+                                materials[i]);
                     } else {
                         Rasterizer.drawTexturedTriangle(
                                 i7, j7, k7,
@@ -3346,8 +3340,7 @@ public class Model extends Renderable {
                                 anIntArray1668[texture_a], anIntArray1668[texture_b], anIntArray1668[texture_c],
                                 camera_verticesY[texture_a], camera_verticesY[texture_b], camera_verticesY[texture_c],
                                 viewportTextureZ[texture_a], viewportTextureZ[texture_b], viewportTextureZ[texture_c],
-                                materials[i],
-                                camera_verticesZ[i1], camera_verticesZ[j1], camera_verticesZ[k1]);
+                                materials[i]);
                         Rasterizer.drawTexturedTriangle(
                                 i7, k7, anIntArray1679[3],
                                 j3, j5, anIntArray1678[3],
@@ -3355,8 +3348,7 @@ public class Model extends Renderable {
                                 anIntArray1668[texture_a], anIntArray1668[texture_b], anIntArray1668[texture_c],
                                 camera_verticesY[texture_a], camera_verticesY[texture_b], camera_verticesY[texture_c],
                                 viewportTextureZ[texture_a], viewportTextureZ[texture_b], viewportTextureZ[texture_c],
-                                materials[i],
-                                camera_verticesZ[i1], camera_verticesZ[j1], camera_verticesZ[k1]);
+                                materials[i]);
                         return;
                     }
                 } else {
@@ -3546,4 +3538,19 @@ public class Model extends Renderable {
         hsl2rgb = Rasterizer.hslToRgb;
         lightDecay = Rasterizer.anIntArray1469;
     }
+
+    public void recolor(int found, int replace) {
+        if(colors != null)
+            for (int face = 0; face < trianglesCount; face++)
+                if (colors[face] == (short) found)
+                    colors[face] = (short) replace;
+    }
+
+    public void retexture(short found, short replace) {
+        if(materials != null)
+            for (int face = 0; face < trianglesCount; face++)
+                if (materials[face] == found)
+                    materials[face] = replace;
+    }
+
 }

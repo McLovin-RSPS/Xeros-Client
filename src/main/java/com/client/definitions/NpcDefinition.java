@@ -1040,9 +1040,27 @@ public final class NpcDefinition {
 				anInt85 = stream.readSignedByte();
 			else if (opcode == 101)
 				anInt92 = stream.readSignedByte();
-			else if (opcode == 102)
-				anInt75 = stream.readUShort();
-			else if (opcode == 103)
+			else if (opcode == 102) {
+				int var3 = stream.readUnsignedByte();
+				int var4 = 0;
+
+				for(int var5 = var3; var5 != 0; var5 >>= 1) {
+					++var4;
+				}
+
+				this.headIconArchiveIds = new int[var4];
+				this.headIconSpriteIndex = new short[var4];
+
+				for(int var6 = 0; var6 < var4; ++var6) {
+					if ((var3 & 1 << var6) == 0) {
+						this.headIconArchiveIds[var6] = -1;
+						this.headIconSpriteIndex[var6] = -1;
+					} else {
+						this.headIconArchiveIds[var6] = stream.readNullableLargeSmart();
+						this.headIconSpriteIndex[var6] = (short)stream.readShortSmartSub();
+					}
+				}
+			} else if (opcode == 103)
 				getDegreesToTurn = stream.readUShort();
 			else if (opcode == 106 || opcode == 118) {
 				anInt57 = stream.readUShort();
@@ -1062,8 +1080,57 @@ public final class NpcDefinition {
 						childrenIDs[i2] = -1;
 				}
 				childrenIDs[i1 + 1] = var3;
-			} else if (opcode == 107)
+			} else if (opcode == 107) {
 				aBoolean84 = false;
+			} else if(opcode == 109) {
+				this.isClickable = false;
+			} else if(opcode == 111) {
+				this.aBool2190 = true;
+			} else if(opcode == 114) {
+				this.field1914 = stream.readUShort();
+				if(this.field1914 == '\uffff') {
+					this.field1914 = -1;
+				}
+			} else if(opcode == 115) {
+				this.field1914 = stream.readUShort();
+				this.field1919 = stream.readUShort();
+				this.field1918 = stream.readUShort();
+				this.field1938 = stream.readUShort();
+				if(this.field1914 == '\uffff') {
+					this.field1914 = -1;
+				}
+				if(this.field1919 == '\uffff') {
+					this.field1919 = -1;
+				}
+				if(this.field1918 == '\uffff') {
+					this.field1918 = -1;
+				}
+				if(this.field1938 == '\uffff') {
+					this.field1938 = -1;
+				}
+			} else if(opcode == 116) {
+				this.field1920 = stream.readUShort();
+				if(this.field1920 == '\uffff') {
+					this.field1920 = -1;
+				}
+			} else if(opcode == 117) {
+				this.field1920 = stream.readUShort();
+				this.field1933 = stream.readUShort();
+				this.field1922 = stream.readUShort();
+				this.field1923 = stream.readUShort();
+				if(this.field1920 == '\uffff') {
+					this.field1920 = -1;
+				}
+				if(this.field1933 == '\uffff') {
+					this.field1933 = -1;
+				}
+				if(this.field1922 == '\uffff') {
+					this.field1922 = -1;
+				}
+				if(this.field1923 == '\uffff') {
+					this.field1923 = -1;
+				}
+			}
 		}
 	}
 
@@ -1097,12 +1164,12 @@ public final class NpcDefinition {
 
 		if (originalColors != null)
 			for (int k = 0; k < originalColors.length; k++)
-				model.replaceColor(originalColors[k], newColors[k]);
+				model.recolor(originalColors[k], newColors[k]);
 
 
 		if (originalTextures != null)
 			for (int k = 0; k < originalTextures.length; k++)
-				model.replaceTexture(originalTextures[k], newTextures[k]);
+				model.retexture(originalTextures[k], newTextures[k]);
 
 		return model;
 	}
@@ -1153,7 +1220,13 @@ public final class NpcDefinition {
 				model = new Model(aclass30_sub2_sub4_sub6s.length, aclass30_sub2_sub4_sub6s);
 			if (originalColors != null) {
 				for (int k1 = 0; k1 < originalColors.length; k1++)
-					model.replaceColor(originalColors[k1], newColors[k1]);
+					model.recolor(originalColors[k1], newColors[k1]);
+
+			}
+			if (originalTextures != null) {
+				for (int k2 = 0; k2 < originalTextures.length; k2++) {
+					model.retexture(originalTextures[k2], newTextures[k2]);
+				}
 
 			}
 			model.method469();
@@ -1294,7 +1367,19 @@ public final class NpcDefinition {
 	public static Client clientInstance;
 	public int anInt83;
 	public boolean aBoolean84;
+	int[] headIconArchiveIds = null;
+	short[] headIconSpriteIndex = null;
 	public int anInt85;
+	public boolean isClickable = true;
+	public boolean aBool2190 = false;
+	public int field1914 = -1;
+	public int field1919 = -1;
+	public int field1918 = -1;
+	public int field1938 = -1;
+	public int field1920 = -1;
+	public int field1933 = -1;
+	public int field1922 = -1;
+	public int field1923 = -1;
 	public int anInt86;
 	public boolean onMinimap;
 	public int childrenIDs[];

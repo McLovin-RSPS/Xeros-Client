@@ -5,7 +5,7 @@ public final class Rasterizer extends DrawingArea {
     public static boolean saveDepth;
     public static float[] depthBuffer;
     private static int mipMapLevel;
-    public static int textureAmount = 96;
+    public static int textureAmount = 99;
     static boolean aBoolean1462;
     private static boolean aBoolean1463;
     public static boolean lowMem = false;
@@ -3854,8 +3854,1041 @@ public final class Rasterizer extends DrawingArea {
             pos += pixelPos;
         }
     }
+    public static void drawTexturedTriangle(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18) {
+        int[] texturePixels = getTexturePixels(var18);
+        int var21;
+        aBoolean1463 = !textureIsTransparant[var18];
+        var21 = var4 - var3;
+        int var26 = var1 - var0;
+        int var27 = var5 - var3;
+        int var31 = var2 - var0;
+        int var28 = var7 - var6;
+        int var23 = var8 - var6;
+        int var29 = 0;
+        if(var1 != var0) {
+            var29 = (var4 - var3 << 16) / (var1 - var0);
+        }
 
-    public static void drawTexturedTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int c1, int c2, int c3,
+        int var30 = 0;
+        if(var2 != var1) {
+            var30 = (var5 - var4 << 16) / (var2 - var1);
+        }
+
+        int var22 = 0;
+        if(var2 != var0) {
+            var22 = (var3 - var5 << 16) / (var0 - var2);
+        }
+
+        int var32 = var21 * var31 - var27 * var26;
+        if(var32 != 0) {
+            int var41 = (var28 * var31 - var23 * var26 << 9) / var32;
+            int var20 = (var23 * var21 - var28 * var27 << 9) / var32;
+            var10 = var9 - var10;
+            var13 = var12 - var13;
+            var16 = var15 - var16;
+            var11 -= var9;
+            var14 -= var12;
+            var17 -= var15;
+            final int FOV = (aBoolean1464 ? WorldController.focalLength : 512);
+            int var24 = var11 * var12 - var14 * var9 << 14;
+            int var38 = (int)(((long)(var14 * var15 - var17 * var12) << 3 << 14) / (long)FOV);
+            int var25 = (int)(((long)(var17 * var9 - var11 * var15) << 14) / (long)FOV);
+            int var36 = var10 * var12 - var13 * var9 << 14;
+            int var39 = (int)(((long)(var13 * var15 - var16 * var12) << 3 << 14) / (long)FOV);
+            int var37 = (int)(((long)(var16 * var9 - var10 * var15) << 14) / (long)FOV);
+            int var33 = var13 * var11 - var10 * var14 << 14;
+            int var40 = (int)(((long)(var16 * var14 - var13 * var17) << 3 << 14) / (long)FOV);
+            int var34 = (int)(((long)(var10 * var17 - var16 * var11) << 14) / (long)FOV);
+
+
+            int var35;
+            if(var0 <= var1 && var0 <= var2) {
+                if(var0 < DrawingArea.bottomY) {
+                    if(var1 > DrawingArea.bottomY) {
+                        var1 = DrawingArea.bottomY;
+                    }
+
+                    if(var2 > DrawingArea.bottomY) {
+                        var2 = DrawingArea.bottomY;
+                    }
+
+                    var6 = (var6 << 9) - var41 * var3 + var41;
+                    if(var1 < var2) {
+                        var5 = var3 <<= 16;
+                        if(var0 < 0) {
+                            var5 -= var22 * var0;
+                            var3 -= var29 * var0;
+                            var6 -= var20 * var0;
+                            var0 = 0;
+                        }
+
+                        var4 <<= 16;
+                        if(var1 < 0) {
+                            var4 -= var30 * var1;
+                            var1 = 0;
+                        }
+
+                        var35 = var0 - textureInt2;
+                        var24 += var25 * var35;
+                        var36 += var37 * var35;
+                        var33 += var34 * var35;
+                        if((var0 == var1 || var22 >= var29) && (var0 != var1 || var22 <= var30)) {
+                            var2 -= var1;
+                            var1 -= var0;
+                            var0 = anIntArray1472[var0];
+
+                            while(true) {
+                                --var1;
+                                if(var1 < 0) {
+                                    while(true) {
+                                        --var2;
+                                        if(var2 < 0) {
+                                            return;
+                                        }
+
+                                        drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var0, var4 >> 16, var5 >> 16, var6, var41, var24, var36, var33, var38, var39, var40);
+                                        var5 += var22;
+                                        var4 += var30;
+                                        var6 += var20;
+                                        var0 += DrawingArea.width;
+                                        var24 += var25;
+                                        var36 += var37;
+                                        var33 += var34;
+                                    }
+                                }
+
+                                drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var0, var3 >> 16, var5 >> 16, var6, var41, var24, var36, var33, var38, var39, var40);
+                                var5 += var22;
+                                var3 += var29;
+                                var6 += var20;
+                                var0 += DrawingArea.width;
+                                var24 += var25;
+                                var36 += var37;
+                                var33 += var34;
+                            }
+                        } else {
+                            var2 -= var1;
+                            var1 -= var0;
+                            var0 = anIntArray1472[var0];
+
+                            while(true) {
+                                --var1;
+                                if(var1 < 0) {
+                                    while(true) {
+                                        --var2;
+                                        if(var2 < 0) {
+                                            return;
+                                        }
+
+                                        drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var0, var5 >> 16, var4 >> 16, var6, var41, var24, var36, var33, var38, var39, var40);
+                                        var5 += var22;
+                                        var4 += var30;
+                                        var6 += var20;
+                                        var0 += DrawingArea.width;
+                                        var24 += var25;
+                                        var36 += var37;
+                                        var33 += var34;
+                                    }
+                                }
+
+                                drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var0, var5 >> 16, var3 >> 16, var6, var41, var24, var36, var33, var38, var39, var40);
+                                var5 += var22;
+                                var3 += var29;
+                                var6 += var20;
+                                var0 += DrawingArea.width;
+                                var24 += var25;
+                                var36 += var37;
+                                var33 += var34;
+                            }
+                        }
+                    } else {
+                        var4 = var3 <<= 16;
+                        if(var0 < 0) {
+                            var4 -= var22 * var0;
+                            var3 -= var29 * var0;
+                            var6 -= var20 * var0;
+                            var0 = 0;
+                        }
+
+                        var5 <<= 16;
+                        if(var2 < 0) {
+                            var5 -= var30 * var2;
+                            var2 = 0;
+                        }
+
+                        var35 = var0 - textureInt2;
+                        var24 += var25 * var35;
+                        var36 += var37 * var35;
+                        var33 += var34 * var35;
+                        if((var0 == var2 || var22 >= var29) && (var0 != var2 || var30 <= var29)) {
+                            var1 -= var2;
+                            var2 -= var0;
+                            var0 = anIntArray1472[var0];
+
+                            while(true) {
+                                --var2;
+                                if(var2 < 0) {
+                                    while(true) {
+                                        --var1;
+                                        if(var1 < 0) {
+                                            return;
+                                        }
+
+                                        drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var0, var3 >> 16, var5 >> 16, var6, var41, var24, var36, var33, var38, var39, var40);
+                                        var5 += var30;
+                                        var3 += var29;
+                                        var6 += var20;
+                                        var0 += DrawingArea.width;
+                                        var24 += var25;
+                                        var36 += var37;
+                                        var33 += var34;
+                                    }
+                                }
+
+                                drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var0, var3 >> 16, var4 >> 16, var6, var41, var24, var36, var33, var38, var39, var40);
+                                var4 += var22;
+                                var3 += var29;
+                                var6 += var20;
+                                var0 += DrawingArea.width;
+                                var24 += var25;
+                                var36 += var37;
+                                var33 += var34;
+                            }
+                        } else {
+                            var1 -= var2;
+                            var2 -= var0;
+                            var0 = anIntArray1472[var0];
+
+                            while(true) {
+                                --var2;
+                                if(var2 < 0) {
+                                    while(true) {
+                                        --var1;
+                                        if(var1 < 0) {
+                                            return;
+                                        }
+
+                                        drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var0, var5 >> 16, var3 >> 16, var6, var41, var24, var36, var33, var38, var39, var40);
+                                        var5 += var30;
+                                        var3 += var29;
+                                        var6 += var20;
+                                        var0 += DrawingArea.width;
+                                        var24 += var25;
+                                        var36 += var37;
+                                        var33 += var34;
+                                    }
+                                }
+
+                                drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var0, var4 >> 16, var3 >> 16, var6, var41, var24, var36, var33, var38, var39, var40);
+                                var4 += var22;
+                                var3 += var29;
+                                var6 += var20;
+                                var0 += DrawingArea.width;
+                                var24 += var25;
+                                var36 += var37;
+                                var33 += var34;
+                            }
+                        }
+                    }
+                }
+            } else if(var1 <= var2) {
+                if(var1 < DrawingArea.bottomY) {
+                    if(var2 > DrawingArea.bottomY) {
+                        var2 = DrawingArea.bottomY;
+                    }
+
+                    if(var0 > DrawingArea.bottomY) {
+                        var0 = DrawingArea.bottomY;
+                    }
+
+                    var7 = (var7 << 9) - var41 * var4 + var41;
+                    if(var2 < var0) {
+                        var3 = var4 <<= 16;
+                        if(var1 < 0) {
+                            var3 -= var29 * var1;
+                            var4 -= var30 * var1;
+                            var7 -= var20 * var1;
+                            var1 = 0;
+                        }
+
+                        var5 <<= 16;
+                        if(var2 < 0) {
+                            var5 -= var22 * var2;
+                            var2 = 0;
+                        }
+
+                        var35 = var1 - textureInt2;
+                        var24 += var25 * var35;
+                        var36 += var37 * var35;
+                        var33 += var34 * var35;
+                        if((var1 == var2 || var29 >= var30) && (var1 != var2 || var29 <= var22)) {
+                            var0 -= var2;
+                            var2 -= var1;
+                            var1 = anIntArray1472[var1];
+
+                            while(true) {
+                                --var2;
+                                if(var2 < 0) {
+                                    while(true) {
+                                        --var0;
+                                        if(var0 < 0) {
+                                            return;
+                                        }
+
+                                        drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var1, var5 >> 16, var3 >> 16, var7, var41, var24, var36, var33, var38, var39, var40);
+                                        var3 += var29;
+                                        var5 += var22;
+                                        var7 += var20;
+                                        var1 += DrawingArea.width;
+                                        var24 += var25;
+                                        var36 += var37;
+                                        var33 += var34;
+                                    }
+                                }
+
+                                drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var1, var4 >> 16, var3 >> 16, var7, var41, var24, var36, var33, var38, var39, var40);
+                                var3 += var29;
+                                var4 += var30;
+                                var7 += var20;
+                                var1 += DrawingArea.width;
+                                var24 += var25;
+                                var36 += var37;
+                                var33 += var34;
+                            }
+                        } else {
+                            var0 -= var2;
+                            var2 -= var1;
+                            var1 = anIntArray1472[var1];
+
+                            while(true) {
+                                --var2;
+                                if(var2 < 0) {
+                                    while(true) {
+                                        --var0;
+                                        if(var0 < 0) {
+                                            return;
+                                        }
+
+                                        drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var1, var3 >> 16, var5 >> 16, var7, var41, var24, var36, var33, var38, var39, var40);
+                                        var3 += var29;
+                                        var5 += var22;
+                                        var7 += var20;
+                                        var1 += DrawingArea.width;
+                                        var24 += var25;
+                                        var36 += var37;
+                                        var33 += var34;
+                                    }
+                                }
+
+                                drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var1, var3 >> 16, var4 >> 16, var7, var41, var24, var36, var33, var38, var39, var40);
+                                var3 += var29;
+                                var4 += var30;
+                                var7 += var20;
+                                var1 += DrawingArea.width;
+                                var24 += var25;
+                                var36 += var37;
+                                var33 += var34;
+                            }
+                        }
+                    } else {
+                        var5 = var4 <<= 16;
+                        if(var1 < 0) {
+                            var5 -= var29 * var1;
+                            var4 -= var30 * var1;
+                            var7 -= var20 * var1;
+                            var1 = 0;
+                        }
+
+                        var3 <<= 16;
+                        if(var0 < 0) {
+                            var3 -= var22 * var0;
+                            var0 = 0;
+                        }
+
+                        var35 = var1 - textureInt2;
+                        var24 += var25 * var35;
+                        var36 += var37 * var35;
+                        var33 += var34 * var35;
+                        if(var29 < var30) {
+                            var2 -= var0;
+                            var0 -= var1;
+                            var1 = anIntArray1472[var1];
+
+                            while(true) {
+                                --var0;
+                                if(var0 < 0) {
+                                    while(true) {
+                                        --var2;
+                                        if(var2 < 0) {
+                                            return;
+                                        }
+
+                                        drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var1, var3 >> 16, var4 >> 16, var7, var41, var24, var36, var33, var38, var39, var40);
+                                        var3 += var22;
+                                        var4 += var30;
+                                        var7 += var20;
+                                        var1 += DrawingArea.width;
+                                        var24 += var25;
+                                        var36 += var37;
+                                        var33 += var34;
+                                    }
+                                }
+
+                                drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var1, var5 >> 16, var4 >> 16, var7, var41, var24, var36, var33, var38, var39, var40);
+                                var5 += var29;
+                                var4 += var30;
+                                var7 += var20;
+                                var1 += DrawingArea.width;
+                                var24 += var25;
+                                var36 += var37;
+                                var33 += var34;
+                            }
+                        } else {
+                            var2 -= var0;
+                            var0 -= var1;
+                            var1 = anIntArray1472[var1];
+
+                            while(true) {
+                                --var0;
+                                if(var0 < 0) {
+                                    while(true) {
+                                        --var2;
+                                        if(var2 < 0) {
+                                            return;
+                                        }
+
+                                        drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var1, var4 >> 16, var3 >> 16, var7, var41, var24, var36, var33, var38, var39, var40);
+                                        var3 += var22;
+                                        var4 += var30;
+                                        var7 += var20;
+                                        var1 += DrawingArea.width;
+                                        var24 += var25;
+                                        var36 += var37;
+                                        var33 += var34;
+                                    }
+                                }
+
+                                drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var1, var4 >> 16, var5 >> 16, var7, var41, var24, var36, var33, var38, var39, var40);
+                                var5 += var29;
+                                var4 += var30;
+                                var7 += var20;
+                                var1 += DrawingArea.width;
+                                var24 += var25;
+                                var36 += var37;
+                                var33 += var34;
+                            }
+                        }
+                    }
+                }
+            } else if(var2 < DrawingArea.bottomY) {
+                if(var0 > DrawingArea.bottomY) {
+                    var0 = DrawingArea.bottomY;
+                }
+
+                if(var1 > DrawingArea.bottomY) {
+                    var1 = DrawingArea.bottomY;
+                }
+
+                var8 = (var8 << 9) - var41 * var5 + var41;
+                if(var0 < var1) {
+                    var4 = var5 <<= 16;
+                    if(var2 < 0) {
+                        var4 -= var30 * var2;
+                        var5 -= var22 * var2;
+                        var8 -= var20 * var2;
+                        var2 = 0;
+                    }
+
+                    var3 <<= 16;
+                    if(var0 < 0) {
+                        var3 -= var29 * var0;
+                        var0 = 0;
+                    }
+
+                    var35 = var2 - textureInt2;
+                    var24 += var25 * var35;
+                    var36 += var37 * var35;
+                    var33 += var34 * var35;
+                    if(var30 < var22) {
+                        var1 -= var0;
+                        var0 -= var2;
+                        var2 = anIntArray1472[var2];
+
+                        while(true) {
+                            --var0;
+                            if(var0 < 0) {
+                                while(true) {
+                                    --var1;
+                                    if(var1 < 0) {
+                                        return;
+                                    }
+
+                                    drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var2, var4 >> 16, var3 >> 16, var8, var41, var24, var36, var33, var38, var39, var40);
+                                    var4 += var30;
+                                    var3 += var29;
+                                    var8 += var20;
+                                    var2 += DrawingArea.width;
+                                    var24 += var25;
+                                    var36 += var37;
+                                    var33 += var34;
+                                }
+                            }
+
+                            drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var2, var4 >> 16, var5 >> 16, var8, var41, var24, var36, var33, var38, var39, var40);
+                            var4 += var30;
+                            var5 += var22;
+                            var8 += var20;
+                            var2 += DrawingArea.width;
+                            var24 += var25;
+                            var36 += var37;
+                            var33 += var34;
+                        }
+                    } else {
+                        var1 -= var0;
+                        var0 -= var2;
+                        var2 = anIntArray1472[var2];
+
+                        while(true) {
+                            --var0;
+                            if(var0 < 0) {
+                                while(true) {
+                                    --var1;
+                                    if(var1 < 0) {
+                                        return;
+                                    }
+
+                                    drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var2, var3 >> 16, var4 >> 16, var8, var41, var24, var36, var33, var38, var39, var40);
+                                    var4 += var30;
+                                    var3 += var29;
+                                    var8 += var20;
+                                    var2 += DrawingArea.width;
+                                    var24 += var25;
+                                    var36 += var37;
+                                    var33 += var34;
+                                }
+                            }
+
+                            drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var2, var5 >> 16, var4 >> 16, var8, var41, var24, var36, var33, var38, var39, var40);
+                            var4 += var30;
+                            var5 += var22;
+                            var8 += var20;
+                            var2 += DrawingArea.width;
+                            var24 += var25;
+                            var36 += var37;
+                            var33 += var34;
+                        }
+                    }
+                } else {
+                    var3 = var5 <<= 16;
+                    if(var2 < 0) {
+                        var3 -= var30 * var2;
+                        var5 -= var22 * var2;
+                        var8 -= var20 * var2;
+                        var2 = 0;
+                    }
+
+                    var4 <<= 16;
+                    if(var1 < 0) {
+                        var4 -= var29 * var1;
+                        var1 = 0;
+                    }
+
+                    var35 = var2 - textureInt2;
+                    var24 += var25 * var35;
+                    var36 += var37 * var35;
+                    var33 += var34 * var35;
+                    if(var30 < var22) {
+                        var0 -= var1;
+                        var1 -= var2;
+                        var2 = anIntArray1472[var2];
+
+                        while(true) {
+                            --var1;
+                            if(var1 < 0) {
+                                while(true) {
+                                    --var0;
+                                    if(var0 < 0) {
+                                        return;
+                                    }
+
+                                    drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var2, var4 >> 16, var5 >> 16, var8, var41, var24, var36, var33, var38, var39, var40);
+                                    var4 += var29;
+                                    var5 += var22;
+                                    var8 += var20;
+                                    var2 += DrawingArea.width;
+                                    var24 += var25;
+                                    var36 += var37;
+                                    var33 += var34;
+                                }
+                            }
+
+                            drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var2, var3 >> 16, var5 >> 16, var8, var41, var24, var36, var33, var38, var39, var40);
+                            var3 += var30;
+                            var5 += var22;
+                            var8 += var20;
+                            var2 += DrawingArea.width;
+                            var24 += var25;
+                            var36 += var37;
+                            var33 += var34;
+                        }
+                    } else {
+                        var0 -= var1;
+                        var1 -= var2;
+                        var2 = anIntArray1472[var2];
+
+                        while(true) {
+                            --var1;
+                            if(var1 < 0) {
+                                while(true) {
+                                    --var0;
+                                    if(var0 < 0) {
+                                        return;
+                                    }
+
+                                    drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var2, var5 >> 16, var4 >> 16, var8, var41, var24, var36, var33, var38, var39, var40);
+                                    var4 += var29;
+                                    var5 += var22;
+                                    var8 += var20;
+                                    var2 += DrawingArea.width;
+                                    var24 += var25;
+                                    var36 += var37;
+                                    var33 += var34;
+                                }
+                            }
+
+                            drawTexturedLine(DrawingArea.pixels, texturePixels, 0, 0, var2, var5 >> 16, var3 >> 16, var8, var41, var24, var36, var33, var38, var39, var40);
+                            var3 += var30;
+                            var5 += var22;
+                            var8 += var20;
+                            var2 += DrawingArea.width;
+                            var24 += var25;
+                            var36 += var37;
+                            var33 += var34;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static void drawTexturedLine(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14) {
+        if(aBoolean1462) {
+            if(var6 > DrawingArea.centerX) {
+                var6 = DrawingArea.centerX;
+            }
+
+            if(var5 < 0) {
+                var5 = 0;
+            }
+        }
+
+        if(var5 < var6) {
+            var4 += var5;
+            var7 += var8 * var5;
+            int var17 = var6 - var5;
+            int var15;
+            int var16;
+            int var18;
+            int var19;
+            int var20;
+            int var21;
+            int var22;
+            int var23;
+            if(false) {
+                var15 = var5 - textureInt1;
+                var9 += (var12 >> 3) * var15;
+                var10 += (var13 >> 3) * var15;
+                var11 += (var14 >> 3) * var15;
+                var19 = var11 >> 12;
+                if(var19 != 0) {
+                    var20 = var9 / var19;
+                    var18 = var10 / var19;
+                    if(var20 < 0) {
+                        var20 = 0;
+                    } else if(var20 > 4032) {
+                        var20 = 4032;
+                    }
+                } else {
+                    var20 = 0;
+                    var18 = 0;
+                }
+
+                var9 += var12;
+                var10 += var13;
+                var11 += var14;
+                var19 = var11 >> 12;
+                if(var19 != 0) {
+                    var22 = var9 / var19;
+                    var16 = var10 / var19;
+                    if(var22 < 0) {
+                        var22 = 0;
+                    } else if(var22 > 4032) {
+                        var22 = 4032;
+                    }
+                } else {
+                    var22 = 0;
+                    var16 = 0;
+                }
+
+                var2 = (var20 << 20) + var18;
+                var23 = (var22 - var20 >> 3 << 20) + (var16 - var18 >> 3);
+                var17 >>= 3;
+                var8 <<= 3;
+                var21 = var7 >> 8;
+                if(aBoolean1463) {
+                    if(var17 > 0) {
+                        do {
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var20 = var22;
+                            var18 = var16;
+                            var9 += var12;
+                            var10 += var13;
+                            var11 += var14;
+                            var19 = var11 >> 12;
+                            if(var19 != 0) {
+                                var22 = var9 / var19;
+                                var16 = var10 / var19;
+                                if(var22 < 0) {
+                                    var22 = 0;
+                                } else if(var22 > 4032) {
+                                    var22 = 4032;
+                                }
+                            } else {
+                                var22 = 0;
+                                var16 = 0;
+                            }
+
+                            var2 = (var20 << 20) + var18;
+                            var23 = (var22 - var20 >> 3 << 20) + (var16 - var18 >> 3);
+                            var7 += var8;
+                            var21 = var7 >> 8;
+                            --var17;
+                        } while(var17 > 0);
+                    }
+
+                    var17 = var6 - var5 & 7;
+                    if(var17 > 0) {
+                        do {
+                            var3 = var1[(var2 & 4032) + (var2 >>> 26)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            --var17;
+                        } while(var17 > 0);
+
+                    }
+                } else {
+                    if(var17 > 0) {
+                        do {
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var20 = var22;
+                            var18 = var16;
+                            var9 += var12;
+                            var10 += var13;
+                            var11 += var14;
+                            var19 = var11 >> 12;
+                            if(var19 != 0) {
+                                var22 = var9 / var19;
+                                var16 = var10 / var19;
+                                if(var22 < 0) {
+                                    var22 = 0;
+                                } else if(var22 > 4032) {
+                                    var22 = 4032;
+                                }
+                            } else {
+                                var22 = 0;
+                                var16 = 0;
+                            }
+
+                            var2 = (var20 << 20) + var18;
+                            var23 = (var22 - var20 >> 3 << 20) + (var16 - var18 >> 3);
+                            var7 += var8;
+                            var21 = var7 >> 8;
+                            --var17;
+                        } while(var17 > 0);
+                    }
+
+                    var17 = var6 - var5 & 7;
+                    if(var17 > 0) {
+                        do {
+                            if((var3 = var1[(var2 & 4032) + (var2 >>> 26)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            --var17;
+                        } while(var17 > 0);
+
+                    }
+                }
+            } else {
+                var15 = var5 - textureInt1;
+                var9 += (var12 >> 3) * var15;
+                var10 += (var13 >> 3) * var15;
+                var11 += (var14 >> 3) * var15;
+                var19 = var11 >> 14;
+                if(var19 != 0) {
+                    var20 = var9 / var19;
+                    var18 = var10 / var19;
+                    if(var20 < 0) {
+                        var20 = 0;
+                    } else if(var20 > 16256) {
+                        var20 = 16256;
+                    }
+                } else {
+                    var20 = 0;
+                    var18 = 0;
+                }
+
+                var9 += var12;
+                var10 += var13;
+                var11 += var14;
+                var19 = var11 >> 14;
+                if(var19 != 0) {
+                    var22 = var9 / var19;
+                    var16 = var10 / var19;
+                    if(var22 < 0) {
+                        var22 = 0;
+                    } else if(var22 > 16256) {
+                        var22 = 16256;
+                    }
+                } else {
+                    var22 = 0;
+                    var16 = 0;
+                }
+
+                var2 = (var20 << 18) + var18;
+                var23 = (var22 - var20 >> 3 << 18) + (var16 - var18 >> 3);
+                var17 >>= 3;
+                var8 <<= 3;
+                var21 = var7 >> 8;
+                if(aBoolean1463) {
+                    if(var17 > 0) {
+                        do {
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var20 = var22;
+                            var18 = var16;
+                            var9 += var12;
+                            var10 += var13;
+                            var11 += var14;
+                            var19 = var11 >> 14;
+                            if(var19 != 0) {
+                                var22 = var9 / var19;
+                                var16 = var10 / var19;
+                                if(var22 < 0) {
+                                    var22 = 0;
+                                } else if(var22 > 16256) {
+                                    var22 = 16256;
+                                }
+                            } else {
+                                var22 = 0;
+                                var16 = 0;
+                            }
+
+                            var2 = (var20 << 18) + var18;
+                            var23 = (var22 - var20 >> 3 << 18) + (var16 - var18 >> 3);
+                            var7 += var8;
+                            var21 = var7 >> 8;
+                            --var17;
+                        } while(var17 > 0);
+                    }
+
+                    var17 = var6 - var5 & 7;
+                    if(var17 > 0) {
+                        do {
+                            var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+                            var0[var4++] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            var2 += var23;
+                            --var17;
+                        } while(var17 > 0);
+
+                    }
+                } else {
+                    if(var17 > 0) {
+                        do {
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var20 = var22;
+                            var18 = var16;
+                            var9 += var12;
+                            var10 += var13;
+                            var11 += var14;
+                            var19 = var11 >> 14;
+                            if(var19 != 0) {
+                                var22 = var9 / var19;
+                                var16 = var10 / var19;
+                                if(var22 < 0) {
+                                    var22 = 0;
+                                } else if(var22 > 16256) {
+                                    var22 = 16256;
+                                }
+                            } else {
+                                var22 = 0;
+                                var16 = 0;
+                            }
+
+                            var2 = (var20 << 18) + var18;
+                            var23 = (var22 - var20 >> 3 << 18) + (var16 - var18 >> 3);
+                            var7 += var8;
+                            var21 = var7 >> 8;
+                            --var17;
+                        } while(var17 > 0);
+                    }
+
+                    var17 = var6 - var5 & 7;
+                    if(var17 > 0) {
+                        do {
+                            if((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) {
+                                var0[var4] = ((var3 & 16711935) * var21 & -16711936) + ((var3 & '\uff00') * var21 & 16711680) >> 8;
+                            }
+
+                            ++var4;
+                            var2 += var23;
+                            --var17;
+                        } while(var17 > 0);
+
+                    }
+                }
+            }
+        }
+    }
+
+    public static void drawTexturedTriangleold(int y1, int y2, int y3, int x1, int x2, int x3, int c1, int c2, int c3,
                                             int tx1, int tx2, int tx3, int ty1, int ty2, int ty3, int tz1, int tz2, int tz3, int tex, float z1, float z2,
                                             float z3) {
         if (!saveDepth) {
