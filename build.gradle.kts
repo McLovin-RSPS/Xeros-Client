@@ -1,4 +1,5 @@
 import proguard.gradle.ProGuardTask
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 group = "com.client"
 version = "1.0"
@@ -22,6 +23,19 @@ plugins {
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.lombok") version "1.5.21"
     application
+    id("com.github.johnrengelman.shadow") version "7.1.0"
+}
+
+tasks.register<ShadowJar>("shadowJar") {
+    // Configure the task here
+    // ...
+    manifest.attributes["Main-Class"] = "net.runelite.client.RuneLite"
+    configurations.forEach {
+        from(it)
+    }
+    exclude("META-INF/*.RSA")
+    exclude("META-INF/*.SF")
+    exclude("META-INF/*.DSA")
 }
 
 
@@ -109,18 +123,13 @@ dependencies {
 }
 
 tasks {
+
     jar {
         destinationDirectory.set(file("$buildDir/libs"))
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
         archiveBaseName.set("${project.name}-Client")
-
-        // Output to build/libs/shadow.jar
-        shadowJar {
-            archiveBaseName.set("shadow")
-            archiveClassifier.set("")
-            archiveVersion.set("")
-        }
     }
+
 }
 
 application {
