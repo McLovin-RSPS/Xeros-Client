@@ -8,7 +8,7 @@ final class TextInput {
 	public static String method525(int i, Buffer stream) {
 		int j = 0;
 		for (int l = 0; l < i; l++) {
-			int i1 = stream.readUnsignedByte();// recieved from server
+			int i1 = stream.get_unsignedbyte();// recieved from server
 			aCharArray631[j++] = validChars[i1];
 		}
 
@@ -43,10 +43,10 @@ final class TextInput {
 	}
 
 	public static String processText(String s) {
-		stream.currentOffset = 0;
+		stream.currentPosition = 0;
 		method526(s, stream);
-		int j = stream.currentOffset;
-		stream.currentOffset = 0;
+		int j = stream.currentPosition;
+		stream.currentPosition = 0;
 		String s1 = method525(j, stream);
 		return s1;
 	}

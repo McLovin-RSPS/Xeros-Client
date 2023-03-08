@@ -1,6 +1,5 @@
 package com.client.graphics.interfaces.dropdown;
 
-import com.client.Client;
 import com.client.features.settings.Preferences;
 import com.client.graphics.interfaces.MenuItem;
 import com.client.graphics.interfaces.RSInterface;

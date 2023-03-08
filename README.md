@@ -1,4 +1,4 @@
-# Xeros client
+# Glacyte Client
 ## Run arguments
 * --local/-l: localhost connection
 * --developer/-d: developer mode

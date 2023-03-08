@@ -5,18 +5,13 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 
-import com.client.Client;
 import com.client.Configuration;
-import com.client.Rasterizer;
-import com.client.features.gameframe.ScreenMode;
+import com.client.Rasterizer3D;
 import com.client.graphics.interfaces.RSInterface;
 import com.client.graphics.interfaces.builder.impl.NotificationTab;
 import com.client.graphics.interfaces.impl.SettingsTabWidget;
-import com.client.utilities.settings.SettingsManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
-import lombok.extern.java.Log;
 
 public class Preferences {
 
@@ -52,8 +47,8 @@ public class Preferences {
                     preferences.hidePetOptions = node.get("hidePetOptions").booleanValue();
                 if (node.has("pmNotifications"))
                     preferences.pmNotifications = node.get("pmNotifications").booleanValue();
-                if (node.has("mode"))
-                    preferences.mode = ScreenMode.valueOf(node.get("mode").textValue());
+                if (node.has("mode1"))
+                    preferences.fixed = node.get("mode1").booleanValue();
                 if (node.has("groundItemTextShowMoreThan"))
                     preferences.groundItemTextShowMoreThan = node.get("groundItemTextShowMoreThan").textValue();
                 if (node.has("groundItemTextShow"))
@@ -91,7 +86,7 @@ public class Preferences {
     public double areaSoundVolume = 5;
     public double musicVolume = 5;
     public double brightness = 0.75;
-    public ScreenMode mode = ScreenMode.FIXED;
+    public Boolean fixed = true;
     public int screenWidth;
     public int screenHeight;
     public int dragTime = 5;
@@ -106,7 +101,7 @@ public class Preferences {
 
     public void updateClientConfiguration() {
         // Brightness
-        Rasterizer.setBrightness(brightness);
+        Rasterizer3D.setBrightness(brightness);
         SettingsTabWidget.brightnessSlider.setValue(brightness);
         SettingsTabWidget.musicVolumeSlider.setValue(10 - musicVolume);
         SettingsTabWidget.soundVolumeSlider.setValue(10 - soundVolume);
@@ -119,8 +114,5 @@ public class Preferences {
         NotificationTab.instance.scrollable.updateButtonText(NotificationTab.ALWAYS_SHOW_UNTRADABLES_BUTTON_ID);
     }
 
-    public void updateScreenMode() {
-        Client.instance.setGameMode(mode, new Dimension(screenWidth, screenHeight), false);
-    }
 
 }

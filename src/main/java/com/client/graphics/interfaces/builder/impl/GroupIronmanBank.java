@@ -1,6 +1,5 @@
 package com.client.graphics.interfaces.builder.impl;
 
-import com.client.Configuration;
 import com.client.Sprite;
 import com.client.graphics.interfaces.RSInterface;
 import com.client.graphics.interfaces.builder.InterfaceBuilder;

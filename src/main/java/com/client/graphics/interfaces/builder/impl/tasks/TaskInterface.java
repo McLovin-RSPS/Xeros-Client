@@ -9,12 +9,11 @@ import com.client.graphics.interfaces.builder.impl.tasks.model.TaskEntry;
 import com.client.graphics.interfaces.builder.impl.tasks.model.TaskEntryType;
 import com.client.model.GameItem;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.RandomUtils;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
+import org.apache.commons.lang3.RandomUtils;
 
 // TODO if hover has variable items we might need to move buttons to predictable ids (like 100, 101, etc)
 // TODO server side: make claiming not automatic but clicking

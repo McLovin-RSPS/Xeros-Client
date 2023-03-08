@@ -1,6 +1,7 @@
 package com.client;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 
 // https://www.rune-server.ee/runescape-development/rs2-server/informative-threads/534604-explanation-simplification-runescape-cache.html
 final class Decompressor {
@@ -27,6 +28,8 @@ final class Decompressor {
 	public static final int DATA_SIZE = DATA_HEADER_SIZE + DATA_BLOCK_SIZE;
 
 	private static final byte[] buffer = new byte[520];
+
+	ByteBuffer buf = ByteBuffer.allocate(100);
 	private final RandomAccessFile dataFile;
 	private final RandomAccessFile indexFile;
 	private final int fileType;

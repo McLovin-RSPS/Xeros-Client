@@ -1,9 +1,7 @@
 package com.client.script;
 
-
-
-import org.reflections8.Reflections;
-import org.reflections8.scanners.SubTypesScanner;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

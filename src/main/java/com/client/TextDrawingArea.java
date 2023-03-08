@@ -6,9 +6,9 @@ package com.client;
 
 import java.util.Random;
 
-public final class TextDrawingArea extends DrawingArea {
+public final class TextDrawingArea extends Rasterizer2D {
 
-	public TextDrawingArea(boolean flag, String s, StreamLoader streamLoader) {
+	public TextDrawingArea(boolean flag, String s, FileArchive streamLoader) {
 		aByteArrayArray1491 = new byte[256][];
 		anIntArray1492 = new int[256];
 		anIntArray1493 = new int[256];
@@ -17,18 +17,18 @@ public final class TextDrawingArea extends DrawingArea {
 		anIntArray1496 = new int[256];
 		aRandom1498 = new Random();
 		aBoolean1499 = false;
-		Buffer stream = new Buffer(streamLoader.getArchiveData(s + ".dat"));
-		Buffer stream_1 = new Buffer(streamLoader.getArchiveData("index.dat"));
-		stream_1.currentOffset = stream.readUShort() + 4;
-		int k = stream_1.readUnsignedByte();
+		Buffer stream = new Buffer(streamLoader.readFile(s + ".dat"));
+		Buffer stream_1 = new Buffer(streamLoader.readFile("index.dat"));
+		stream_1.currentPosition = stream.readUShort() + 4;
+		int k = stream_1.get_unsignedbyte();
 		if (k > 0)
-			stream_1.currentOffset += 3 * (k - 1);
+			stream_1.currentPosition += 3 * (k - 1);
 		for (int l = 0; l < 256; l++) {
-			anIntArray1494[l] = stream_1.readUnsignedByte();
-			anIntArray1495[l] = stream_1.readUnsignedByte();
+			anIntArray1494[l] = stream_1.get_unsignedbyte();
+			anIntArray1495[l] = stream_1.get_unsignedbyte();
 			int i1 = anIntArray1492[l] = stream_1.readUShort();
 			int j1 = anIntArray1493[l] = stream_1.readUShort();
-			int k1 = stream_1.readUnsignedByte();
+			int k1 = stream_1.get_unsignedbyte();
 			int l1 = i1 * j1;
 			aByteArrayArray1491[l] = new byte[l1];
 			if (k1 == 0) {
@@ -73,7 +73,7 @@ public final class TextDrawingArea extends DrawingArea {
 		method385(i, s, k, l - method384(s) / 2);
 	}
 
-	public void method382(int i, int j, String s, int l, boolean flag) {
+	public void drawCentered(int i, int j, String s, int l, boolean flag) {
 		method389(flag, j - getTextWidth(s) / 2, i, s, l);
 	}
 
@@ -187,7 +187,7 @@ public final class TextDrawingArea extends DrawingArea {
 				i += anIntArray1496[c];
 			}
 		if (aBoolean1499)
-			DrawingArea.method339(k + (int) (anInt1497 * 0.69999999999999996D), 0x800000, i - l, l);
+			Rasterizer2D.method339(k + (int) (anInt1497 * 0.69999999999999996D), 0x800000, i - l, l);
 	}
 
 	public void method390(int i, int j, String s, int k, int i1) {
@@ -267,64 +267,64 @@ public final class TextDrawingArea extends DrawingArea {
 	}
 
 	private void method392(byte abyte0[], int i, int j, int k, int l, int i1) {
-		int j1 = i + j * DrawingArea.width;
-		int k1 = DrawingArea.width - k;
+		int j1 = i + j * Rasterizer2D.width;
+		int k1 = Rasterizer2D.width - k;
 		int l1 = 0;
 		int i2 = 0;
-		if (j < DrawingArea.topY) {
-			int j2 = DrawingArea.topY - j;
+		if (j < Rasterizer2D.topY) {
+			int j2 = Rasterizer2D.topY - j;
 			l -= j2;
-			j = DrawingArea.topY;
+			j = Rasterizer2D.topY;
 			i2 += j2 * k;
-			j1 += j2 * DrawingArea.width;
+			j1 += j2 * Rasterizer2D.width;
 		}
-		if (j + l >= DrawingArea.bottomY)
-			l -= ((j + l) - DrawingArea.bottomY) + 1;
-		if (i < DrawingArea.topX) {
-			int k2 = DrawingArea.topX - i;
+		if (j + l >= Rasterizer2D.bottomY)
+			l -= ((j + l) - Rasterizer2D.bottomY) + 1;
+		if (i < Rasterizer2D.leftX) {
+			int k2 = Rasterizer2D.leftX - i;
 			k -= k2;
-			i = DrawingArea.topX;
+			i = Rasterizer2D.leftX;
 			i2 += k2;
 			j1 += k2;
 			l1 += k2;
 			k1 += k2;
 		}
-		if (i + k >= DrawingArea.bottomX) {
-			int l2 = ((i + k) - DrawingArea.bottomX) + 1;
+		if (i + k >= Rasterizer2D.bottomX) {
+			int l2 = ((i + k) - Rasterizer2D.bottomX) + 1;
 			k -= l2;
 			l1 += l2;
 			k1 += l2;
 		}
 		if (!(k <= 0 || l <= 0)) {
-			method393(DrawingArea.pixels, abyte0, i1, i2, j1, k, l, k1, l1);
+			method393(Rasterizer2D.pixels, abyte0, i1, i2, j1, k, l, k1, l1);
 		}
 	}
 
 	private void method393(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, int j1, int k1) {
 		int l1 = -(l >> 2);
 		l = -(l & 3);
-		for (int i2 = -i1; i2 < 0; i2++) {
-			for (int j2 = l1; j2 < 0; j2++) {
-				if (abyte0[j++] != 0)
-					ai[k++] = i;
+		for(int i2 = -i1; i2 < 0; i2++) {
+			for(int j2 = l1; j2 < 0; j2++) {
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
 				else
 					k++;
-				if (abyte0[j++] != 0)
-					ai[k++] = i;
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
 				else
 					k++;
-				if (abyte0[j++] != 0)
-					ai[k++] = i;
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
 				else
 					k++;
-				if (abyte0[j++] != 0)
-					ai[k++] = i;
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
 				else
 					k++;
 			}
-			for (int k2 = l; k2 < 0; k2++)
-				if (abyte0[j++] != 0)
-					ai[k++] = i;
+			for(int k2 = l; k2 < 0; k2++)
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
 				else
 					k++;
 
@@ -332,49 +332,49 @@ public final class TextDrawingArea extends DrawingArea {
 			j += k1;
 		}
 	}
-
 	private void method394(int i, int j, byte abyte0[], int k, int l, int i1, int j1) {
-		int k1 = j + l * DrawingArea.width;
-		int l1 = DrawingArea.width - k;
+		int k1 = j + l * Rasterizer2D.width;
+		int l1 = Rasterizer2D.width - k;
 		int i2 = 0;
 		int j2 = 0;
-		if (l < DrawingArea.topY) {
-			int k2 = DrawingArea.topY - l;
+		if (l < Rasterizer2D.topY) {
+			int k2 = Rasterizer2D.topY - l;
 			i1 -= k2;
-			l = DrawingArea.topY;
+			l = Rasterizer2D.topY;
 			j2 += k2 * k;
-			k1 += k2 * DrawingArea.width;
+			k1 += k2 * Rasterizer2D.width;
 		}
-		if (l + i1 >= DrawingArea.bottomY)
-			i1 -= ((l + i1) - DrawingArea.bottomY) + 1;
-		if (j < DrawingArea.topX) {
-			int l2 = DrawingArea.topX - j;
+		if (l + i1 >= Rasterizer2D.bottomY)
+			i1 -= ((l + i1) - Rasterizer2D.bottomY) + 1;
+		if (j < Rasterizer2D.leftX) {
+			int l2 = Rasterizer2D.leftX - j;
 			k -= l2;
-			j = DrawingArea.topX;
+			j = Rasterizer2D.leftX;
 			j2 += l2;
 			k1 += l2;
 			i2 += l2;
 			l1 += l2;
 		}
-		if (j + k >= DrawingArea.bottomX) {
-			int i3 = ((j + k) - DrawingArea.bottomX) + 1;
+		if (j + k >= Rasterizer2D.bottomX) {
+			int i3 = ((j + k) - Rasterizer2D.bottomX) + 1;
 			k -= i3;
 			i2 += i3;
 			l1 += i3;
 		}
 		if (k <= 0 || i1 <= 0)
 			return;
-		method395(abyte0, i1, k1, DrawingArea.pixels, j2, k, i2, l1, j1, i);
+		method395(abyte0, i1, k1, Rasterizer2D.pixels, j2, k, i2, l1, j1, i);
 	}
 
 	private void method395(byte abyte0[], int i, int j, int ai[], int l, int i1, int j1, int k1, int l1, int i2) {
 		l1 = ((l1 & 0xff00ff) * i2 & 0xff00ff00) + ((l1 & 0xff00) * i2 & 0xff0000) >> 8;
 		i2 = 256 - i2;
-		for (int j2 = -i; j2 < 0; j2++) {
-			for (int k2 = -i1; k2 < 0; k2++)
-				if (abyte0[l++] != 0) {
+		for(int j2 = -i; j2 < 0; j2++) {
+			for(int k2 = -i1; k2 < 0; k2++)
+				if(abyte0[l++] != 0) {
 					int l2 = ai[j];
-					ai[j++] = (((l2 & 0xff00ff) * i2 & 0xff00ff00) + ((l2 & 0xff00) * i2 & 0xff0000) >> 8) + l1;
+					drawAlpha(ai, j++, (((l2 & 0xff00ff) * i2 & 0xff00ff00) + ((l2 & 0xff00) * i2 & 0xff0000) >> 8)
+							+ l1, 255);
 				} else {
 					j++;
 				}

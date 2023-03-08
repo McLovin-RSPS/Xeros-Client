@@ -15,23 +15,20 @@ public class LootViewer extends RSInterface {
     private static final boolean PRINT_IDS = false;
 
     private enum Button {
-        VOTE_KEY("Vote key", 22093),
-        PORAZDIRS_KEY("Porazdir's key", 4185),
-        HUNNLEFS_KEY("Hunnlef's key", 23776),
-        SERENS_KEY("Seren's key", 6792),
-        HESPORI_KEY("Hespori key", 22374),
-        MYSTERY_BOX("Mystery box", 6199),
-        SUPER_MYSTERY_BOX("Super m. box", 6828),
-        ULTRA_MYSTERY_BOX("Ultra m. box", 13346),
-        FOE_MYSTERY_CHEST("FoE m. chest", 8167),
-        SLAYER_MYSTERY_CHEST("Slayer m. chest", 13438),
-        BRIMSTONE_KEY("Brimstone Key", Items.BRIMSTONE_KEY),
-        XERIC_CHESTS("Xeric chests", 3464),
-        TOB_CHEST("Theatre of Blood", 8151),
-        VOTE_MYSTERY_BOX("Vote Mystery Box", 11739),
-        CRYSTAL_CHEST("Crystal Chest", 989),
-        PVM_CASKET("PvM Casket", 405),
-        LARRANS_CHEST("Larran's Chest", Items.LARRANS_KEY)
+            REWARDS_PACKAGE("Rewards Package", 6199),
+            TIER_II_REWARDS_PACKAGE("Tier II R. Package", 6828),
+            TIER_III_REWARDS_PACKAGE("Tier III R. Package", 13346),
+            RAIDS_REWARDS_CHEST("Raids R. Chest", 8167),
+            SLAYER_MYSTERY_CHEST("Slayer m. chest", 13438),
+            BRIMSTONE_KEY("Brimstone Key", Items.BRIMSTONE_KEY),
+            XERIC_CHESTS("Xeric chests", 3464),
+            TOB_CHEST("Theatre of Blood", 8151),
+            VOTE_MYSTERY_BOX("Vote Mystery Box", 11739),
+            CRYSTAL_CHEST("Crystal Chest", 989),
+            PVM_CASKET("PvM Casket", 405),
+            LARRANS_CHEST("Larran's Chest", Items.LARRANS_KEY),
+            VOTE_KEY("Vote key", 22093)
+            ;
         ;
 
         private final String name;

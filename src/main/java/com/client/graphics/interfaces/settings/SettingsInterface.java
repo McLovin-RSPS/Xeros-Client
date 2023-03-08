@@ -1,11 +1,23 @@
 package com.client.graphics.interfaces.settings;
 
-import java.util.Arrays;
-
 import com.client.TextDrawingArea;
 import com.client.graphics.interfaces.RSInterface;
-import com.client.graphics.interfaces.dropdown.*;
+import com.client.graphics.interfaces.dropdown.AntiAliasingMenu;
+import com.client.graphics.interfaces.dropdown.BountyHunterMenu;
+import com.client.graphics.interfaces.dropdown.ChatEffectMenu;
+import com.client.graphics.interfaces.dropdown.DrawDistanceMenu;
+import com.client.graphics.interfaces.dropdown.EntityTargetOverlayMenu;
+import com.client.graphics.interfaces.dropdown.FogMenu;
+import com.client.graphics.interfaces.dropdown.GameTimersMenu;
+import com.client.graphics.interfaces.dropdown.GroundItemOverlayMenu;
+import com.client.graphics.interfaces.dropdown.InventoryHoverMenu;
+import com.client.graphics.interfaces.dropdown.OldGameframeMenu;
+import com.client.graphics.interfaces.dropdown.PmNotificationMenu;
+import com.client.graphics.interfaces.dropdown.SmoothShadingMenu;
+import com.client.graphics.interfaces.dropdown.StretchedModeMenu;
+import com.client.graphics.interfaces.dropdown.TileBlendingMenu;
 import com.client.graphics.interfaces.impl.Interfaces;
+import java.util.Arrays;
 
 public class SettingsInterface extends RSInterface {
 

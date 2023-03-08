@@ -1,13 +1,12 @@
 package com.client.graphics.interfaces.builder.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.client.Sprite;
 import com.client.features.settings.Preferences;
 import com.client.graphics.interfaces.RSInterface;
 import com.client.graphics.interfaces.builder.InterfaceBuilder;
 import com.client.graphics.interfaces.impl.Interfaces;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NotificationTab extends InterfaceBuilder {
 

@@ -59,7 +59,7 @@ public class ExperienceDrop {
 	 * determined interval. This occurs every few graphics cycles.
 	 */
 	public void pulse() {
-		yPosition -= (int) Math.ceil((double) INTERVAL * 50d / (double) Math.max(Client.instance.getFps(), 1));
+		yPosition -= (int) Math.ceil((double) INTERVAL * 50d / (double) Math.max(Client.instance.getFPS(), 1));
 		if (yPosition < END_Y) {
 			yPosition = -1;
 		}

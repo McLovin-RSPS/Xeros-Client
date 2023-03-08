@@ -13,7 +13,7 @@ public class ClientDiscordRPC {
 //        DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().build();
 //        DiscordRPC.discordInitialize(applicationID, handlers, false);
 //        DiscordRPC.discordRegister(applicationID, "");
-//        setTopText("Play with over 100 players at Xeros.io!");
+//        setTopText("");
 //        //setSmallImage("icon", "Test");
     }
 

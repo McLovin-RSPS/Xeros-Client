@@ -5,10 +5,8 @@ import com.client.graphics.interfaces.builder.impl.tasks.model.TaskEntry;
 import com.client.graphics.interfaces.builder.impl.tasks.model.TaskEntryType;
 import com.client.sign.Signlink;
 import com.client.utilities.JsonUtil;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Lists;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;

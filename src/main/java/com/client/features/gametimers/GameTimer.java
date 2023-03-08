@@ -35,7 +35,7 @@ public final class GameTimer extends StopWatch {
 
 	public GameTimer(int id, ItemDefinition itemDefinition, TimeUnit unitOfTime, int duration) {
 		Objects.requireNonNull(itemDefinition, "ItemDefinition is null");
-		Preconditions.checkState(id > 1000, "Must use an id over 1000 for item timers.");
+		Preconditions.checkState(id > 100, "Must use an id over 1000 for item timers.");
 		this.id = id;
 		sprite = ItemDefinition.getSprite(itemDefinition.id, 1, 0);
 		this.duration = TimeUnit.MILLISECONDS.convert(duration, unitOfTime);

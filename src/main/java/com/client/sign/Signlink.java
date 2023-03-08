@@ -6,8 +6,16 @@ import java.net.*;
 
 import com.client.Configuration;
 import com.google.common.base.Preconditions;
+import net.runelite.client.RuneLite;
 
 public final class Signlink implements Runnable {
+
+
+	public static String indexLocation(int cacheIndex, int index) {
+		return Signlink.getCacheDirectory() + "index" + cacheIndex + "/"
+				+ (index != -1 ? index + ".gz" : "");
+	}
+
 
 	public static void startpriv(InetAddress inetaddress) {
 		threadliveid = (int) (Math.random() * 99999999D);
@@ -108,43 +116,99 @@ public final class Signlink implements Runnable {
 
 	}
 
-	public static final String separator = System.getProperty("file.separator");
-	private static final String devCache = "." + separator + Configuration.DEV_CACHE_NAME + separator;
-	private static String cacheDir = null;
+	public static void init() {
+		File file = new File(getCacheDirectory());
+		if (!file.exists()) {
+			Preconditions.checkState(file.mkdir());
+		}
+		active = true;
+		String s = getCacheDirectory();
+		uid = getuid(s);
+		try {
+			cache_dat = new RandomAccessFile(s + "main_file_cache.dat", "rw");
+			for (int j = 0; j < 5; j++)
+				cache_idx[j] = new RandomAccessFile(s + "main_file_cache.idx" + j, "rw");
 
-	private static String setCacheDir(String cacheDir) {
-		Signlink.cacheDir = cacheDir;
-		System.out.println("Using cache directory: " + cacheDir);
-		return cacheDir;
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		for (int i = threadliveid; threadliveid == i;) {
+			if (socketreq != 0) {
+				try {
+					socket = new Socket(socketip, socketreq);
+				} catch (Exception _ex) {
+					socket = null;
+				}
+				socketreq = 0;
+			} else if (threadreq != null) {
+				Thread thread = new Thread(threadreq);
+				thread.setDaemon(true);
+				thread.start();
+				thread.setPriority(threadreqpri);
+				threadreq = null;
+			} else if (dnsreq != null) {
+				try {
+					dns = InetAddress.getByName(dnsreq).getHostName();
+				} catch (Exception _ex) {
+					dns = "unknown";
+				}
+				dnsreq = null;
+			} else if (savereq != null) {
+				if (savebuf != null)
+					try (FileOutputStream fileoutputstream = new FileOutputStream(s + savereq)) {
+						fileoutputstream.write(savebuf, 0, savelen);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				if (waveplay) {
+					waveplay = false;
+				}
+				if (midiplay) {
+					midi = s + savereq;
+					midiplay = false;
+				}
+				savereq = null;
+			} else if (urlreq != null) {
+				try {
+					System.out.println("urlstream");
+					urlstream = new DataInputStream((new URL(
+							mainapp.getCodeBase(), urlreq)).openStream());
+				} catch (Exception _ex) {
+					urlstream = null;
+				}
+				urlreq = null;
+			}
+			try {
+				Thread.sleep(50L);
+			} catch (Exception _ex) {
+			}
+		}
+
 	}
 
+	public static final String separator = System.getProperty("file.separator");
+	private static final String devCache = "." + separator + Configuration.DEV_CACHE_NAME + separator;
+	private static Boolean devCacheEnabled = false;
+
+
+
 	public static boolean usingDevCache() {
-		return cacheDir.equals(devCache);
+		return devCacheEnabled;
 	}
 
 	public static final String getCacheDirectory() {
-		if (cacheDir != null) {
-			return cacheDir;
-		}
 
 		// Dev cache only loads in dev mode to allow for easy switching.
 		if (new File(devCache).exists()) {
 			if (Configuration.developerMode) {
-				return setCacheDir(devCache);
+				devCacheEnabled = true;
+				return devCache;
 			}
 
 			System.out.println("Development cache detected but client was not launched in developer mode (-d run argument).");
 		}
 
-		// Home directory cache
-		String home = System.getProperty("user.home");
-		String cacheName = Configuration.cacheName;
-		String cacheDir = home + separator + cacheName + separator;
-		File file = new File(cacheDir);
-		if (file.exists() || file.mkdir()) {
-			return setCacheDir(cacheDir);
-		}
-		return null;
+		return RuneLite.CACHE_DIR.getAbsolutePath() + "/";
 	}
 
 	public static String findcachedirORIG() {

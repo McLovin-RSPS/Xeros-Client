@@ -1,7 +1,0 @@
-rootProject.name = 'osrs-data-converter'
-
-include ':osdc'
-include ':openrs'
-
-project(':osdc').projectDir = "$rootDir/osdc" as File
-project(':openrs').projectDir = "$rootDir/openrs" as File

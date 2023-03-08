@@ -1,12 +1,11 @@
 package com.client.graphics.interfaces.impl;
 
-import java.util.List;
-
 import com.client.Client;
 import com.client.Sprite;
 import com.client.graphics.interfaces.Configs;
 import com.client.graphics.interfaces.RSInterface;
 import com.google.common.collect.Lists;
+import java.util.List;
 
 public class DonatorRewards extends RSInterface {
 

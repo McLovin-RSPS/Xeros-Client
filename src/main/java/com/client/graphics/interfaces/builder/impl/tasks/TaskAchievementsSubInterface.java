@@ -3,7 +3,6 @@ package com.client.graphics.interfaces.builder.impl.tasks;
 import com.client.StringUtils;
 import com.client.graphics.interfaces.RSInterface;
 import com.client.graphics.interfaces.impl.Interfaces;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 

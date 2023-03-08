@@ -3,7 +3,7 @@ package com.client.features.settings;
 import com.client.Configuration;
 import com.client.utilities.FileOperations;
 import com.client.Buffer;
-import com.client.StreamLoader;
+import com.client.FileArchive;
 
 import java.io.File;
 import java.io.IOException;
@@ -82,13 +82,13 @@ public class InformationFile {
         stream.writeHiddenString(storedPassword);
 
         // Writes all bytes to the file from a new byte array which has been resized
-        FileOperations.writeFile(FILE_LOCATION.toString(), Arrays.copyOf(stream.buffer, stream.currentOffset));
+        FileOperations.writeFile(FILE_LOCATION.toString(), Arrays.copyOf(stream.payload, stream.currentPosition));
     }
 
     /**
      * Reads some information from the file, if the file exists.
      *
-     * @throws IOException           refer to the function {@link StreamLoader#getBytesFromFile(File)}
+     * @throws IOException           refer to the function {@link FileArchive#getBytesFromFile(File)}
      * @throws IllegalStateException thrown if an opcode read cannot be found
      */
     public void read() throws IOException, IllegalStateException {
@@ -102,13 +102,13 @@ public class InformationFile {
         }
 
         // Creates a new byte array with the information from the file
-        byte[] buffer = StreamLoader.getBytesFromFile(file);
+        byte[] buffer = FileArchive.getBytesFromFile(file);
 
         // Creates a new stream using the byte buffer as the backing array
         Buffer stream = new Buffer(buffer);
 
         // Continues to read from the buffer until it can no longer
-        while (stream.currentOffset < buffer.length) {
+        while (stream.currentPosition < buffer.length) {
 
             // Reads the first byte that determines what data we're reading
             int opcode = stream.readSignedByte();

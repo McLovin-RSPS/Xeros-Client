@@ -27,7 +27,7 @@ public class ItemSearch {
 		int[] items = new int[itemRange];
 		int position = 0;
 		for (int itemId = 0; itemId < ItemDefinition.totalItems; itemId++) {
-			ItemDefinition itemDefinitions = ItemDefinition.forID(itemId);
+			ItemDefinition itemDefinitions = ItemDefinition.lookup(itemId);
 			if(position >= items.length)
 				break;
 			
@@ -35,15 +35,8 @@ public class ItemSearch {
 				continue;
 			
 			if(hideUntradables) {
-				if(!itemDefinitions.searchableItem)
+				if(!itemDefinitions.tradeable)
 					continue;
-
-			} else {
-				if (itemDefinitions.stackable)
-    				if (itemDefinitions.description != null)
-    					if(itemDefinitions.description.startsWith("Swap this note"))
-    						continue;
-
 			}
 				
     		String itemName = itemDefinitions.name;

@@ -3,7 +3,6 @@ package com.client.graphics.interfaces.builder.impl.tasks;
 import com.client.Sprite;
 import com.client.graphics.interfaces.RSInterface;
 import com.client.graphics.interfaces.builder.impl.tasks.model.TaskEntryType;
-
 import java.util.List;
 
 class TaskInterfaceSub {

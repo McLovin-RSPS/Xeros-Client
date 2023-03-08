@@ -1,19 +1,4 @@
-.classpath
-.project
-.idea/*
-.idea
-*.xml
-*.iml
-*.hprof
-
-/.settings/
+# Project exclude paths
 /.gradle/
-/bin/
 /build/
-/out/
-/temp/
-error_logs/
-local_cache/
-
-proguard_obfuscation_map.txt
-*.log
+/build/classes/java/main/

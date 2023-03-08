@@ -1,14 +1,13 @@
 package com.client.graphics.interfaces.impl;
 
-import java.awt.Point;
-import java.text.NumberFormat;
-
 import com.client.Client;
 import com.client.Sprite;
 import com.client.TextDrawingArea;
-import com.client.features.gameframe.ScreenMode;
+
 import com.client.graphics.interfaces.Configs;
 import com.client.graphics.interfaces.RSInterface;
+import java.awt.Point;
+import java.text.NumberFormat;
 
 public class Nightmare extends RSInterface {
 
@@ -113,8 +112,8 @@ public class Nightmare extends RSInterface {
         if (interfaceId == NIGHTMARE_HEALTH_INTERFACE_ID) {
             int x = 0;
             int y = 0;
-            if (Client.currentScreenMode != ScreenMode.FIXED) {
-                x = Client.currentGameWidth / 2 - 261;
+            if (!Client.instance.isResized()) {
+                x = Client.canvasWidth / 2 - 261;
             }
 
             // draw nightmare health

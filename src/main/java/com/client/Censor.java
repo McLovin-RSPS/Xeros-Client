@@ -5,13 +5,13 @@ package com.client;
 
 final class Censor {
 
-	public static void loadConfig(StreamLoader streamLoader) {
+	public static void loadConfig(FileArchive streamLoader) {
 		Buffer stream = new Buffer(
-				streamLoader.getArchiveData("fragmentsenc.txt"));
-		Buffer stream_1 = new Buffer(streamLoader.getArchiveData("badenc.txt"));
+				streamLoader.readFile("fragmentsenc.txt"));
+		Buffer stream_1 = new Buffer(streamLoader.readFile("badenc.txt"));
 		Buffer stream_2 = new Buffer(
-				streamLoader.getArchiveData("domainenc.txt"));
-		Buffer stream_3 = new Buffer(streamLoader.getArchiveData("tldlist.txt"));
+				streamLoader.readFile("domainenc.txt"));
+		Buffer stream_3 = new Buffer(streamLoader.readFile("tldlist.txt"));
 		readValues(stream, stream_1, stream_2, stream_3);
 	}
 
@@ -28,10 +28,10 @@ final class Censor {
 		aCharArrayArray624 = new char[i][];
 		anIntArray625 = new int[i];
 		for (int j = 0; j < i; j++) {
-			anIntArray625[j] = stream.readUnsignedByte();
-			char ac[] = new char[stream.readUnsignedByte()];
+			anIntArray625[j] = stream.get_unsignedbyte();
+			char ac[] = new char[stream.get_unsignedbyte()];
 			for (int k = 0; k < ac.length; k++)
-				ac[k] = (char) stream.readUnsignedByte();
+				ac[k] = (char) stream.get_unsignedbyte();
 
 			aCharArrayArray624[j] = ac;
 		}
@@ -59,15 +59,15 @@ final class Censor {
 
 	private static void method493(Buffer stream, char ac[][], byte abyte0[][][]) {
 		for (int j = 0; j < ac.length; j++) {
-			char ac1[] = new char[stream.readUnsignedByte()];
+			char ac1[] = new char[stream.get_unsignedbyte()];
 			for (int k = 0; k < ac1.length; k++)
-				ac1[k] = (char) stream.readUnsignedByte();
+				ac1[k] = (char) stream.get_unsignedbyte();
 
 			ac[j] = ac1;
-			byte abyte1[][] = new byte[stream.readUnsignedByte()][2];
+			byte abyte1[][] = new byte[stream.get_unsignedbyte()][2];
 			for (int l = 0; l < abyte1.length; l++) {
-				abyte1[l][0] = (byte) stream.readUnsignedByte();
-				abyte1[l][1] = (byte) stream.readUnsignedByte();
+				abyte1[l][0] = (byte) stream.get_unsignedbyte();
+				abyte1[l][1] = (byte) stream.get_unsignedbyte();
 			}
 
 			if (abyte1.length > 0)
@@ -78,9 +78,9 @@ final class Censor {
 
 	private static void method494(char ac[][], Buffer stream) {
 		for (int j = 0; j < ac.length; j++) {
-			char ac1[] = new char[stream.readUnsignedByte()];
+			char ac1[] = new char[stream.get_unsignedbyte()];
 			for (int k = 0; k < ac1.length; k++)
-				ac1[k] = (char) stream.readUnsignedByte();
+				ac1[k] = (char) stream.get_unsignedbyte();
 
 			ac[j] = ac1;
 		}

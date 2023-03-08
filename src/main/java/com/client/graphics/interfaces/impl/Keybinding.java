@@ -1,10 +1,9 @@
 package com.client.graphics.interfaces.impl;
 
-import java.awt.event.KeyEvent;
-
 import com.client.Client;
 import com.client.Configuration;
 import com.client.graphics.interfaces.RSInterface;
+import java.awt.event.KeyEvent;
 
 public class Keybinding {
 

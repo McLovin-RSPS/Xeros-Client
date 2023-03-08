@@ -3,6 +3,8 @@ package com.client;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import com.client.engine.GameEngine;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -10,11 +12,10 @@ final class RSSocket implements Runnable {
 
 	public static final int SIZE = 16_384;
 
-	public RSSocket(RSApplet RSApplet_, Socket socket1) throws IOException {
+	public RSSocket(Socket socket1) throws IOException {
 		closed = false;
 		isWriter = false;
 		hasIOError = false;
-		rsApplet = RSApplet_;
 		socket = socket1;
 		socket.setSoTimeout(30000);
 		socket.setTcpNoDelay(true);
@@ -91,7 +92,7 @@ final class RSSocket implements Runnable {
 
 			if (!isWriter) {
 				isWriter = true;
-				rsApplet.startRunnable(this, 3);
+				GameEngine.taskHandler.newThreadTask(this, 3);
 			}
 			notify();
 		}
@@ -153,7 +154,7 @@ final class RSSocket implements Runnable {
 	private OutputStream outputStream;
 	private final Socket socket;
 	private boolean closed;
-	private final RSApplet rsApplet;
+
 	private byte[] buffer;
 	private int writeIndex;
 	private int buffIndex;

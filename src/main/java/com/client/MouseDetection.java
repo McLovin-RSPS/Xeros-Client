@@ -3,6 +3,8 @@ package com.client;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import com.client.engine.impl.MouseHandler;
+
 final class MouseDetection implements Runnable {
 
 	@Override
@@ -10,8 +12,8 @@ final class MouseDetection implements Runnable {
 		while (running) {
 			synchronized (syncObject) {
 				if (coordsIndex < 500) {
-					coordsX[coordsIndex] = clientInstance.getMouseX();
-					coordsY[coordsIndex] = clientInstance.getMouseY();
+					coordsX[coordsIndex] = MouseHandler.mouseX;
+					coordsY[coordsIndex] = MouseHandler.mouseY;
 					coordsIndex++;
 				}
 			}

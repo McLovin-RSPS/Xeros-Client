@@ -5,8 +5,8 @@ package com.client;
 
 public final class IDK {
 
-	public static void unpackConfig(StreamLoader streamLoader) {
-		Buffer stream = new Buffer(streamLoader.getArchiveData("idk.dat"));
+	public static void unpackConfig(FileArchive streamLoader) {
+		Buffer stream = new Buffer(streamLoader.readFile("idk.dat"));
 		length = stream.readUShort();
 		if (cache == null)
 			cache = new IDK[length];
@@ -19,13 +19,13 @@ public final class IDK {
 
 	private void readValues(Buffer stream) {
 		do {
-			int i = stream.readUnsignedByte();
+			int i = stream.get_unsignedbyte();
 			if (i == 0)
 				return;
 			if (i == 1)
-				bodyPartId = stream.readUnsignedByte();
+				bodyPartId = stream.get_unsignedbyte();
 			else if (i == 2) {
-				int j = stream.readUnsignedByte();
+				int j = stream.get_unsignedbyte();
 				modelIds = new int[j];
 				for (int k = 0; k < j; k++)
 					modelIds[k] = stream.readUShort();
@@ -72,33 +72,32 @@ public final class IDK {
 			return true;
 		boolean flag = true;
 		for (int j = 0; j < modelIds.length; j++)
-			if (!Model.method463(modelIds[j]))
+			if (!Model.isCached(modelIds[j]))
 				flag = false;
 
 		return flag;
 	}
 
-	public Model method538() {
+	public Model get_model() {
 		if (modelIds == null)
 			return null;
 		Model aclass30_sub2_sub4_sub6s[] = new Model[modelIds.length];
 		for (int i = 0; i < modelIds.length; i++)
-			aclass30_sub2_sub4_sub6s[i] = Model.method462(modelIds[i]);
+			aclass30_sub2_sub4_sub6s[i] = Model.getModel(modelIds[i]);
 
 		Model model;
 		if (aclass30_sub2_sub4_sub6s.length == 1)
 			model = aclass30_sub2_sub4_sub6s[0];
 		else
-			model = new Model(aclass30_sub2_sub4_sub6s.length,
-					aclass30_sub2_sub4_sub6s);
+			model = new Model(aclass30_sub2_sub4_sub6s.length, aclass30_sub2_sub4_sub6s);
 		if(colourToFind != null)
 		for (int j = 0; j < colourToFind.length; j++) {
-			model.replaceColor(colourToFind[j], colourToReplace[j]);
+			model.recolor(colourToFind[j], colourToReplace[j]);
 		}
 
 		if(textureToFind != null)
 		for (int j = 0; j < textureToFind.length; j++) {
-			model.replaceTexture(textureToFind[j], textureToReplace[j]);
+			model.retexture(textureToFind[j], textureToReplace[j]);
 		}
 
 		return model;
@@ -107,7 +106,7 @@ public final class IDK {
 	public boolean method539() {
 		boolean flag1 = true;
 		for (int i = 0; i < 5; i++)
-			if (models[i] != -1 && !Model.method463(models[i]))
+			if (models[i] != -1 && !Model.isCached(models[i]))
 				flag1 = false;
 
 		return flag1;
@@ -119,16 +118,16 @@ public final class IDK {
 		for (int k = 0; k < 5; k++)
 			if (models[k] != -1)
 				aclass30_sub2_sub4_sub6s[j++] = Model
-						.method462(models[k]);
+						.getModel(models[k]);
 
 		Model model = new Model(j, aclass30_sub2_sub4_sub6s);
 		if(colourToFind != null)
 			for (int l = 0; l < colourToFind.length; l++) {
-				model.replaceColor(colourToFind[l], colourToReplace[l]);
+				model.recolor(colourToFind[l], colourToReplace[l]);
 			}
 		if(textureToFind != null)
 		for (int l = 0; l < textureToFind.length; l++) {
-			model.replaceTexture(textureToFind[l], textureToReplace[l]);
+			model.retexture(textureToFind[l], textureToReplace[l]);
 		}
 
 

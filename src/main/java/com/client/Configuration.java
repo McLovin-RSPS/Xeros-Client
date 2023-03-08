@@ -9,15 +9,15 @@ public class Configuration {
 	 * the player has the most up-to-date client, otherwise they
 	 * will receive an error on login to update their client.
 	 */
-	public static final int CLIENT_VERSION = 230;
+	public static final int CLIENT_VERSION = 231;
 
 	/**
 	 * Cache version is written to the cache folder inside a version file.
 	 * This is read on startup to tell if the cache is out of date or not.
 	 */
-	public static final int CACHE_VERSION = 65; // Set this to the same value, v0.030 = 30, v1.120 = 1120
+	public static final int CACHE_VERSION = 55; // Set this to the same value, v0.030 = 30, v1.120 = 1120
 
-	public static final String CACHE_LINK = "https://www.drakops.com/317/.skotos_v2.rar";
+	public static final String CACHE_LINK = "https://www.dropbox.com/s/7fz6fw2slmrbsxx/cache.zip?dl=1";  //https://www.dropbox.com/s/qn9uwtdlob710r4/SurgiosV1
 
 	/**
 	 * The server version. The cache path is append with a _v1/2/3 etc for the version number
@@ -28,14 +28,13 @@ public class Configuration {
 	public static final int SERVER_VERSION = 2;
 
 
-	public static final String CLIENT_TITLE = "Skotos";
-	public static final String WEBSITE = "Xeros.io";
-	public static final String DEDICATED_SERVER_ADDRESS = "127.0.0.1";//51.222.245.179
-	public static final String TEST_SERVER_ADDRESS = "127.0.0.1";//51.79.50.152
-	public static final int PORT = 52777;
+	public static final String CLIENT_TITLE ="Surge";
+	public static final String WEBSITE = "http://Shurge.com/";
+	public static final String DEDICATED_SERVER_ADDRESS = "127.0.0.1";//149.102.132.92
+	public static final int PORT = 52777; //
 	public static final int TEST_PORT = 43595;
-	public static final int CACHE_FOLDER_VERSION = 0;
-	public static final String CACHE_NAME = "." + CLIENT_TITLE.toLowerCase() + (CACHE_FOLDER_VERSION != 0 ? "_" + CACHE_FOLDER_VERSION : "") + "_v" + SERVER_VERSION;
+
+	public static final String CACHE_NAME = "SurgeCache";
 	public static final String DEV_CACHE_NAME = "local_cache";
 	public static final String CACHE_NAME_DEV = CACHE_NAME + "_dev";
 
@@ -43,15 +42,11 @@ public class Configuration {
 	public static String CUSTOM_MAP_DIRECTORY = "./data/custom_maps/";
 	public static String CUSTOM_MODEL_DIRECTORY = "./data/custom_models/";
 	public static String CUSTOM_ANIMATION_DIRECTORY = "./data/custom_animations/";
-	public static String EXTERNAL_CACHE_ARCHIVE = "/archive_data/";
-	public static String INDEX_DATA_DIRECTORY = "/index_data/";
-
-	public static boolean developerMode;
-	public static boolean loadExternalCacheArchives = false; // Always true because I can't seem to pack them correctly
-	public static boolean packIndexData = false;
-	public static boolean dumpMaps;
-	public static boolean dumpAnimationData;
-	public static boolean dumpDataLists;
+	public static boolean developerMode = false;
+	public static boolean packIndexData = true;  // turn to true to pack maps and items etc......
+	public static boolean dumpMaps = false;
+	public static boolean dumpAnimationData = false;
+	public static boolean dumpDataLists = false;
 	public static boolean newFonts; // TODO text offsets (i.e. spacing between characters) are incorrect, needs automatic fix from kourend
 	public static String cacheName = CACHE_NAME;
 	public static String clientTitle = "";
@@ -79,15 +74,16 @@ public class Configuration {
 	/**
 	 * Seasonal Events
 	 */
-	public static boolean HALLOWEEN;
+	public static boolean HALLOWEEN = false;
 	public static boolean CHRISTMAS;
 	public static boolean CHRISTMAS_EVENT;
 	public static boolean EASTER;
 
-	public static boolean osbuddyGameframe;
+	public static boolean osbuddyGameframe = true;
 
 	public static int xpPosition;
 	public static boolean escapeCloseInterface;
 	public static boolean alwaysLeftClickAttack;
 	public static boolean hideCombatOverlay;
+	public static boolean particlesEnabled = true;
 }

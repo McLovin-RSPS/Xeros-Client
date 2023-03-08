@@ -11,31 +11,32 @@ import org.apache.commons.lang3.tuple.Pair;
 public enum PlayerRights {
 
     PLAYER(0, "000000"),
-    HELPER(11, "004080"),
-    MODERATOR(1, "#0000ff", HELPER),
+    STAFF(11, "004080"),
+    MODERATOR(1, "#0000ff", STAFF),
     ADMINISTRATOR(2, "F5FF0F", MODERATOR),
     OWNER(3, "F5FF0F", ADMINISTRATOR),
     UNKNOWN(4, "F5FF0F"),
+    SAPPHIRE_DONATOR(5, "B60818"),
+    EMERALD_DONATOR(7, "118120", SAPPHIRE_DONATOR),
+    RUBY_DONATOR(9, "9E6405", EMERALD_DONATOR),
+    DIAMOND_DONATOR(17, "9E6405", RUBY_DONATOR),
+    ONYX_DONATOR(18, "9E6405", DIAMOND_DONATOR),
 
-    REGULAR_DONATOR(5, "B60818"),
-    EXTREME_DONOR(7, "118120", REGULAR_DONATOR),
-    LEGENDARY_DONATOR(9, "9E6405", EXTREME_DONOR),
-    DIAMOND_CLUB(17, "9E6405", LEGENDARY_DONATOR),
-    ONYX_CLUB(18, "9E6405", DIAMOND_CLUB),
+    ZENYTE_DONATOR(15, "437100", ONYX_DONATOR),
 
-    HITBOX(12, "437100"),
+    GLACYTE_INVESTOR(21, "437100", ZENYTE_DONATOR),
+
+    YOUTUBER(12, "FE0018"),
     IRONMAN(13, "3A3A3A"),
     ULTIMATE_IRONMAN(14, "717070"),
-    YOUTUBER(15, "FE0018"),
-    GAME_DEVELOPER(16, "544FBB", ADMINISTRATOR),
+    GAME_DEVELOPER(16, "544FBB", OWNER),
     OSRS(23, "437100"),
-    MEMBERSHIP(21, "437100"),
-    ROGUE(25, "437100"),
+    GRINDMAN(25, "437100"),
     HC_IRONMAN(10, "60201f"),
-    ROGUE_IRONMAN(26, "60201f"),
-    ROGUE_HARDCORE_IRONMAN(27, "60201f"),
+    GRINDMAN_IRONMAN(26, "60201f"),
+    GRINDMAN_HARDCORE_IRONMAN(27, "60201f"),
     GROUP_IRONMAN(28, "60201f"),
-    EVENT_MAN(29, "60201f"),
+    HC_GROUP_IRONMAN(30, "60201f", GROUP_IRONMAN)
     ;
 
     /**
@@ -67,7 +68,7 @@ public enum PlayerRights {
     }
 
     public boolean isStaffPosition() {
-        return this == HELPER || this == ADMINISTRATOR || this == MODERATOR || this == OWNER || this == GAME_DEVELOPER;
+        return this == STAFF || this == ADMINISTRATOR || this == MODERATOR || this == OWNER || this == GAME_DEVELOPER;
     }
 
     public int spriteId() {
@@ -87,10 +88,10 @@ public enum PlayerRights {
     }
 
     public static final EnumSet[] DISPLAY_GROUPS = {
-            EnumSet.of(HELPER, MODERATOR, ADMINISTRATOR, GAME_DEVELOPER, OWNER, UNKNOWN, REGULAR_DONATOR,  EXTREME_DONOR,
-                     LEGENDARY_DONATOR, DIAMOND_CLUB, ONYX_CLUB, YOUTUBER),
-            EnumSet.of(HITBOX, EVENT_MAN, IRONMAN, ULTIMATE_IRONMAN, OSRS, MEMBERSHIP, HC_IRONMAN, ROGUE,
-                    ROGUE_HARDCORE_IRONMAN, ROGUE_IRONMAN, GROUP_IRONMAN)
+            EnumSet.of(STAFF, MODERATOR, ADMINISTRATOR, OWNER, GAME_DEVELOPER, UNKNOWN, SAPPHIRE_DONATOR, EMERALD_DONATOR,
+                    RUBY_DONATOR, DIAMOND_DONATOR, ONYX_DONATOR, ZENYTE_DONATOR, GLACYTE_INVESTOR, YOUTUBER),
+            EnumSet.of(IRONMAN, ULTIMATE_IRONMAN, GAME_DEVELOPER, OSRS, HC_IRONMAN, GRINDMAN,
+                    GRINDMAN_HARDCORE_IRONMAN, GRINDMAN_IRONMAN, GROUP_IRONMAN, HC_GROUP_IRONMAN),
     };
 
     public static PlayerRights forRightsValue(int rightsValue) {
@@ -133,10 +134,10 @@ public enum PlayerRights {
     }
 
     public static Pair<Integer, PlayerRights[]> readRightsFromPacket(Buffer inStream) {
-        int rightsAmount = inStream.readUnsignedByte();
+        int rightsAmount = inStream.get_unsignedbyte();
         int[] ordinals = new int[rightsAmount];
         for (int right = 0; right < rightsAmount; right++) {
-            ordinals[right] = inStream.readUnsignedByte();
+            ordinals[right] = inStream.get_unsignedbyte();
         }
         return Pair.of(rightsAmount, PlayerRights.ordinalsToArray(ordinals));
     }

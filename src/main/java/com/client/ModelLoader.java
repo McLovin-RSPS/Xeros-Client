@@ -2,6 +2,379 @@ package com.client;
 
 public class ModelLoader {
 
+    public static void decode700Type(Model def, byte[] var1)
+    {
+        Buffer var2 = new Buffer(var1);
+        Buffer var3 = new Buffer(var1);
+        Buffer var4 = new Buffer(var1);
+        Buffer var5 = new Buffer(var1);
+        Buffer var6 = new Buffer(var1);
+        Buffer var7 = new Buffer(var1);
+        Buffer var8 = new Buffer(var1);
+        var2.setOffset(var1.length - 26);
+        int var9 = var2.readUShort();
+        int var10 = var2.readUShort();
+        int texture_count = var2.get_unsignedbyte();
+        int var12 = var2.get_unsignedbyte();
+        int var13 = var2.get_unsignedbyte();
+        int var14 = var2.get_unsignedbyte();
+        int var15 = var2.get_unsignedbyte();
+        int var16 = var2.get_unsignedbyte();
+        int var17 = var2.get_unsignedbyte();
+        int has_bones = var2.get_unsignedbyte();
+        int var19 = var2.readUShort();
+        int var20 = var2.readUShort();
+        int var21 = var2.readUShort();
+        int var22 = var2.readUShort();
+        int var23 = var2.readUShort();
+        int var24 = var2.readUShort();
+        int var25 = 0;
+        int var26 = 0;
+        int var27 = 0;
+        int var28;
+
+
+        if (texture_count > 0)
+        {
+            def.texture_mapping_type = new byte[texture_count];
+            var2.setOffset(0);
+
+            for (var28 = 0; var28 < texture_count; ++var28)
+            {
+                byte var29 = def.texture_mapping_type[var28] = var2.readByte();
+                if (var29 == 0)
+                {
+                    ++var25;
+                }
+
+                if (var29 >= 1 && var29 <= 3)
+                {
+                    ++var26;
+                }
+
+                if (var29 == 2)
+                {
+                    ++var27;
+                }
+            }
+        }
+
+        var28 = texture_count + var9;
+        int var58 = var28;
+        if (var12 == 1)
+        {
+            var28 += var10;
+        }
+
+        int var30 = var28;
+        var28 += var10;
+        int var31 = var28;
+        if (var13 == 255)
+        {
+            var28 += var10;
+        }
+
+        int var32 = var28;
+        if (var15 == 1)
+        {
+            var28 += var10;
+        }
+
+        int var33 = var28;
+        var28 += var24;
+        int var34 = var28;
+        if (var14 == 1)
+        {
+            var28 += var10;
+        }
+
+        int var35 = var28;
+        var28 += var22;
+        int var36 = var28;
+        if (var16 == 1)
+        {
+            var28 += var10 * 2;
+        }
+
+        int var37 = var28;
+        var28 += var23;
+        int var38 = var28;
+        var28 += var10 * 2;
+        int var39 = var28;
+        var28 += var19;
+        int var40 = var28;
+        var28 += var20;
+        int var41 = var28;
+        var28 += var21;
+        int var42 = var28;
+        var28 += var25 * 6;
+        int var43 = var28;
+        var28 += var26 * 6;
+        int var44 = var28;
+        var28 += var26 * 6;
+        int var45 = var28;
+        var28 += var26 * 2;
+        int var46 = var28;
+        var28 += var26;
+        int var47 = var28;
+        var28 = var28 + var26 * 2 + var27 * 2;
+
+
+        def.vertex_count = var9;
+        def.face_count = var10;
+        def.texture_count = texture_count;
+        def.verticesX = new int[var9];
+        def.verticesY = new int[var9];
+        def.verticesZ = new int[var9];
+        def.trianglesX = new int[var10];
+        def.trianglesY = new int[var10];
+        def.trianglesZ = new int[var10];
+        if (var17 == 1)
+        {
+            def.vertex_labels = new int[var9];
+        }
+
+        if (var12 == 1)
+        {
+            def.drawType = new int[var10];
+        }
+
+        if (var13 == 255)
+        {
+            def.renderPriorities = new byte[var10];
+        }
+        else
+        {
+            def.facePriority = (byte) var13;
+        }
+
+        if (var14 == 1)
+        {
+            def.face_alphas = new byte[var10];
+        }
+
+        if (var15 == 1)
+        {
+            def.face_labels = new int[var10];
+        }
+
+        if (var16 == 1)
+        {
+            def.materials = new short[var10];
+        }
+
+        if (var16 == 1 && texture_count > 0)
+        {
+            def.textures = new byte[var10];
+        }
+
+        if (has_bones == 1)
+        {
+            def.vertex_bone_origins = new int[var9][];
+            def.vertex_bone_scales = new int[var9][];
+        }
+
+        def.colors = new short[var10];
+        if (texture_count > 0)
+        {
+            def.textures_mapping_p = new short[texture_count];
+            def.textures_mapping_m = new short[texture_count];
+            def.textures_mapping_n = new short[texture_count];
+        }
+
+        var2.setOffset(texture_count);
+        var3.setOffset(var39);
+        var4.setOffset(var40);
+        var5.setOffset(var41);
+        var6.setOffset(var33);
+        int var48 = 0;
+        int var49 = 0;
+        int var50 = 0;
+
+        int var51;
+        int var52;
+        int var53;
+        int var54;
+        int var55;
+        for (var51 = 0; var51 < var9; ++var51)
+        {
+            var52 = var2.get_unsignedbyte();
+            var53 = 0;
+            if ((var52 & 1) != 0)
+            {
+                var53 = var3.get_smart_byteorshort();
+            }
+
+            var54 = 0;
+            if ((var52 & 2) != 0)
+            {
+                var54 = var4.get_smart_byteorshort();
+            }
+
+            var55 = 0;
+            if ((var52 & 4) != 0)
+            {
+                var55 = var5.get_smart_byteorshort();
+            }
+
+            def.verticesX[var51] = var48 + var53;
+            def.verticesY[var51] = var49 + var54;
+            def.verticesZ[var51] = var50 + var55;
+            var48 = def.verticesX[var51];
+            var49 = def.verticesY[var51];
+            var50 = def.verticesZ[var51];
+            if (var17 == 1)
+            {
+                def.vertex_labels[var51] = var6.get_unsignedbyte();
+            }
+        }
+
+        if (has_bones == 1)
+        {
+            for (var51 = 0; var51 < var9; ++var51)
+            {
+                var52 = var6.get_unsignedbyte();
+                def.vertex_bone_origins[var51] = new int[var52];
+                def.vertex_bone_scales[var51] = new int[var52];
+
+                for (var53 = 0; var53 < var52; ++var53)
+                {
+                    def.vertex_bone_origins[var51][var53] = var6.get_unsignedbyte();
+                    def.vertex_bone_scales[var51][var53] = var6.get_unsignedbyte();
+                }
+            }
+        }
+
+        var2.setOffset(var38);
+        var3.setOffset(var58);
+        var4.setOffset(var31);
+        var5.setOffset(var34);
+        var6.setOffset(var32);
+        var7.setOffset(var36);
+        var8.setOffset(var37);
+
+        for (var51 = 0; var51 < var10; ++var51)
+        {
+            def.colors[var51] = (short) var2.readUShort();
+            if (var12 == 1)
+            {
+                def.drawType[var51] = var3.readByte();
+            }
+
+            if (var13 == 255)
+            {
+                def.renderPriorities[var51] = var4.readByte();
+            }
+
+            if (var14 == 1)
+            {
+                def.face_alphas[var51] = var5.readByte();
+                if (def.face_alphas[var51] < 0) {
+                    def.face_alphas[var51] = (byte) (256 + def.face_alphas[var51]);
+                }
+            }
+
+            if (var15 == 1)
+            {
+                def.face_labels[var51] = var6.get_unsignedbyte();
+            }
+
+            if (var16 == 1)
+            {
+                def.materials[var51] = (short) (var7.readUShort() - 1);
+            }
+
+            if (def.textures != null && def.materials[var51] != -1)
+            {
+                def.textures[var51] = (byte) (var8.get_unsignedbyte() - 1);
+            }
+        }
+
+        var2.setOffset(var35);
+        var3.setOffset(var30);
+        var51 = 0;
+        var52 = 0;
+        var53 = 0;
+        var54 = 0;
+
+        int var56;
+        for (var55 = 0; var55 < var10; ++var55)
+        {
+            var56 = var3.get_unsignedbyte();
+            if (var56 == 1)
+            {
+                var51 = var2.get_smart_byteorshort() + var54;
+                var52 = var2.get_smart_byteorshort() + var51;
+                var53 = var2.get_smart_byteorshort() + var52;
+                var54 = var53;
+                def.trianglesX[var55] = var51;
+                def.trianglesY[var55] = var52;
+                def.trianglesZ[var55] = var53;
+            }
+
+            if (var56 == 2)
+            {
+                var52 = var53;
+                var53 = var2.get_smart_byteorshort() + var54;
+                var54 = var53;
+                def.trianglesX[var55] = var51;
+                def.trianglesY[var55] = var52;
+                def.trianglesZ[var55] = var53;
+            }
+
+            if (var56 == 3)
+            {
+                var51 = var53;
+                var53 = var2.get_smart_byteorshort() + var54;
+                var54 = var53;
+                def.trianglesX[var55] = var51;
+                def.trianglesY[var55] = var52;
+                def.trianglesZ[var55] = var53;
+            }
+
+            if (var56 == 4)
+            {
+                int var57 = var51;
+                var51 = var52;
+                var52 = var57;
+                var53 = var2.get_smart_byteorshort() + var54;
+                var54 = var53;
+                def.trianglesX[var55] = var51;
+                def.trianglesY[var55] = var57;
+                def.trianglesZ[var55] = var53;
+            }
+        }
+
+        var2.setOffset(var42);
+        var3.setOffset(var43);
+        var4.setOffset(var44);
+        var5.setOffset(var45);
+        var6.setOffset(var46);
+        var7.setOffset(var47);
+
+        for (var55 = 0; var55 < texture_count; ++var55)
+        {
+            var56 = def.texture_mapping_type[var55] & 255;
+            if (var56 == 0)
+            {
+                def.textures_mapping_p[var55] = (short) var2.readUShort();
+                def.textures_mapping_m[var55] = (short) var2.readUShort();
+                def.textures_mapping_n[var55] = (short) var2.readUShort();
+            }
+        }
+
+        var2.setOffset(var28);
+        var55 = var2.get_unsignedbyte();
+        if (var55 != 0)
+        {
+            var2.readUShort();
+            var2.readUShort();
+            var2.readUShort();
+            var2.readInt();
+        }
+
+    }
+
     public static void decodeType3(Model def, byte[] var1)
     {
         Buffer var2 = new Buffer(var1);
@@ -14,14 +387,14 @@ public class ModelLoader {
         var2.setOffset(var1.length - 26);
         int var9 = var2.readUShort();
         int var10 = var2.readUShort();
-        int var11 = var2.readUnsignedByte();
-        int var12 = var2.readUnsignedByte();
-        int var13 = var2.readUnsignedByte();
-        int var14 = var2.readUnsignedByte();
-        int var15 = var2.readUnsignedByte();
-        int var16 = var2.readUnsignedByte();
-        int var17 = var2.readUnsignedByte();
-        int var18 = var2.readUnsignedByte();
+        int var11 = var2.get_unsignedbyte();
+        int var12 = var2.get_unsignedbyte();
+        int var13 = var2.get_unsignedbyte();
+        int var14 = var2.get_unsignedbyte();
+        int var15 = var2.get_unsignedbyte();
+        int var16 = var2.get_unsignedbyte();
+        int var17 = var2.get_unsignedbyte();
+        int var18 = var2.get_unsignedbyte();
         int var19 = var2.readUShort();
         int var20 = var2.readUShort();
         int var21 = var2.readUShort();
@@ -36,12 +409,12 @@ public class ModelLoader {
 
         if (var11 > 0)
         {
-            def.textureTypes = new byte[var11];
+            def.texture_mapping_type = new byte[var11];
             var2.setOffset(0);
 
             for (var28 = 0; var28 < var11; ++var28)
             {
-                byte var29 = def.textureTypes[var28] = var2.readByte();
+                byte var29 = def.texture_mapping_type[var28] = var2.readSignedByte();
                 if (var29 == 0)
                 {
                     ++var25;
@@ -120,9 +493,9 @@ public class ModelLoader {
         var28 = var28 + var26 * 2 + var27 * 2;
 
 
-        def.verticesCount = var9;
-        def.trianglesCount = var10;
-        def.texturesCount = var11;
+        def.vertex_count = var9;
+        def.face_count = var10;
+        def.texture_count = var11;
         def.verticesX = new int[var9];
         def.verticesY = new int[var9];
         def.verticesZ = new int[var9];
@@ -131,31 +504,31 @@ public class ModelLoader {
         def.trianglesZ = new int[var10];
         if (var17 == 1)
         {
-            def.vertexData = new int[var9];
+            def.vertex_labels = new int[var9];
         }
 
         if (var12 == 1)
         {
-            def.types = new int[var10];
+            def.drawType = new int[var10];
         }
 
         if (var13 == 255)
         {
-            def.face_render_priorities = new byte[var10];
+            def.renderPriorities = new byte[var10];
         }
         else
         {
-            def.face_priority = (byte) var13;
+            def.facePriority = (byte) var13;
         }
 
         if (var14 == 1)
         {
-            def.alphas = new int[var10];
+            def.face_alphas = new byte[var10];
         }
 
         if (var15 == 1)
         {
-            def.triangleData = new int[var10];
+            def.face_labels = new int[var10];
         }
 
         if (var16 == 1)
@@ -170,16 +543,16 @@ public class ModelLoader {
 
         if (var18 == 1)
         {
-            def.animayaGroups = new int[var9][];
-            def.animayaScales = new int[var9][];
+            def.vertex_bone_origins = new int[var9][];
+            def.vertex_bone_scales = new int[var9][];
         }
 
         def.colors = new short[var10];
         if (var11 > 0)
         {
-            def.texturesX = new short[var11];
-            def.texturesY = new short[var11];
-            def.texturesZ = new short[var11];
+            def.textures_mapping_p = new short[var11];
+            def.textures_mapping_m = new short[var11];
+            def.textures_mapping_n = new short[var11];
         }
 
         var2.setOffset(var11);
@@ -198,23 +571,23 @@ public class ModelLoader {
         int var55;
         for (var51 = 0; var51 < var9; ++var51)
         {
-            var52 = var2.readUnsignedByte();
+            var52 = var2.get_unsignedbyte();
             var53 = 0;
             if ((var52 & 1) != 0)
             {
-                var53 = var3.readSmart();
+                var53 = var3.get_smart_byteorshort();
             }
 
             var54 = 0;
             if ((var52 & 2) != 0)
             {
-                var54 = var4.readSmart();
+                var54 = var4.get_smart_byteorshort();
             }
 
             var55 = 0;
             if ((var52 & 4) != 0)
             {
-                var55 = var5.readSmart();
+                var55 = var5.get_smart_byteorshort();
             }
 
             def.verticesX[var51] = var48 + var53;
@@ -225,7 +598,7 @@ public class ModelLoader {
             var50 = def.verticesZ[var51];
             if (var17 == 1)
             {
-                def.vertexData[var51] = var6.readUnsignedByte();
+                def.vertex_labels[var51] = var6.get_unsignedbyte();
             }
         }
 
@@ -233,14 +606,14 @@ public class ModelLoader {
         {
             for (var51 = 0; var51 < var9; ++var51)
             {
-                var52 = var6.readUnsignedByte();
-                def.animayaGroups[var51] = new int[var52];
-                def.animayaScales[var51] = new int[var52];
+                var52 = var6.get_unsignedbyte();
+                def.vertex_bone_origins[var51] = new int[var52];
+                def.vertex_bone_scales[var51] = new int[var52];
 
                 for (var53 = 0; var53 < var52; ++var53)
                 {
-                    def.animayaGroups[var51][var53] = var6.readUnsignedByte();
-                    def.animayaScales[var51][var53] = var6.readUnsignedByte();
+                    def.vertex_bone_origins[var51][var53] = var6.get_unsignedbyte();
+                    def.vertex_bone_scales[var51][var53] = var6.get_unsignedbyte();
                 }
             }
         }
@@ -258,25 +631,22 @@ public class ModelLoader {
             def.colors[var51] = (short) var2.readUShort();
             if (var12 == 1)
             {
-                def.types[var51] = var3.readByte();
+                def.drawType[var51] = var3.readSignedByte();
             }
 
             if (var13 == 255)
             {
-                def.face_render_priorities[var51] = var4.readByte();
+                def.renderPriorities[var51] = var4.readSignedByte();
             }
 
             if (var14 == 1)
             {
-                def.alphas[var51] = var5.readByte();
-                if (def.alphas[var51] < 0) {
-                    def.alphas[var51] = (256 + def.alphas[var51]);
-                }
+                def.face_alphas[var51] = var5.readSignedByte();
             }
 
             if (var15 == 1)
             {
-                def.triangleData[var51] = var6.readUnsignedByte();
+                def.face_labels[var51] = var6.get_unsignedbyte();
             }
 
             if (var16 == 1)
@@ -286,7 +656,7 @@ public class ModelLoader {
 
             if (def.textures != null && def.materials[var51] != -1)
             {
-                def.textures[var51] = (byte) (var8.readUnsignedByte() - 1);
+                def.textures[var51] = (byte) (var8.get_unsignedbyte() - 1);
             }
         }
 
@@ -300,12 +670,12 @@ public class ModelLoader {
         int var56;
         for (var55 = 0; var55 < var10; ++var55)
         {
-            var56 = var3.readUnsignedByte();
+            var56 = var3.get_unsignedbyte();
             if (var56 == 1)
             {
-                var51 = var2.readSmart() + var54;
-                var52 = var2.readSmart() + var51;
-                var53 = var2.readSmart() + var52;
+                var51 = var2.get_smart_byteorshort() + var54;
+                var52 = var2.get_smart_byteorshort() + var51;
+                var53 = var2.get_smart_byteorshort() + var52;
                 var54 = var53;
                 def.trianglesX[var55] = var51;
                 def.trianglesY[var55] = var52;
@@ -315,7 +685,7 @@ public class ModelLoader {
             if (var56 == 2)
             {
                 var52 = var53;
-                var53 = var2.readSmart() + var54;
+                var53 = var2.get_smart_byteorshort() + var54;
                 var54 = var53;
                 def.trianglesX[var55] = var51;
                 def.trianglesY[var55] = var52;
@@ -325,7 +695,7 @@ public class ModelLoader {
             if (var56 == 3)
             {
                 var51 = var53;
-                var53 = var2.readSmart() + var54;
+                var53 = var2.get_smart_byteorshort() + var54;
                 var54 = var53;
                 def.trianglesX[var55] = var51;
                 def.trianglesY[var55] = var52;
@@ -337,7 +707,7 @@ public class ModelLoader {
                 int var57 = var51;
                 var51 = var52;
                 var52 = var57;
-                var53 = var2.readSmart() + var54;
+                var53 = var2.get_smart_byteorshort() + var54;
                 var54 = var53;
                 def.trianglesX[var55] = var51;
                 def.trianglesY[var55] = var57;
@@ -354,17 +724,17 @@ public class ModelLoader {
 
         for (var55 = 0; var55 < var11; ++var55)
         {
-            var56 = def.textureTypes[var55] & 255;
+            var56 = def.texture_mapping_type[var55] & 255;
             if (var56 == 0)
             {
-                def.texturesX[var55] = (short) var2.readUShort();
-                def.texturesY[var55] = (short) var2.readUShort();
-                def.texturesZ[var55] = (short) var2.readUShort();
+                def.textures_mapping_p[var55] = (short) var2.readUShort();
+                def.textures_mapping_m[var55] = (short) var2.readUShort();
+                def.textures_mapping_n[var55] = (short) var2.readUShort();
             }
         }
 
         var2.setOffset(var28);
-        var55 = var2.readUnsignedByte();
+        var55 = var2.get_unsignedbyte();
         if (var55 != 0)
         {
             var2.readUShort();
@@ -387,13 +757,13 @@ public class ModelLoader {
         var4.setOffset(var1.length - 23);
         int var9 = var4.readUShort();
         int var10 = var4.readUShort();
-        int var11 = var4.readUnsignedByte();
-        int var12 = var4.readUnsignedByte();
-        int var13 = var4.readUnsignedByte();
-        int var14 = var4.readUnsignedByte();
-        int var15 = var4.readUnsignedByte();
-        int var16 = var4.readUnsignedByte();
-        int var17 = var4.readUnsignedByte();
+        int var11 = var4.get_unsignedbyte();
+        int var12 = var4.get_unsignedbyte();
+        int var13 = var4.get_unsignedbyte();
+        int var14 = var4.get_unsignedbyte();
+        int var15 = var4.get_unsignedbyte();
+        int has_vertex_labels = var4.get_unsignedbyte();
+        int has_bones = var4.get_unsignedbyte();
         int var18 = var4.readUShort();
         int var19 = var4.readUShort();
         int var20 = var4.readUShort();
@@ -440,9 +810,9 @@ public class ModelLoader {
         int var35 = var24;
         var24 += var19;
         int var10000 = var24 + var20;
-        def.verticesCount = var9;
-        def.trianglesCount = var10;
-        def.texturesCount = var11;
+        def.vertex_count = var9;
+        def.face_count = var10;
+        def.texture_count = var11;
         def.verticesX = new int[var9];
         def.verticesY = new int[var9];
         def.verticesZ = new int[var9];
@@ -451,47 +821,47 @@ public class ModelLoader {
         def.trianglesZ = new int[var10];
         if (var11 > 0)
         {
-            def.textureTypes = new byte[var11];
-            def.texturesX = new short[var11];
-            def.texturesY = new short[var11];
-            def.texturesZ = new short[var11];
+            def.texture_mapping_type = new byte[var11];
+            def.textures_mapping_p = new short[var11];
+            def.textures_mapping_m = new short[var11];
+            def.textures_mapping_n = new short[var11];
         }
 
-        if (var16 == 1)
+        if (has_vertex_labels == 1)
         {
-            def.vertexData = new int[var9];
+            def.vertex_labels = new int[var9];
         }
 
         if (var12 == 1)
         {
-            def.types = new int[var10];
+            def.drawType = new int[var10];
             def.textures = new byte[var10];
             def.materials = new short[var10];
         }
 
         if (var13 == 255)
         {
-            def.face_render_priorities = new byte[var10];
+            def.renderPriorities = new byte[var10];
         }
         else
         {
-            def.face_priority = (byte) var13;
+            def.facePriority = (byte) var13;
         }
 
         if (var14 == 1)
         {
-            def.alphas = new int[var10];
+            def.face_alphas = new byte[var10];
         }
 
         if (var15 == 1)
         {
-            def.triangleData = new int[var10];
+            def.face_labels = new int[var10];
         }
 
-        if (var17 == 1)
+        if (has_bones == 1)
         {
-            def.animayaGroups = new int[var9][];
-            def.animayaScales = new int[var9][];
+            def.vertex_bone_origins = new int[var9][];
+            def.vertex_bone_scales = new int[var9][];
         }
 
         def.colors = new short[var10];
@@ -511,23 +881,23 @@ public class ModelLoader {
         int var44;
         for (var40 = 0; var40 < var9; ++var40)
         {
-            var41 = var4.readUnsignedByte();
+            var41 = var4.get_unsignedbyte();
             var42 = 0;
             if ((var41 & 1) != 0)
             {
-                var42 = var5.readSmart();
+                var42 = var5.get_smart_byteorshort();
             }
 
             var43 = 0;
             if ((var41 & 2) != 0)
             {
-                var43 = var6.readSmart();
+                var43 = var6.get_smart_byteorshort();
             }
 
             var44 = 0;
             if ((var41 & 4) != 0)
             {
-                var44 = var7.readSmart();
+                var44 = var7.get_smart_byteorshort();
             }
 
             def.verticesX[var40] = var37 + var42;
@@ -536,24 +906,24 @@ public class ModelLoader {
             var37 = def.verticesX[var40];
             var38 = def.verticesY[var40];
             var39 = def.verticesZ[var40];
-            if (var16 == 1)
+            if (has_vertex_labels == 1)
             {
-                def.vertexData[var40] = var8.readUnsignedByte();
+                def.vertex_labels[var40] = var8.get_unsignedbyte();
             }
         }
 
-        if (var17 == 1)
+        if (has_bones == 1)
         {
             for (var40 = 0; var40 < var9; ++var40)
             {
-                var41 = var8.readUnsignedByte();
-                def.animayaGroups[var40] = new int[var41];
-                def.animayaScales[var40] = new int[var41];
+                var41 = var8.get_unsignedbyte();
+                def.vertex_bone_origins[var40] = new int[var41];
+                def.vertex_bone_scales[var40] = new int[var41];
 
                 for (var42 = 0; var42 < var41; ++var42)
                 {
-                    def.animayaGroups[var40][var42] = var8.readUnsignedByte();
-                    def.animayaScales[var40][var42] = var8.readUnsignedByte();
+                    def.vertex_bone_origins[var40][var42] = var8.get_unsignedbyte();
+                    def.vertex_bone_scales[var40][var42] = var8.get_unsignedbyte();
                 }
             }
         }
@@ -569,15 +939,15 @@ public class ModelLoader {
             def.colors[var40] = (short) var4.readUShort();
             if (var12 == 1)
             {
-                var41 = var5.readUnsignedByte();
+                var41 = var5.get_unsignedbyte();
                 if ((var41 & 1) == 1)
                 {
-                    def.types[var40] = 1;
+                    def.drawType[var40] = 1;
                     var2 = true;
                 }
                 else
                 {
-                    def.types[var40] = 0;
+                    def.drawType[var40] = 0;
                 }
 
                 if ((var41 & 2) == 2)
@@ -599,20 +969,17 @@ public class ModelLoader {
 
             if (var13 == 255)
             {
-                def.face_render_priorities[var40] = var6.readByte();
+                def.renderPriorities[var40] = var6.readSignedByte();
             }
 
             if (var14 == 1)
             {
-                def.alphas[var40] = var7.readByte();
-                if (def.alphas[var40] < 0) {
-                    def.alphas[var40] = (256 + def.alphas[var40]);
-                }
+                def.face_alphas[var40] = var7.readSignedByte();
             }
 
             if (var15 == 1)
             {
-                def.triangleData[var40] = var8.readUnsignedByte();
+                def.face_labels[var40] = var8.get_unsignedbyte();
             }
         }
 
@@ -627,12 +994,12 @@ public class ModelLoader {
         int var46;
         for (var44 = 0; var44 < var10; ++var44)
         {
-            var45 = var5.readUnsignedByte();
+            var45 = var5.get_unsignedbyte();
             if (var45 == 1)
             {
-                var40 = var4.readSmart() + var43;
-                var41 = var4.readSmart() + var40;
-                var42 = var4.readSmart() + var41;
+                var40 = var4.get_smart_byteorshort() + var43;
+                var41 = var4.get_smart_byteorshort() + var40;
+                var42 = var4.get_smart_byteorshort() + var41;
                 var43 = var42;
                 def.trianglesX[var44] = var40;
                 def.trianglesY[var44] = var41;
@@ -642,7 +1009,7 @@ public class ModelLoader {
             if (var45 == 2)
             {
                 var41 = var42;
-                var42 = var4.readSmart() + var43;
+                var42 = var4.get_smart_byteorshort() + var43;
                 var43 = var42;
                 def.trianglesX[var44] = var40;
                 def.trianglesY[var44] = var41;
@@ -652,7 +1019,7 @@ public class ModelLoader {
             if (var45 == 3)
             {
                 var40 = var42;
-                var42 = var4.readSmart() + var43;
+                var42 = var4.get_smart_byteorshort() + var43;
                 var43 = var42;
                 def.trianglesX[var44] = var40;
                 def.trianglesY[var44] = var41;
@@ -664,7 +1031,7 @@ public class ModelLoader {
                 var46 = var40;
                 var40 = var41;
                 var41 = var46;
-                var42 = var4.readSmart() + var43;
+                var42 = var4.get_smart_byteorshort() + var43;
                 var43 = var42;
                 def.trianglesX[var44] = var40;
                 def.trianglesY[var44] = var46;
@@ -676,10 +1043,10 @@ public class ModelLoader {
 
         for (var44 = 0; var44 < var11; ++var44)
         {
-            def.textureTypes[var44] = 0;
-            def.texturesX[var44] = (short) var4.readUShort();
-            def.texturesY[var44] = (short) var4.readUShort();
-            def.texturesZ[var44] = (short) var4.readUShort();
+            def.texture_mapping_type[var44] = 0;
+            def.textures_mapping_p[var44] = (short) var4.readUShort();
+            def.textures_mapping_m[var44] = (short) var4.readUShort();
+            def.textures_mapping_n[var44] = (short) var4.readUShort();
         }
 
         if (def.textures != null)
@@ -691,7 +1058,7 @@ public class ModelLoader {
                 var46 = def.textures[var45] & 255;
                 if (var46 != 255)
                 {
-                    if (def.trianglesX[var45] == (def.texturesX[var46] & '\uffff') && def.trianglesY[var45] == (def.texturesY[var46] & '\uffff') && def.trianglesZ[var45] == (def.texturesZ[var46] & '\uffff'))
+                    if (def.trianglesX[var45] == (def.textures_mapping_p[var46] & '\uffff') && def.trianglesY[var45] == (def.textures_mapping_m[var46] & '\uffff') && def.trianglesZ[var45] == (def.textures_mapping_n[var46] & '\uffff'))
                     {
                         def.textures[var45] = -1;
                     }
@@ -715,7 +1082,7 @@ public class ModelLoader {
 
         if (!var2)
         {
-            def.types = null;
+            def.drawType = null;
         }
 
     }
@@ -732,13 +1099,13 @@ public class ModelLoader {
         var2.setOffset(var1.length - 23);
         int var9 = var2.readUShort();
         int var10 = var2.readUShort();
-        int var11 = var2.readUnsignedByte();
-        int var12 = var2.readUnsignedByte();
-        int var13 = var2.readUnsignedByte();
-        int var14 = var2.readUnsignedByte();
-        int var15 = var2.readUnsignedByte();
-        int var16 = var2.readUnsignedByte();
-        int var17 = var2.readUnsignedByte();
+        int var11 = var2.get_unsignedbyte();
+        int var12 = var2.get_unsignedbyte();
+        int var13 = var2.get_unsignedbyte();
+        int var14 = var2.get_unsignedbyte();
+        int var15 = var2.get_unsignedbyte();
+        int var16 = var2.get_unsignedbyte();
+        int var17 = var2.get_unsignedbyte();
         int var18 = var2.readUShort();
         int var19 = var2.readUShort();
         int var20 = var2.readUShort();
@@ -750,12 +1117,12 @@ public class ModelLoader {
         int var26;
         if (var11 > 0)
         {
-            def.textureTypes = new byte[var11];
+            def.texture_mapping_type = new byte[var11];
             var2.setOffset(0);
 
             for (var26 = 0; var26 < var11; ++var26)
             {
-                byte var27 = def.textureTypes[var26] = var2.readByte();
+                byte var27 = def.texture_mapping_type[var26] = var2.readSignedByte();
                 if (var27 == 0)
                 {
                     ++var23;
@@ -836,9 +1203,9 @@ public class ModelLoader {
         var26 += var24;
         int var45 = var26;
         var26 = var26 + var24 * 2 + var25 * 2;
-        def.verticesCount = var9;
-        def.trianglesCount = var10;
-        def.texturesCount = var11;
+        def.vertex_count = var9;
+        def.face_count = var10;
+        def.texture_count = var11;
         def.verticesX = new int[var9];
         def.verticesY = new int[var9];
         def.verticesZ = new int[var9];
@@ -847,31 +1214,31 @@ public class ModelLoader {
         def.trianglesZ = new int[var10];
         if (var17 == 1)
         {
-            def.vertexData = new int[var9];
+            def.vertex_labels = new int[var9];
         }
 
         if (var12 == 1)
         {
-            def.types = new int[var10];
+            def.drawType = new int[var10];
         }
 
         if (var13 == 255)
         {
-            def.face_render_priorities = new byte[var10];
+            def.renderPriorities = new byte[var10];
         }
         else
         {
-            def.face_priority = (byte) var13;
+            def.facePriority = (byte) var13;
         }
 
         if (var14 == 1)
         {
-            def.alphas = new int[var10];
+            def.face_alphas = new byte[var10];
         }
 
         if (var15 == 1)
         {
-            def.triangleData = new int[var10];
+            def.face_labels = new int[var10];
         }
 
         if (var16 == 1)
@@ -887,9 +1254,9 @@ public class ModelLoader {
         def.colors = new short[var10];
         if (var11 > 0)
         {
-            def.texturesX = new short[var11];
-            def.texturesY = new short[var11];
-            def.texturesZ = new short[var11];
+            def.textures_mapping_p = new short[var11];
+            def.textures_mapping_m = new short[var11];
+            def.textures_mapping_n = new short[var11];
         }
 
         var2.setOffset(var11);
@@ -908,23 +1275,23 @@ public class ModelLoader {
         int var53;
         for (var49 = 0; var49 < var9; ++var49)
         {
-            var50 = var2.readUnsignedByte();
+            var50 = var2.get_unsignedbyte();
             var51 = 0;
             if ((var50 & 1) != 0)
             {
-                var51 = var3.readSmart();
+                var51 = var3.get_smart_byteorshort();
             }
 
             var52 = 0;
             if ((var50 & 2) != 0)
             {
-                var52 = var4.readSmart();
+                var52 = var4.get_smart_byteorshort();
             }
 
             var53 = 0;
             if ((var50 & 4) != 0)
             {
-                var53 = var5.readSmart();
+                var53 = var5.get_smart_byteorshort();
             }
 
             def.verticesX[var49] = var46 + var51;
@@ -935,7 +1302,7 @@ public class ModelLoader {
             var48 = def.verticesZ[var49];
             if (var17 == 1)
             {
-                def.vertexData[var49] = var6.readUnsignedByte();
+                def.vertex_labels[var49] = var6.get_unsignedbyte();
             }
         }
 
@@ -952,25 +1319,22 @@ public class ModelLoader {
             def.colors[var49] = (short) var2.readUShort();
             if (var12 == 1)
             {
-                def.types[var49] = var3.readByte();
+                def.drawType[var49] = var3.readSignedByte();
             }
 
             if (var13 == 255)
             {
-                def.face_render_priorities[var49] = var4.readByte();
+                def.renderPriorities[var49] = var4.readSignedByte();
             }
 
             if (var14 == 1)
             {
-                def.alphas[var49] = var5.readByte();
-                if (def.alphas[var49] < 0) {
-                    def.alphas[var49] = (256 + def.alphas[var40]);
-                }
+                def.face_alphas[var49] = var5.readSignedByte();
             }
 
             if (var15 == 1)
             {
-                def.triangleData[var49] = var6.readUnsignedByte();
+                def.face_labels[var49] = var6.get_unsignedbyte();
             }
 
             if (var16 == 1)
@@ -980,7 +1344,7 @@ public class ModelLoader {
 
             if (def.textures != null && def.materials[var49] != -1)
             {
-                def.textures[var49] = (byte) (var8.readUnsignedByte() - 1);
+                def.textures[var49] = (byte) (var8.get_unsignedbyte() - 1);
             }
         }
 
@@ -994,12 +1358,12 @@ public class ModelLoader {
         int var54;
         for (var53 = 0; var53 < var10; ++var53)
         {
-            var54 = var3.readUnsignedByte();
+            var54 = var3.get_unsignedbyte();
             if (var54 == 1)
             {
-                var49 = var2.readSmart() + var52;
-                var50 = var2.readSmart() + var49;
-                var51 = var2.readSmart() + var50;
+                var49 = var2.get_smart_byteorshort() + var52;
+                var50 = var2.get_smart_byteorshort() + var49;
+                var51 = var2.get_smart_byteorshort() + var50;
                 var52 = var51;
                 def.trianglesX[var53] = var49;
                 def.trianglesY[var53] = var50;
@@ -1009,7 +1373,7 @@ public class ModelLoader {
             if (var54 == 2)
             {
                 var50 = var51;
-                var51 = var2.readSmart() + var52;
+                var51 = var2.get_smart_byteorshort() + var52;
                 var52 = var51;
                 def.trianglesX[var53] = var49;
                 def.trianglesY[var53] = var50;
@@ -1019,7 +1383,7 @@ public class ModelLoader {
             if (var54 == 3)
             {
                 var49 = var51;
-                var51 = var2.readSmart() + var52;
+                var51 = var2.get_smart_byteorshort() + var52;
                 var52 = var51;
                 def.trianglesX[var53] = var49;
                 def.trianglesY[var53] = var50;
@@ -1031,7 +1395,7 @@ public class ModelLoader {
                 int var55 = var49;
                 var49 = var50;
                 var50 = var55;
-                var51 = var2.readSmart() + var52;
+                var51 = var2.get_smart_byteorshort() + var52;
                 var52 = var51;
                 def.trianglesX[var53] = var49;
                 def.trianglesY[var53] = var55;
@@ -1048,17 +1412,17 @@ public class ModelLoader {
 
         for (var53 = 0; var53 < var11; ++var53)
         {
-            var54 = def.textureTypes[var53] & 255;
+            var54 = def.texture_mapping_type[var53] & 255;
             if (var54 == 0)
             {
-                def.texturesX[var53] = (short) var2.readUShort();
-                def.texturesY[var53] = (short) var2.readUShort();
-                def.texturesZ[var53] = (short) var2.readUShort();
+                def.textures_mapping_p[var53] = (short) var2.readUShort();
+                def.textures_mapping_m[var53] = (short) var2.readUShort();
+                def.textures_mapping_n[var53] = (short) var2.readUShort();
             }
         }
 
         var2.setOffset(var26);
-        var53 = var2.readUnsignedByte();
+        var53 = var2.get_unsignedbyte();
         if (var53 != 0)
         {
             var2.readUShort();
@@ -1081,12 +1445,12 @@ public class ModelLoader {
         var4.setOffset(var1.length - 18);
         int var9 = var4.readUShort();
         int var10 = var4.readUShort();
-        int var11 = var4.readUnsignedByte();
-        int var12 = var4.readUnsignedByte();
-        int var13 = var4.readUnsignedByte();
-        int var14 = var4.readUnsignedByte();
-        int var15 = var4.readUnsignedByte();
-        int var16 = var4.readUnsignedByte();
+        int var11 = var4.get_unsignedbyte();
+        int var12 = var4.get_unsignedbyte();
+        int var13 = var4.get_unsignedbyte();
+        int var14 = var4.get_unsignedbyte();
+        int var15 = var4.get_unsignedbyte();
+        int var16 = var4.get_unsignedbyte();
         int var17 = var4.readUShort();
         int var18 = var4.readUShort();
         int var19 = var4.readUShort();
@@ -1136,9 +1500,9 @@ public class ModelLoader {
         int var33 = var22;
         var22 += var18;
         int var10000 = var22 + var19;
-        def.verticesCount = var9;
-        def.trianglesCount = var10;
-        def.texturesCount = var11;
+        def.vertex_count = var9;
+        def.face_count = var10;
+        def.texture_count = var11;
         def.verticesX = new int[var9];
         def.verticesY = new int[var9];
         def.verticesZ = new int[var9];
@@ -1147,41 +1511,41 @@ public class ModelLoader {
         def.trianglesZ = new int[var10];
         if (var11 > 0)
         {
-            def.textureTypes = new byte[var11];
-            def.texturesX = new short[var11];
-            def.texturesY = new short[var11];
-            def.texturesZ = new short[var11];
+            def.texture_mapping_type = new byte[var11];
+            def.textures_mapping_p = new short[var11];
+            def.textures_mapping_m = new short[var11];
+            def.textures_mapping_n = new short[var11];
         }
 
         if (var16 == 1)
         {
-            def.vertexData = new int[var9];
+            def.vertex_labels = new int[var9];
         }
 
         if (var12 == 1)
         {
-            def.types = new int[var10];
+            def.drawType = new int[var10];
             def.textures = new byte[var10];
             def.materials = new short[var10];
         }
 
         if (var13 == 255)
         {
-            def.face_render_priorities = new byte[var10];
+            def.renderPriorities = new byte[var10];
         }
         else
         {
-            def.face_priority = (byte) var13;
+            def.facePriority = (byte) var13;
         }
 
         if (var14 == 1)
         {
-            def.alphas = new int[var10];
+            def.face_alphas = new byte[var10];
         }
 
         if (var15 == 1)
         {
-            def.triangleData = new int[var10];
+            def.face_labels = new int[var10];
         }
 
         def.colors = new short[var10];
@@ -1201,23 +1565,23 @@ public class ModelLoader {
         int var42;
         for (var38 = 0; var38 < var9; ++var38)
         {
-            var39 = var4.readUnsignedByte();
+            var39 = var4.get_unsignedbyte();
             var40 = 0;
             if ((var39 & 1) != 0)
             {
-                var40 = var5.readSmart();
+                var40 = var5.get_smart_byteorshort();
             }
 
             var41 = 0;
             if ((var39 & 2) != 0)
             {
-                var41 = var6.readSmart();
+                var41 = var6.get_smart_byteorshort();
             }
 
             var42 = 0;
             if ((var39 & 4) != 0)
             {
-                var42 = var7.readSmart();
+                var42 = var7.get_smart_byteorshort();
             }
 
             def.verticesX[var38] = var35 + var40;
@@ -1228,7 +1592,7 @@ public class ModelLoader {
             var37 = def.verticesZ[var38];
             if (var16 == 1)
             {
-                def.vertexData[var38] = var8.readUnsignedByte();
+                def.vertex_labels[var38] = var8.get_unsignedbyte();
             }
         }
 
@@ -1243,15 +1607,15 @@ public class ModelLoader {
             def.colors[var38] = (short) var4.readUShort();
             if (var12 == 1)
             {
-                var39 = var5.readUnsignedByte();
+                var39 = var5.get_unsignedbyte();
                 if ((var39 & 1) == 1)
                 {
-                    def.types[var38] = 1;
+                    def.drawType[var38] = 1;
                     var2 = true;
                 }
                 else
                 {
-                    def.types[var38] = 0;
+                    def.drawType[var38] = 0;
                 }
 
                 if ((var39 & 2) == 2)
@@ -1273,20 +1637,17 @@ public class ModelLoader {
 
             if (var13 == 255)
             {
-                def.face_render_priorities[var38] = var6.readByte();
+                def.renderPriorities[var38] = var6.readSignedByte();
             }
 
             if (var14 == 1)
             {
-                def.alphas[var38] = var7.readByte();
-                if (def.alphas[var38] < 0) {
-                    def.alphas[var38] = (256 + def.alphas[var38]);
-                }
+                def.face_alphas[var38] = var7.readSignedByte();
             }
 
             if (var15 == 1)
             {
-                def.triangleData[var38] = var8.readUnsignedByte();
+                def.face_labels[var38] = var8.get_unsignedbyte();
             }
         }
 
@@ -1301,12 +1662,12 @@ public class ModelLoader {
         int var44;
         for (var42 = 0; var42 < var10; ++var42)
         {
-            var43 = var5.readUnsignedByte();
+            var43 = var5.get_unsignedbyte();
             if (var43 == 1)
             {
-                var38 = var4.readSmart() + var41;
-                var39 = var4.readSmart() + var38;
-                var40 = var4.readSmart() + var39;
+                var38 = var4.get_smart_byteorshort() + var41;
+                var39 = var4.get_smart_byteorshort() + var38;
+                var40 = var4.get_smart_byteorshort() + var39;
                 var41 = var40;
                 def.trianglesX[var42] = var38;
                 def.trianglesY[var42] = var39;
@@ -1316,7 +1677,7 @@ public class ModelLoader {
             if (var43 == 2)
             {
                 var39 = var40;
-                var40 = var4.readSmart() + var41;
+                var40 = var4.get_smart_byteorshort() + var41;
                 var41 = var40;
                 def.trianglesX[var42] = var38;
                 def.trianglesY[var42] = var39;
@@ -1326,7 +1687,7 @@ public class ModelLoader {
             if (var43 == 3)
             {
                 var38 = var40;
-                var40 = var4.readSmart() + var41;
+                var40 = var4.get_smart_byteorshort() + var41;
                 var41 = var40;
                 def.trianglesX[var42] = var38;
                 def.trianglesY[var42] = var39;
@@ -1338,7 +1699,7 @@ public class ModelLoader {
                 var44 = var38;
                 var38 = var39;
                 var39 = var44;
-                var40 = var4.readSmart() + var41;
+                var40 = var4.get_smart_byteorshort() + var41;
                 var41 = var40;
                 def.trianglesX[var42] = var38;
                 def.trianglesY[var42] = var44;
@@ -1350,10 +1711,10 @@ public class ModelLoader {
 
         for (var42 = 0; var42 < var11; ++var42)
         {
-            def.textureTypes[var42] = 0;
-            def.texturesX[var42] = (short) var4.readUShort();
-            def.texturesY[var42] = (short) var4.readUShort();
-            def.texturesZ[var42] = (short) var4.readUShort();
+            def.texture_mapping_type[var42] = 0;
+            def.textures_mapping_p[var42] = (short) var4.readUShort();
+            def.textures_mapping_m[var42] = (short) var4.readUShort();
+            def.textures_mapping_n[var42] = (short) var4.readUShort();
         }
 
         if (def.textures != null)
@@ -1365,7 +1726,7 @@ public class ModelLoader {
                 var44 = def.textures[var43] & 255;
                 if (var44 != 255)
                 {
-                    if (def.trianglesX[var43] == (def.texturesX[var44] & '\uffff') && def.trianglesY[var43] == (def.texturesY[var44] & '\uffff') && def.trianglesZ[var43] == (def.texturesZ[var44] & '\uffff'))
+                    if (def.trianglesX[var43] == (def.textures_mapping_p[var44] & '\uffff') && def.trianglesY[var43] == (def.textures_mapping_m[var44] & '\uffff') && def.trianglesZ[var43] == (def.textures_mapping_n[var44] & '\uffff'))
                     {
                         def.textures[var43] = -1;
                     }
@@ -1389,7 +1750,7 @@ public class ModelLoader {
 
         if (!var2)
         {
-            def.types = null;
+            def.drawType = null;
         }
 
     }

@@ -1,10 +1,9 @@
 package com.client.graphics.interfaces.impl;
 
 import com.client.Client;
-import com.client.RSApplet;
-import com.client.Rasterizer;
+import com.client.Rasterizer3D;
 import com.client.Sprite;
-import com.client.features.gameframe.ScreenMode;
+import com.client.engine.impl.MouseHandler;
 import com.client.features.settings.Preferences;
 import com.client.graphics.interfaces.RSInterface;
 
@@ -32,12 +31,12 @@ public class Slider {
 		this.x = x;
 		this.y = y;
 		images[1].drawSprite(x, y);
-		images[0].drawSpriteWithOpacity(x + position - (int) (position / length * images[0].myWidth), y - images[0].myHeight / 2 + images[1].myHeight / 2, alpha);
+		images[0].drawTransparentSprite(x + position - (int) (position / length * images[0].myWidth), y - images[0].myHeight / 2 + images[1].myHeight / 2, alpha);
 	}
 
 	public void handleClick(int mouseX, int mouseY, int offsetX, int offsetY, int contentType) {
-		int mX = Client.instance.getMouseX();
-		int mY = Client.instance.getMouseY();
+		int mX = MouseHandler.mouseX;
+		int mY = MouseHandler.mouseY;
 		if (mX - offsetX >= x && mX - offsetX <= x + length
 			&& mY - offsetY >= y + (images[1].myHeight / 2) - (images[0].myHeight / 2)
 			&& mY - offsetY <= y + (images[1].myHeight / 2) + (images[0].myHeight / 2))
@@ -57,18 +56,16 @@ public class Slider {
 				value = maxValue;
 			}
 			int xxx = 525;
-			if ((mouseX - xxx) <= images[0].xPosition + 5 && (mouseX - xxx) >= images[0].xPosition - 5) {
-				RSApplet.sliderShowAlpha = true;
-			}
+
 			//System.out.println("mX: " + (mouseX - xxx));
 			//System.out.println("spriteX: " + images[0].xPosition);
 			handleContent(contentType);
 		}
 	}
-	
+
 	public void handleClickSlide(int mouseX, int mouseY, int offsetX, int offsetY, int contentType) {
-		int mX = Client.instance.getMouseX();
-		int mY = Client.instance.getMouseY();
+		int mX = MouseHandler.mouseX;
+		int mY = MouseHandler.mouseY;
 		if (mX - offsetX >= x && mX - offsetX <= x + length
 			&& mY - offsetY >= y + images[1].myHeight / 2 - images[0].myHeight / 2
 			&& mY - offsetY <= y + images[1].myHeight / 2 + images[0].myHeight / 2)
@@ -106,7 +103,7 @@ public class Slider {
 				break;
 			case BRIGHTNESS:
 				Preferences.getPreferences().brightness = minValue + maxValue - value;
-				Rasterizer.setBrightness(Preferences.getPreferences().brightness);
+				Rasterizer3D.setBrightness(Preferences.getPreferences().brightness);
 				break;
 			case MUSIC:
 				Preferences.getPreferences().musicVolume = value;
@@ -141,12 +138,12 @@ public class Slider {
 				RSInterface child = RSInterface.interfaceCache[childId];
 				if (child == null || child.slider == null)
 					continue;
-				child.slider.handleClick(mX, mY, Client.currentScreenMode == ScreenMode.FIXED ? 516 : 0, Client.currentScreenMode == ScreenMode.FIXED ? 168 : 0, child.contentType);
-				if (RSApplet.clickType == 0) {
+				child.slider.handleClick(mX, mY, !Client.instance.isResized() ? 516 : 0, !Client.instance.isResized() ? 168 : 0, child.contentType);
+				if (MouseHandler.instance.clickType == 0) {
 					return;
-				} 
-				if (RSApplet.clickType == 2) {
-					child.slider.handleClickSlide(mX, mY, Client.currentScreenMode == ScreenMode.FIXED ? 516 : 0, Client.currentScreenMode == ScreenMode.FIXED ? 168 : 0, child.contentType);
+				}
+				if (MouseHandler.instance.clickType == 2) {
+					child.slider.handleClickSlide(mX, mY, !Client.instance.isResized() ? 516 : 0, !Client.instance.isResized() ? 168 : 0, child.contentType);
 				}
 			}
 			Client.instance.tabAreaAltered = true;

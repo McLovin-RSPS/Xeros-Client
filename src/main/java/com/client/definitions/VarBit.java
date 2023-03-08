@@ -1,45 +1,47 @@
 package com.client.definitions;
 
 import com.client.Buffer;
-import com.client.StreamLoader;
+import com.client.FileArchive;
 
 public final class VarBit {
 
-	public static void unpackConfig(StreamLoader streamLoader) {
-		Buffer stream = new Buffer(streamLoader.getArchiveData("varbit.dat"));
+	public static void unpackConfig(FileArchive streamLoader) {
+		Buffer stream = new Buffer(streamLoader.readFile("varbit.dat"));
 		int cacheSize = stream.readUShort();
 		if (cache == null)
 			cache = new VarBit[cacheSize];
 		for (int j = 0; j < cacheSize; j++) {
 			if (cache[j] == null)
 				cache[j] = new VarBit();
-			cache[j].readValues(stream);
+			cache[j].decode(stream);
 		}
 
-		if (stream.currentOffset != stream.buffer.length)
+		if (stream.currentPosition != stream.payload.length)
 			System.out.println("varbit load mismatch");
 	}
 
-	private void readValues(Buffer stream) {
-		int opcode = stream.readUnsignedByte();
+	private void decode(Buffer buffer) {
+		int opcode = buffer.get_unsignedbyte();
+
 		if (opcode == 0) {
 			return;
 		} else if (opcode == 1) {
-		anInt648 = stream.readUShort();
-		anInt649 = stream.readUnsignedByte();
-		anInt650 = stream.readUnsignedByte();
+			setting = buffer.readUShort();
+			start = buffer.get_unsignedbyte();
+			end = buffer.get_unsignedbyte();
 		} else {
 			System.out.println("Invalid varbit opcode: " + opcode);
 		}
 	}
+
 
 	private VarBit() {
 		
 	}
 
 	public static VarBit cache[];
-	public int anInt648;
-	public int anInt649;
-	public int anInt650;
+	public int setting;
+	public int start;
+	public int end;
 	
 }

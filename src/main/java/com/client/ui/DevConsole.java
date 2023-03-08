@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.client.Client;
 import com.client.Configuration;
-import com.client.DrawingArea;
+import com.client.Rasterizer2D;
 
 public class DevConsole {
 
@@ -71,9 +71,9 @@ public class DevConsole {
     {
         if(console_open)
         {
-            DrawingArea.drawPixelsWithOpacity2(4, 4, 512, 334, 5320850, 80);
-            DrawingArea.drawPixels(1, 315, 4, 0xFFFFFF, 512);
-            client().newBoldFont.drawBasicString("--> " + console_input + (client().loopCycle % 20 < 10 ? "|" : ""), 11, 330, 0xFFFFFF, 0);// client().newSmallFont.drawToLeft("Build: " + 317, 505, 0xFFFFFF, 330, 256, 1);//505, 312 above the divider
+            Rasterizer2D.drawPixelsWithOpacity2(4, 4, 512, 334, 5320850, 80);
+            Rasterizer2D.drawPixels(1, 315, 4, 0xFFFFFF, 512);
+            client().newBoldFont.drawBasicString("--> " + console_input + (client().update_tick % 20 < 10 ? "|" : ""), 11, 330, 0xFFFFFF, 0);// client().newSmallFont.drawToLeft("Build: " + 317, 505, 0xFFFFFF, 330, 256, 1);//505, 312 above the divider
             client().newSmallFont.drawString(Configuration.CLIENT_TITLE, 4, 12, 0xFFFFFF, 0, 256);
         }
         draw_console_messages();
@@ -92,7 +92,7 @@ public class DevConsole {
             int y_pos = 0;
             scroller_offset = 0;
             scroller_pos = client().scrollbar_position;
-            DrawingArea.setDrawingArea(315, 0, 510, 21);
+            Rasterizer2D.setDrawingArea(315, 0, 510, 21);
             for(int line = 0; line < 500; line++)
             {
                 y_pos = (257 - output_y * 16) + scroller_pos;
@@ -108,7 +108,7 @@ public class DevConsole {
             if(scroller)
                 client().draw_scrollbar(494, 22, 0, 270, scroller_offset, 18, 17, 0);
 
-            DrawingArea.setDrawingArea(512, 0, 334, 0);
+            Client.rasterProvider.setRaster();
         }
     }
 

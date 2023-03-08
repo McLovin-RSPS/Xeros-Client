@@ -1,15 +1,14 @@
 package com.client.graphics.interfaces.impl;
 
-import java.util.Arrays;
-
 import com.client.Client;
 import com.client.Configuration;
-import com.client.DrawingArea;
+import com.client.Rasterizer2D;
 import com.client.Sprite;
 import com.client.TextDrawingArea;
 import com.client.definitions.ItemDefinition;
 import com.client.graphics.interfaces.Configs;
 import com.client.graphics.interfaces.RSInterface;
+import java.util.Arrays;
 
 public class Bank extends RSInterface {
 
@@ -189,7 +188,7 @@ public class Bank extends RSInterface {
 
     public static void drawOnBank(RSInterface rsInterface, int x, int y) {
         if (rsInterface.id == BANK_INTERFACE_ID) {
-            DrawingArea.drawPixels(1, 20, 29, 0xE68A00, 16);
+            Rasterizer2D.drawPixels(1, 20, 29, 0xE68A00, 16);
         }
     }
 
@@ -216,7 +215,7 @@ public class Bank extends RSInterface {
                     RSInterface container = interfaceCache[ITEM_CONTAINERS[index]];
                     for (int itemIndex = 0; itemIndex < container.inventoryItemId.length; itemIndex++) {
                         if (container.inventoryItemId[itemIndex] > 0) {
-                            ItemDefinition definition = ItemDefinition.forID(container.inventoryItemId[itemIndex] - 1);
+                            ItemDefinition definition = ItemDefinition.lookup(container.inventoryItemId[itemIndex] - 1);
                             if (definition != null && definition.name != null && definition.name.toLowerCase().contains(searchingBankString.toLowerCase())) {
                                 searchContainer.addItem(container.inventoryItemId[itemIndex], container.inventoryAmounts[itemIndex]);
                             }

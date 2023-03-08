@@ -1,7 +1,6 @@
 package com.client.graphics.interfaces.builder.impl.tasks;
 
 import com.client.graphics.interfaces.RSInterface;
-import com.client.graphics.interfaces.builder.InterfaceBuilder;
 
 class TaskDiariesSubInterface extends TaskInterfaceSubBuilder {
 

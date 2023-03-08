@@ -68,13 +68,13 @@ final class Class39 {
 	}
 
 	public void method545(Buffer stream, Class29 class29) {
-		int i = stream.readUnsignedByte();
+		int i = stream.get_unsignedbyte();
 		anIntArray665[0] = i >> 4;
 		anIntArray665[1] = i & 0xf;
 		if (i != 0) {
 			anIntArray668[0] = stream.readUShort();
 			anIntArray668[1] = stream.readUShort();
-			int j = stream.readUnsignedByte();
+			int j = stream.get_unsignedbyte();
 			for (int k = 0; k < 2; k++) {
 				for (int l = 0; l < anIntArray665[k]; l++) {
 					anIntArrayArrayArray666[k][0][l] = stream

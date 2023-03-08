@@ -6,12 +6,12 @@ package com.client;
 final class NodeSubList {
 
 	public NodeSubList() {
-		head = new NodeSub();
+		head = new Cacheable();
 		head.prevNodeSub = head;
 		head.nextNodeSub = head;
 	}
 
-	public void insertHead(NodeSub nodeSub) {
+	public void insertHead(Cacheable nodeSub) {
 		if (nodeSub.nextNodeSub != null)
 			nodeSub.unlinkSub();
 		nodeSub.nextNodeSub = head.nextNodeSub;
@@ -20,8 +20,8 @@ final class NodeSubList {
 		nodeSub.prevNodeSub.nextNodeSub = nodeSub;
 	}
 
-	public NodeSub popTail() {
-		NodeSub nodeSub = head.prevNodeSub;
+	public Cacheable popTail() {
+		Cacheable nodeSub = head.prevNodeSub;
 		if (nodeSub == head) {
 			return null;
 		} else {
@@ -30,8 +30,8 @@ final class NodeSubList {
 		}
 	}
 
-	public NodeSub reverseGetFirst() {
-		NodeSub nodeSub = head.prevNodeSub;
+	public Cacheable reverseGetFirst() {
+		Cacheable nodeSub = head.prevNodeSub;
 		if (nodeSub == head) {
 			current = null;
 			return null;
@@ -41,8 +41,8 @@ final class NodeSubList {
 		}
 	}
 
-	public NodeSub reverseGetNext() {
-		NodeSub nodeSub = current;
+	public Cacheable reverseGetNext() {
+		Cacheable nodeSub = current;
 		if (nodeSub == head) {
 			current = null;
 			return null;
@@ -54,12 +54,12 @@ final class NodeSubList {
 
 	public int getNodeCount() {
 		int i = 0;
-		for (NodeSub nodeSub = head.prevNodeSub; nodeSub != head; nodeSub = nodeSub.prevNodeSub)
+		for (Cacheable nodeSub = head.prevNodeSub; nodeSub != head; nodeSub = nodeSub.prevNodeSub)
 			i++;
 
 		return i;
 	}
 
-	private final NodeSub head;
-	private NodeSub current;
+	private final Cacheable head;
+	private Cacheable current;
 }

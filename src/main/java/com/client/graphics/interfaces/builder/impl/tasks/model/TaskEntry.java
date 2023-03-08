@@ -4,7 +4,6 @@ import com.client.StringUtils;
 import com.client.graphics.interfaces.builder.impl.tasks.AchievementFilter;
 import com.client.model.GameItem;
 import com.client.utilities.Misc;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;

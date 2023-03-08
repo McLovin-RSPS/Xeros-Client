@@ -6,14 +6,14 @@ package com.client;
 final class Class29 {
 
 	public void method325(Buffer stream) {
-		anInt540 = stream.readUnsignedByte();
+		anInt540 = stream.get_unsignedbyte();
 		anInt538 = stream.readDWord();
 		anInt539 = stream.readDWord();
 		method326(stream);
 	}
 
 	public void method326(Buffer stream) {
-		anInt535 = stream.readUnsignedByte();
+		anInt535 = stream.get_unsignedbyte();
 		anIntArray536 = new int[anInt535];
 		anIntArray537 = new int[anInt535];
 		for (int i = 0; i < anInt535; i++) {

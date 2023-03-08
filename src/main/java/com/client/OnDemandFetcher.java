@@ -98,8 +98,8 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 		}
 	}
 
-	public void start(StreamLoader streamLoader, Client client) {
-		byte[] fileData = streamLoader.getArchiveData("map_index");
+	public void start(FileArchive streamLoader, Client client) {
+		byte[] fileData = streamLoader.readFile("map_index");
 		Buffer stream = new Buffer(fileData);
 		int length = stream.readUShort();
 		mapIndices1 = new int[length];
@@ -110,12 +110,12 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 			mapIndices2[i2] = stream.readUShort();
 			mapIndices3[i2] = stream.readUShort();
 		}
-		fileData = streamLoader.getArchiveData("midi_index");
+		fileData = streamLoader.readFile("midi_index");
 		stream = new Buffer(fileData);
 		length = fileData.length;
 		anIntArray1348 = new int[length];
 		for (int k2 = 0; k2 < length; k2++)
-			anIntArray1348[k2] = stream.readUnsignedByte();
+			anIntArray1348[k2] = stream.get_unsignedbyte();
 		clientInstance = client;
 		running = true;
 		clientInstance.startRunnable(this, 2);
@@ -419,7 +419,8 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 		try (GZIPInputStream gzipinputstream = new GZIPInputStream(new ByteArrayInputStream(onDemandData.buffer))) {
 			do {
 				if (i == gzipInputBuffer.length)
-					throw new RuntimeException("buffer overflow!");
+//					throw new RuntimeException("buffer overflow!");
+					break;
 				int k = gzipinputstream.read(gzipInputBuffer, i, gzipInputBuffer.length - i);
 				if (k == -1)
 					break;
@@ -595,24 +596,24 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	}
 
 	public OnDemandFetcher() {
-		requested = new NodeList();
+		requested = new Deque();
 		statusString = "";
 		new CRC32();
 		ioBuffer = new byte[500];
 		fileStatus = new byte[4][];
-		aClass19_1344 = new NodeList();
+		aClass19_1344 = new Deque();
 		running = true;
 		waiting = false;
-		aClass19_1358 = new NodeList();
-		gzipInputBuffer = new byte[0x71868];
+		aClass19_1358 = new Deque();
+		gzipInputBuffer = new byte[400000000];//extend the gzip buffer
 		nodeSubList = new NodeSubList();
 		versions = new int[4][];
-		aClass19_1368 = new NodeList();
-		aClass19_1370 = new NodeList();
+		aClass19_1368 = new Deque();
+		aClass19_1370 = new Deque();
 	}
 
 	private int totalFiles;
-	private final NodeList requested;
+	private final Deque requested;
 	private int anInt1332;
 	public String statusString;
 	private int writeLoopCycle;
@@ -622,7 +623,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	public int onDemandCycle;
 	private final byte[][] fileStatus;
 	private Client clientInstance;
-	private final NodeList aClass19_1344;
+	private final Deque aClass19_1344;
 	private int completedSize;
 	private int expectedSize;
 	private int[] anIntArray1348;
@@ -633,7 +634,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	private OutputStream outputStream;
 	private int[] mapIndices4;
 	private boolean waiting;
-	private final NodeList aClass19_1358;
+	private final Deque aClass19_1358;
 	private final byte[] gzipInputBuffer;
 	private final NodeSubList nodeSubList;
 	private InputStream inputStream;
@@ -641,9 +642,9 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	private final int[][] versions;
 	private int uncompletedCount;
 	private int completedCount;
-	private final NodeList aClass19_1368;
+	private final Deque aClass19_1368;
 	private OnDemandData current;
-	private final NodeList aClass19_1370;
+	private final Deque aClass19_1370;
 	private int[] mapIndices1;
 	private byte[] modelIndices;
 	private int loopCycle;

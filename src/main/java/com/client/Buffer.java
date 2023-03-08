@@ -1,14 +1,22 @@
 package com.client;
 
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 
 import com.client.sign.Signlink;
 
-public final class Buffer extends NodeSub {
+public final class Buffer extends Cacheable {
+
+    public int read24Int() {
+        currentPosition += 3;
+        return ((payload[currentPosition - 3] & 0xff) << 16) + ((payload[currentPosition - 2] & 0xff) << 8) + (payload[currentPosition - 1] & 0xff);
+    }
+
 
     private static final BigInteger RSA_MODULUS = new BigInteger("91520827044808581871318118254770120611343888611033050838722939781067880678552781697572245594439341402118233490664238364235358342012694177068230893936750633213888618825951425602731544513980715835301977356001573144440585484179765317637775760229380331179714685593753856711452802805126498363795384945303137663457");
     private static final BigInteger RSA_EXPONENT = new BigInteger("65537");
 
+    ByteBuffer byteBuffer = ByteBuffer.allocate(100);
     public static Buffer create() {
         synchronized (nodeList) {
             Buffer stream = null;
@@ -17,26 +25,26 @@ public final class Buffer extends NodeSub {
                 stream = (Buffer) nodeList.popHead();
             }
             if (stream != null) {
-                stream.currentOffset = 0;
+                stream.currentPosition = 0;
                 return stream;
             }
         }
         Buffer stream_1 = new Buffer();
-        stream_1.currentOffset = 0;
-        stream_1.buffer = new byte[RSSocket.SIZE];
+        stream_1.currentPosition = 0;
+        stream_1.payload = new byte[RSSocket.SIZE];
         return stream_1;
     }
 
     public int getSmart() {
         try {
             // checks current without modifying position
-            if (currentOffset >= buffer.length) {
-                return buffer[buffer.length - 1] & 0xFF;
+            if (currentPosition >= payload.length) {
+                return payload[payload.length - 1] & 0xFF;
             }
-            int value = buffer[currentOffset] & 0xFF;
+            int value = payload[currentPosition] & 0xFF;
 
             if (value < 128) {
-                return readUnsignedByte();
+                return get_unsignedbyte();
             } else {
                 return readUShortA() - 32768;
             }
@@ -54,13 +62,13 @@ public final class Buffer extends NodeSub {
                 stream = (Buffer) nodeList.popHead();
             }
             if (stream != null) {
-                stream.currentOffset = 0;
+                stream.currentPosition = 0;
                 return stream;
             }
         }
         Buffer stream_1 = new Buffer();
-        stream_1.currentOffset = 0;
-        stream_1.buffer = new byte[initialCapacity];
+        stream_1.currentPosition = 0;
+        stream_1.payload = new byte[initialCapacity];
         return stream_1;
     }
 
@@ -69,56 +77,60 @@ public final class Buffer extends NodeSub {
 
     public byte[] getData(byte[] buffer2) {
         for (int i = 0; i < buffer2.length; i++)
-            buffer2[i] = buffer[currentOffset++];
+            buffer2[i] = payload[currentPosition++];
         return buffer2;
     }
 
     public Buffer(byte abyte0[]) {
-        buffer = abyte0;
-        currentOffset = 0;
+        payload = abyte0;
+        currentPosition = 0;
     }
 
     public void createFrame(int i) {
         if (Configuration.developerMode)
             Client.instance.devConsole.print_message("Outgoing Packet " + i, 0);
-        buffer[currentOffset++] = (byte) (i + encryption.getNextKey());
+        payload[currentPosition++] = (byte) (i + encryption.getNextKey());
     }
 
     public void writeUnsignedByte(int i) {
-        buffer[currentOffset++] = (byte) i;
+        payload[currentPosition++] = (byte) i;
     }
 
     final int v(int i) {
-        currentOffset += 3;
-        return (0xff & buffer[currentOffset - 3] << 16)
-                + (0xff & buffer[currentOffset - 2] << 8)
-                + (0xff & buffer[currentOffset - 1]);
+        currentPosition += 3;
+        return (0xff & payload[currentPosition - 3] << 16)
+                + (0xff & payload[currentPosition - 2] << 8)
+                + (0xff & payload[currentPosition - 1]);
     }
 
-    public int readUnsignedByte2() {
-        return -263;
+    public int get_unsignedshort() {
+        currentPosition += 2;
+        return ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
     }
-
-    public int g2() {
-        currentOffset += 2;
-        return ((buffer[currentOffset - 2] & 0xff) << 8)
-                + (buffer[currentOffset - 1] & 0xff);
+    public String readJagexString() {
+        int i = currentPosition;
+        while (payload[currentPosition++] != 10)
+            ;
+        return new String(payload, i, currentPosition - i - 1);
     }
-
-    public int g4() {
-        currentOffset += 4;
-        return ((buffer[currentOffset - 4] & 0xff) << 24)
-                + ((buffer[currentOffset - 3] & 0xff) << 16)
-                + ((buffer[currentOffset - 2] & 0xff) << 8)
-                + (buffer[currentOffset - 1] & 0xff);
+    public int get_int() {
+        currentPosition += 4;
+        return ((payload[currentPosition - 4] & 0xff) << 24)
+                + ((payload[currentPosition - 3] & 0xff) << 16)
+                + ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
     }
-
-    public int readShort2() {
-        currentOffset += 2;
-        int i = ((buffer[currentOffset - 2] & 0xff) << 8)
-                + (buffer[currentOffset - 1] & 0xff);
-        if (i > 60000)
-            i = -65535 + i;
+    public float get_float() {
+        return Float.intBitsToFloat(this.get_int());
+    }
+    public int get_short() {
+        currentPosition += 2;
+        int i = ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
+        if (i > 0x7fff) {
+            i -= 0x10000;
+        }
         return i;
 
     }
@@ -126,59 +138,70 @@ public final class Buffer extends NodeSub {
     public int readUSmart2() {
         int baseVal = 0;
         int lastVal = 0;
-        while ((lastVal = readSmart()) == 32767) {
+        while ((lastVal = get_smart_byteorshort()) == 32767) {
             baseVal += 32767;
         }
         return baseVal + lastVal;
     }
 
+    public int readShort() {
+        currentPosition += 2;
+        int value = ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
+
+        if (value > 0x7fff) {
+            value -= 0x10000;
+        }
+        return value;
+    }
+
     public String readNewString() {
-        int i = currentOffset;
-        while (buffer[currentOffset++] != 0)
+        int i = currentPosition;
+        while (payload[currentPosition++] != 0)
             ;
-        return new String(buffer, i, currentOffset - i - 1);
+        return new String(payload, i, currentPosition - i - 1);
     }
 
     public void writeWord(int i) {
-        buffer[currentOffset++] = (byte) (i >> 8);
-        buffer[currentOffset++] = (byte) i;
+        payload[currentPosition++] = (byte) (i >> 8);
+        payload[currentPosition++] = (byte) i;
     }
 
     public void method400(int i) {
-        buffer[currentOffset++] = (byte) i;
-        buffer[currentOffset++] = (byte) (i >> 8);
+        payload[currentPosition++] = (byte) i;
+        payload[currentPosition++] = (byte) (i >> 8);
     }
 
     public void writeDWordBigEndian(int i) {
-        buffer[currentOffset++] = (byte) (i >> 16);
-        buffer[currentOffset++] = (byte) (i >> 8);
-        buffer[currentOffset++] = (byte) i;
+        payload[currentPosition++] = (byte) (i >> 16);
+        payload[currentPosition++] = (byte) (i >> 8);
+        payload[currentPosition++] = (byte) i;
     }
 
     public void writeDWord(int i) {
-        buffer[currentOffset++] = (byte) (i >> 24);
-        buffer[currentOffset++] = (byte) (i >> 16);
-        buffer[currentOffset++] = (byte) (i >> 8);
-        buffer[currentOffset++] = (byte) i;
+        payload[currentPosition++] = (byte) (i >> 24);
+        payload[currentPosition++] = (byte) (i >> 16);
+        payload[currentPosition++] = (byte) (i >> 8);
+        payload[currentPosition++] = (byte) i;
     }
 
     public void method403(int j) {
-        buffer[currentOffset++] = (byte) j;
-        buffer[currentOffset++] = (byte) (j >> 8);
-        buffer[currentOffset++] = (byte) (j >> 16);
-        buffer[currentOffset++] = (byte) (j >> 24);
+        payload[currentPosition++] = (byte) j;
+        payload[currentPosition++] = (byte) (j >> 8);
+        payload[currentPosition++] = (byte) (j >> 16);
+        payload[currentPosition++] = (byte) (j >> 24);
     }
 
     public void writeQWord(long l) {
         try {
-            buffer[currentOffset++] = (byte) (int) (l >> 56);
-            buffer[currentOffset++] = (byte) (int) (l >> 48);
-            buffer[currentOffset++] = (byte) (int) (l >> 40);
-            buffer[currentOffset++] = (byte) (int) (l >> 32);
-            buffer[currentOffset++] = (byte) (int) (l >> 24);
-            buffer[currentOffset++] = (byte) (int) (l >> 16);
-            buffer[currentOffset++] = (byte) (int) (l >> 8);
-            buffer[currentOffset++] = (byte) (int) l;
+            payload[currentPosition++] = (byte) (int) (l >> 56);
+            payload[currentPosition++] = (byte) (int) (l >> 48);
+            payload[currentPosition++] = (byte) (int) (l >> 40);
+            payload[currentPosition++] = (byte) (int) (l >> 32);
+            payload[currentPosition++] = (byte) (int) (l >> 24);
+            payload[currentPosition++] = (byte) (int) (l >> 16);
+            payload[currentPosition++] = (byte) (int) (l >> 8);
+            payload[currentPosition++] = (byte) (int) l;
         } catch (RuntimeException runtimeexception) {
             Signlink.reporterror("14395, " + 5 + ", " + l + ", "
                     + runtimeexception.toString());
@@ -187,14 +210,14 @@ public final class Buffer extends NodeSub {
     }
 
     public void writeString(String s) {
-        System.arraycopy(s.getBytes(), 0, buffer, currentOffset, s.length());
-        currentOffset += s.length();
-        buffer[currentOffset++] = 10;
+        System.arraycopy(s.getBytes(), 0, payload, currentPosition, s.length());
+        currentPosition += s.length();
+        payload[currentPosition++] = 10;
     }
 
     public void writeBytes(byte abyte0[], int length, int startingPosition) {
         for (int k = startingPosition; k < startingPosition + length; k++)
-            buffer[currentOffset++] = abyte0[k];
+            payload[currentPosition++] = abyte0[k];
     }
 
     public void writeHiddenString(String string) {
@@ -206,39 +229,47 @@ public final class Buffer extends NodeSub {
     }
 
     public String readHiddenString() {
-        int length = readUnsignedByte();
+        int length = get_unsignedbyte();
         byte[] stringBytes = new byte[length];
         for (int index = 0; index < length; index++) {
-            stringBytes[index] = (byte) (readUnsignedByte() - 15);
+            stringBytes[index] = (byte) (get_unsignedbyte() - 15);
         }
         return new String(stringBytes);
     }
 
     public void writeByte(int i) {
-        buffer[currentOffset++] = (byte) i;
+        payload[currentPosition++] = (byte) i;
     }
 
     public void writeBytes(int i) {
-        buffer[currentOffset - i - 1] = (byte) i;
+        payload[currentPosition - i - 1] = (byte) i;
     }
 
     public int read24BitInt()
     {
-        return (this.readUnsignedByte() << 16) + (this.readUnsignedByte() << 8) + this.readUnsignedByte();
+        return (this.get_unsignedbyte() << 16) + (this.get_unsignedbyte() << 8) + this.get_unsignedbyte();
     }
 
-    public int readUnsignedByte() {
-        return buffer[currentOffset++] & 0xff;
+    public int get_unsignedbyte() {
+        return payload[currentPosition++] & 0xff;
     }
 
     public byte readSignedByte() {
-        return buffer[currentOffset++];
+        return payload[currentPosition++];
     }
 
+    public int readTriByte() {
+        currentPosition += 3;
+        return ((payload[currentPosition - 3] & 0xff) << 16)
+                + ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
+    }
+
+
     public int readUShort() {
-        currentOffset += 2;
-        return ((buffer[currentOffset - 2] & 0xff) << 8)
-                + (buffer[currentOffset - 1] & 0xff);
+        currentPosition += 2;
+        return ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
     }
 
     public int method1606() {
@@ -254,32 +285,32 @@ public final class Buffer extends NodeSub {
     }
 
     public int readUShortSmart() {
-        int var2 = this.buffer[this.currentOffset] & 255;
-        return var2 < 128 ? this.readUnsignedByte() : this.readUShort() - 32768;
+        int var2 = this.payload[this.currentPosition] & 255;
+        return var2 < 128 ? this.get_unsignedbyte() : this.readUShort() - 32768;
     }
 
     public int readSignedWord() {
-        currentOffset += 2;
-        int i = ((buffer[currentOffset - 2] & 0xff) << 8)
-                + (buffer[currentOffset - 1] & 0xff);
+        currentPosition += 2;
+        int i = ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
         if (i > 32767)
             i -= 0x10000;
         return i;
     }
 
     public int read3Bytes() {
-        currentOffset += 3;
-        return ((buffer[currentOffset - 3] & 0xff) << 16)
-                + ((buffer[currentOffset - 2] & 0xff) << 8)
-                + (buffer[currentOffset - 1] & 0xff);
+        currentPosition += 3;
+        return ((payload[currentPosition - 3] & 0xff) << 16)
+                + ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
     }
 
     public int readDWord() {
-        currentOffset += 4;
-        return ((buffer[currentOffset - 4] & 0xff) << 24)
-                + ((buffer[currentOffset - 3] & 0xff) << 16)
-                + ((buffer[currentOffset - 2] & 0xff) << 8)
-                + (buffer[currentOffset - 1] & 0xff);
+        currentPosition += 4;
+        return ((payload[currentPosition - 4] & 0xff) << 24)
+                + ((payload[currentPosition - 3] & 0xff) << 16)
+                + ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] & 0xff);
     }
 
     public long readQWord() {
@@ -289,17 +320,17 @@ public final class Buffer extends NodeSub {
     }
 
     public String readString() {
-        int i = currentOffset;
-        while (buffer[currentOffset++] != 10)
+        int i = currentPosition;
+        while (payload[currentPosition++] != 10)
             ;
-        return new String(buffer, i, currentOffset - i - 1);
+        return new String(payload, i, currentPosition - i - 1);
     }
 
     public String readNullTerminatedString() {
-        int i = currentOffset;
-        while (buffer[currentOffset++] != 0)
+        int i = currentPosition;
+        while (payload[currentPosition++] != 0)
             ;
-        return new String(buffer, i, currentOffset - i - 1);
+        return new String(payload, i, currentPosition - i - 1);
     }
 
     private static final char[] OSRS_CHARACTERS = new char[]
@@ -318,7 +349,7 @@ public final class Buffer extends NodeSub {
 
         for (; ; )
         {
-            int ch = this.readUnsignedByte();
+            int ch = this.get_unsignedbyte();
 
             if (ch == 0)
             {
@@ -342,21 +373,21 @@ public final class Buffer extends NodeSub {
     }
 
     public byte[] readBytes() {
-        int i = currentOffset;
-        while (buffer[currentOffset++] != 10)
+        int i = currentPosition;
+        while (payload[currentPosition++] != 10)
             ;
-        byte abyte0[] = new byte[currentOffset - i - 1];
-        System.arraycopy(buffer, i, abyte0, i - i, currentOffset - 1 - i);
+        byte abyte0[] = new byte[currentPosition - i - 1];
+        System.arraycopy(payload, i, abyte0, i - i, currentPosition - 1 - i);
         return abyte0;
     }
 
     public void readBytes(int length, int offset, byte abyte0[]) {
         for (int l = offset; l < offset + length; l++)
-            abyte0[l] = buffer[currentOffset++];
+            abyte0[l] = payload[currentPosition++];
     }
 
     public void initBitAccess() {
-        bitPosition = currentOffset * 8;
+        bitPosition = currentPosition * 8;
     }
 
     public int readBits(int i) {
@@ -365,25 +396,25 @@ public final class Buffer extends NodeSub {
         int i1 = 0;
         bitPosition += i;
         for (; i > l; l = 8) {
-            i1 += (buffer[k++] & anIntArray1409[l]) << i - l;
+            i1 += (payload[k++] & anIntArray1409[l]) << i - l;
             i -= l;
         }
         if (i == l)
-            i1 += buffer[k] & anIntArray1409[l];
+            i1 += payload[k] & anIntArray1409[l];
         else
-            i1 += buffer[k] >> l - i & anIntArray1409[i];
+            i1 += payload[k] >> l - i & anIntArray1409[i];
         return i1;
     }
 
     public void finishBitAccess() {
-        currentOffset = (bitPosition + 7) / 8;
+        currentPosition = (bitPosition + 7) / 8;
     }
 
     public int method421() {
         try {
-            int i = buffer[currentOffset] & 0xff;
+            int i = payload[currentPosition] & 0xff;
             if (i < 128)
-                return readUnsignedByte() - 64;
+                return get_unsignedbyte() - 64;
             else
                 return readUShort() - 49152;
         } catch (Exception e) {
@@ -393,117 +424,117 @@ public final class Buffer extends NodeSub {
     }
 
     public void doKeys() {
-        int i = currentOffset;
-        currentOffset = 0;
+        int i = currentPosition;
+        currentPosition = 0;
         byte abyte0[] = new byte[i];
         readBytes(i, 0, abyte0);
         BigInteger biginteger2 = new BigInteger(abyte0);
         BigInteger biginteger3 = biginteger2.modPow(RSA_EXPONENT, RSA_MODULUS);
         byte abyte1[] = biginteger3.toByteArray();
-        currentOffset = 0;
+        currentPosition = 0;
         writeUnsignedByte(abyte1.length);
         writeBytes(abyte1, abyte1.length, 0);
     }
 
     public void method424(int i) {
-        buffer[currentOffset++] = (byte) (-i);
+        payload[currentPosition++] = (byte) (-i);
     }
 
     public void method425(int j) {
-        buffer[currentOffset++] = (byte) (128 - j);
+        payload[currentPosition++] = (byte) (128 - j);
     }
 
     public int method426() {
-        return buffer[currentOffset++] - 128 & 0xff;
+        return payload[currentPosition++] - 128 & 0xff;
     }
 
     public int method427() {
-        return -buffer[currentOffset++] & 0xff;
+        return -payload[currentPosition++] & 0xff;
     }
 
     public int method428() {
-        return 128 - buffer[currentOffset++] & 0xff;
+        return 128 - payload[currentPosition++] & 0xff;
     }
 
     public byte method429() {
-        return (byte) (-buffer[currentOffset++]);
+        return (byte) (-payload[currentPosition++]);
     }
 
     public byte method430() {
-        return (byte) (128 - buffer[currentOffset++]);
+        return (byte) (128 - payload[currentPosition++]);
     }
 
     public void method431(int i) {
-        buffer[currentOffset++] = (byte) i;
-        buffer[currentOffset++] = (byte) (i >> 8);
+        payload[currentPosition++] = (byte) i;
+        payload[currentPosition++] = (byte) (i >> 8);
     }
 
     public void method432(int j) {
-        buffer[currentOffset++] = (byte) (j >> 8);
-        buffer[currentOffset++] = (byte) (j + 128);
+        payload[currentPosition++] = (byte) (j >> 8);
+        payload[currentPosition++] = (byte) (j + 128);
     }
 
     public void method433(int j) {
-        buffer[currentOffset++] = (byte) (j + 128);
-        buffer[currentOffset++] = (byte) (j >> 8);
+        payload[currentPosition++] = (byte) (j + 128);
+        payload[currentPosition++] = (byte) (j >> 8);
     }
 
     public int method434() {
-        currentOffset += 2;
-        return ((buffer[currentOffset - 1] & 0xff) << 8)
-                + (buffer[currentOffset - 2] & 0xff);
+        currentPosition += 2;
+        return ((payload[currentPosition - 1] & 0xff) << 8)
+                + (payload[currentPosition - 2] & 0xff);
     }
 
     public int readUShortA() {
-        currentOffset += 2;
-        return ((buffer[currentOffset - 2] & 0xff) << 8)
-                + (buffer[currentOffset - 1] - 128 & 0xff);
+        currentPosition += 2;
+        return ((payload[currentPosition - 2] & 0xff) << 8)
+                + (payload[currentPosition - 1] - 128 & 0xff);
     }
 
     public int method436() {
-        currentOffset += 2;
-        return ((buffer[currentOffset - 1] & 0xff) << 8)
-                + (buffer[currentOffset - 2] - 128 & 0xff);
+        currentPosition += 2;
+        return ((payload[currentPosition - 1] & 0xff) << 8)
+                + (payload[currentPosition - 2] - 128 & 0xff);
     }
 
     public int method437() {
-        currentOffset += 2;
-        int j = ((buffer[currentOffset - 1] & 0xff) << 8)
-                + (buffer[currentOffset - 2] & 0xff);
+        currentPosition += 2;
+        int j = ((payload[currentPosition - 1] & 0xff) << 8)
+                + (payload[currentPosition - 2] & 0xff);
         if (j > 32767)
             j -= 0x10000;
         return j;
     }
 
     public int method438() {
-        currentOffset += 2;
-        int j = ((buffer[currentOffset - 1] & 0xff) << 8)
-                + (buffer[currentOffset - 2] - 128 & 0xff);
+        currentPosition += 2;
+        int j = ((payload[currentPosition - 1] & 0xff) << 8)
+                + (payload[currentPosition - 2] - 128 & 0xff);
         if (j > 32767)
             j -= 0x10000;
         return j;
     }
 
     public int method439() {
-        currentOffset += 4;
-        return ((buffer[currentOffset - 2] & 0xff) << 24)
-                + ((buffer[currentOffset - 1] & 0xff) << 16)
-                + ((buffer[currentOffset - 4] & 0xff) << 8)
-                + (buffer[currentOffset - 3] & 0xff);
+        currentPosition += 4;
+        return ((payload[currentPosition - 2] & 0xff) << 24)
+                + ((payload[currentPosition - 1] & 0xff) << 16)
+                + ((payload[currentPosition - 4] & 0xff) << 8)
+                + (payload[currentPosition - 3] & 0xff);
     }
 
     public int method440() {
-        currentOffset += 4;
-        return ((buffer[currentOffset - 3] & 0xff) << 24)
-                + ((buffer[currentOffset - 4] & 0xff) << 16)
-                + ((buffer[currentOffset - 1] & 0xff) << 8)
-                + (buffer[currentOffset - 2] & 0xff);
+        currentPosition += 4;
+        return ((payload[currentPosition - 3] & 0xff) << 24)
+                + ((payload[currentPosition - 4] & 0xff) << 16)
+                + ((payload[currentPosition - 1] & 0xff) << 8)
+                + (payload[currentPosition - 2] & 0xff);
     }
     public int readUnsignedIntSmartShortCompat() {
         int var1 = 0;
 
         int var2;
-        for (var2 = this.readUSmart(); var2 == 32767; var2 = this.readUSmart()) {
+        for (var2 = this.get_unsignedsmart_byteorshort(); var2 == 32767; var2 = this.get_unsignedsmart_byteorshort()) {
             var1 += 32767;
         }
 
@@ -511,46 +542,46 @@ public final class Buffer extends NodeSub {
         return var1;
     }
 
-    public int readUSmart() {
-        int peek = buffer[currentOffset] & 0xFF;
-        return peek < 128 ? this.readUnsignedByte() : this.readUShort() - 0x8000;
+    public int get_unsignedsmart_byteorshort() {
+        int peek = payload[currentPosition] & 0xFF;
+        return peek < 0x80 ? this.get_unsignedbyte() : this.readUShort() - 0x8000;
     }
-    public int readSmart() {
-        int value = buffer[currentOffset] & 0xFF;
+    public int get_smart_byteorshort() {
+        int value = payload[currentPosition] & 0xFF;
         if (value < 128) {
-            return readUnsignedByte() - 64;
+            return get_unsignedbyte() - 0x40;
         } else {
-            return readUShort() - 49152;
+            return readUShort() - 0xc000;
         }
     }
     public void setOffset(int var11) {
-        currentOffset = var11;
+        currentPosition = var11;
     }
     public void method441(int i, byte abyte0[], int j) {
         for (int k = (i + j) - 1; k >= i; k--)
-            buffer[currentOffset++] = (byte) (abyte0[k] + 128);
+            payload[currentPosition++] = (byte) (abyte0[k] + 128);
 
     }
 
     public void method442(int i, int j, byte abyte0[]) {
         for (int k = (j + i) - 1; k >= j; k--)
-            abyte0[k] = buffer[currentOffset++];
+            abyte0[k] = payload[currentPosition++];
 
     }
-    public int getUIncrementalSmart() {
+    public int  getUIncrementalSmart() {
         int value = 0, remainder;
-        for (remainder = readUSmart(); remainder == 32767; remainder = readUSmart()) {
+        for (remainder = get_unsignedsmart_byteorshort(); remainder == 32767; remainder = get_unsignedsmart_byteorshort()) {
             value += 32767;
         }
         value += remainder;
         return value;
     }
     public int getLength() {
-        return buffer.length;
+        return payload.length;
     }
 
-    public byte buffer[];
-    public int currentOffset;
+    public byte payload[];
+    public int currentPosition;
     public int bitPosition;
     public static final int[] anIntArray1409 = {0, 1, 3, 7, 15, 31, 63, 127,
             255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 0x1ffff,
@@ -559,26 +590,12 @@ public final class Buffer extends NodeSub {
             0x7fffffff, -1};
     public ISAACRandomGen encryption;
     public static int anInt1412;
-    public static final NodeList nodeList = new NodeList();
+    public static final Deque nodeList = new Deque();
     public byte readByte() {
-        return this.buffer[++this.currentOffset - 1];
+        return this.payload[++this.currentPosition - 1];
     }
     public int readInt() {
-        currentOffset += 4;
-        return ((buffer[currentOffset - 4] & 0xff) << 24) + ((buffer[currentOffset - 3] & 0xff) << 16) + ((buffer[currentOffset - 2] & 0xff) << 8) + (buffer[currentOffset - 1] & 0xff);
-    }
-
-    public int readNullableLargeSmart() {
-        if (this.buffer[this.currentOffset] < 0) {
-            return this.readInt() & Integer.MAX_VALUE;
-        } else {
-            int var1 = this.readUShort();
-            return var1 == 32767 ? -1 : var1;
-        }
-    }
-
-    public int readShortSmartSub() {
-        int var1 = this.buffer[this.currentOffset] & 255;
-        return var1 < 128 ? this.readUnsignedByte() - 1 : this.readUShort() - 0x8000;
+        currentPosition += 4;
+        return ((payload[currentPosition - 4] & 0xff) << 24) + ((payload[currentPosition - 3] & 0xff) << 16) + ((payload[currentPosition - 2] & 0xff) << 8) + (payload[currentPosition - 1] & 0xff);
     }
 }

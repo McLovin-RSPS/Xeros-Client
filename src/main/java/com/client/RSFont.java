@@ -1,10 +1,15 @@
 package com.client;
 
+import com.util.AssetUtils;
+import org.apache.commons.io.IOUtils;
+
 import java.awt.Color;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RSFont extends DrawingArea {
+public class RSFont extends Rasterizer2D {
 
 	public int baseCharacterHeight = 0;
 	public int anInt4142;
@@ -58,26 +63,26 @@ public class RSFont extends DrawingArea {
 	public static int transparency;
 	public static int textColor;
 
-	public RSFont(boolean TypeFont, String s, StreamLoader archive) {
+	public RSFont(boolean TypeFont, String s, FileArchive archive) {
 		fontPixels = new byte[256][];
 		characterWidths = new int[256];
 		characterHeights = new int[256];
 		characterDrawXOffsets = new int[256];
 		characterDrawYOffsets = new int[256];
 		characterScreenWidths = new int[256];
-		Buffer stream = new Buffer(archive.getArchiveData(s + ".dat"));
-		Buffer stream_1 = new Buffer(archive.getArchiveData("index.dat"));
-		stream_1.currentOffset = stream.readUShort() + 4;
-		int k = stream_1.readUnsignedByte();
+		Buffer stream = new Buffer(archive.readFile(s + ".dat"));
+		Buffer stream_1 = new Buffer(archive.readFile("index.dat"));
+		stream_1.currentPosition = stream.readUShort() + 4;
+		int k = stream_1.get_unsignedbyte();
 		if (k > 0) {
-			stream_1.currentOffset += 3 * (k - 1);
+			stream_1.currentPosition += 3 * (k - 1);
 		}
 		for (int l = 0; l < 256; l++) {
-			characterDrawXOffsets[l] = stream_1.readUnsignedByte();
-			characterDrawYOffsets[l] = stream_1.readUnsignedByte();
+			characterDrawXOffsets[l] = stream_1.get_unsignedbyte();
+			characterDrawYOffsets[l] = stream_1.get_unsignedbyte();
 			int i1 = characterWidths[l] = stream_1.readUShort();
 			int j1 = characterHeights[l] = stream_1.readUShort();
-			int k1 = stream_1.readUnsignedByte();
+			int k1 = stream_1.get_unsignedbyte();
 			int l1 = i1 * j1;
 			fontPixels[l] = new byte[l1];
 			if (k1 == 0) {
@@ -109,6 +114,87 @@ public class RSFont extends DrawingArea {
 				characterDrawXOffsets[l] = 0;
 			}
 			k2 = 0;
+			for (int j3 = j1 / 7; j3 < j1; j3++) {
+				k2 += fontPixels[l][(i1 - 1) + j3 * i1];
+			}
+
+			if (k2 <= j1 / 7) {
+				characterScreenWidths[l]--;
+			}
+		}
+
+		if (TypeFont) {
+			characterScreenWidths[32] = characterScreenWidths[73];
+		} else {
+			characterScreenWidths[32] = characterScreenWidths[105];
+		}
+	}
+
+
+	public RSFont(boolean TypeFont, String s) {
+		fontPixels = new byte[256][];
+		characterWidths = new int[256];
+		characterHeights = new int[256];
+		characterDrawXOffsets = new int[256];
+		characterDrawYOffsets = new int[256];
+		characterScreenWidths = new int[256];
+		Buffer datBuf = null;
+		Buffer idxBuf = null;
+		try {
+			InputStream in = AssetUtils.INSTANCE.getResource(s + ".dat").openStream();
+			InputStream in1 = AssetUtils.INSTANCE.getResource("index.dat").openStream();
+			datBuf = new Buffer(IOUtils.toByteArray(in));
+			idxBuf = new Buffer(IOUtils.toByteArray(in1));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		idxBuf.currentPosition = datBuf.readUShort() + 4;
+		int k = idxBuf.get_unsignedbyte();
+
+		if (k > 0) {
+			idxBuf.currentPosition += 3 * (k - 1);
+		}
+
+		for (int l = 0; l < 256; l++) {
+			characterDrawXOffsets[l] = idxBuf.get_unsignedbyte();
+			characterDrawYOffsets[l] = idxBuf.get_unsignedbyte();
+			int i1 = characterWidths[l] = idxBuf.readUShort();
+			int j1 = characterHeights[l] = idxBuf.readUShort();
+			int k1 = idxBuf.get_unsignedbyte();
+			int l1 = i1 * j1;
+			fontPixels[l] = new byte[l1];
+
+			if (k1 == 0) {
+				for (int i2 = 0; i2 < l1; i2++) {
+					fontPixels[l][i2] = datBuf.readSignedByte();
+				}
+			} else if (k1 == 1) {
+				for (int j2 = 0; j2 < i1; j2++) {
+					for (int l2 = 0; l2 < j1; l2++) {
+						fontPixels[l][j2 + l2 * i1] = datBuf.readSignedByte();
+					}
+				}
+			}
+
+			if (j1 > baseCharacterHeight && l < 128) {
+				baseCharacterHeight = j1;
+			}
+
+			characterDrawXOffsets[l] = 1;
+			characterScreenWidths[l] = i1 + 2;
+			int k2 = 0;
+
+			for (int i3 = j1 / 7; i3 < j1; i3++) {
+				k2 += fontPixels[l][i3 * i1];
+			}
+
+			if (k2 <= j1 / 7) {
+				characterScreenWidths[l]--;
+				characterDrawXOffsets[l] = 0;
+			}
+
+			k2 = 0;
+
 			for (int j3 = j1 / 7; j3 < j1; j3++) {
 				k2 += fontPixels[l][(i1 - 1) + j3 * i1];
 			}
@@ -359,7 +445,7 @@ public class RSFont extends DrawingArea {
 										int imageId = Integer.parseInt(sub);
 										if (imageId > -1) {
 											Sprite icon = clanImages[imageId];
-											int iconModY = icon.myHeight + icon.anInt1443 + 1;
+											int iconModY = icon.myHeight + icon.drawOffsetY + 1;
 											if (transparency == 256) {
 												icon.drawSprite(drawX, (drawY + baseCharacterHeight - iconModY));
 											} else {
@@ -564,11 +650,11 @@ public class RSFont extends DrawingArea {
 					}
 					int i_109_ = characterScreenWidths[character];
 					if (strikethroughColor != -1) {
-						RSDrawingArea.drawHorizontalLine(drawX, drawY + (int) (baseCharacterHeight * 0.7), i_109_,
+						Rasterizer2D.drawHorizontalLine(drawX, drawY + (int) (baseCharacterHeight * 0.7), i_109_,
 								strikethroughColor);
 					}
 					if (underlineColor != -1) {
-						RSDrawingArea.drawHorizontalLine(drawX, drawY + baseCharacterHeight, i_109_, underlineColor);
+						Rasterizer2D.drawHorizontalLine(drawX, drawY + baseCharacterHeight, i_109_, underlineColor);
 					}
 					drawX += i_109_;
 				}
@@ -846,8 +932,8 @@ public class RSFont extends DrawingArea {
 			for (int i_9_ = -i_3_; i_9_ < 0; i_9_++) {
 				if (is_0_[i_1_++] != 0) {
 					int i_10_ = is[i_2_];
-					is[i_2_++] = ((((i_10_ & 0xff00ff) * i_7_ & ~0xff00ff) + ((i_10_ & 0xff00) * i_7_ & 0xff0000)) >> 8)
-							+ i;
+					drawAlpha(is, i_2_++, (((i_10_ & 0xff00ff) * i_7_ & 0xff00ff00) + ((i_10_ & 0xff00) * i_7_ & 0xff0000) >> 8)
+							+ i, 255);
 				} else {
 					i_2_++;
 				}
@@ -859,112 +945,107 @@ public class RSFont extends DrawingArea {
 
 	public void drawTransparentCharacter(int i, int i_11_, int i_12_, int i_13_, int i_14_, int i_15_, int i_16_,
 			boolean bool) {
-		int i_17_ = i_11_ + i_12_ * DrawingArea.width;
-		int i_18_ = DrawingArea.width - i_13_;
+		int i_17_ = i_11_ + i_12_ * Rasterizer2D.width;
+		int i_18_ = Rasterizer2D.width - i_13_;
 		int i_19_ = 0;
 		int i_20_ = 0;
-		if (i_12_ < DrawingArea.topY) {
-			int i_21_ = DrawingArea.topY - i_12_;
+		if (i_12_ < Rasterizer2D.topY) {
+			int i_21_ = Rasterizer2D.topY - i_12_;
 			i_14_ -= i_21_;
-			i_12_ = DrawingArea.topY;
+			i_12_ = Rasterizer2D.topY;
 			i_20_ += i_21_ * i_13_;
-			i_17_ += i_21_ * DrawingArea.width;
+			i_17_ += i_21_ * Rasterizer2D.width;
 		}
-		if (i_12_ + i_14_ > DrawingArea.bottomY) {
-			i_14_ -= i_12_ + i_14_ - DrawingArea.bottomY;
+		if (i_12_ + i_14_ > Rasterizer2D.bottomY) {
+			i_14_ -= i_12_ + i_14_ - Rasterizer2D.bottomY;
 		}
-		if (i_11_ < DrawingArea.topX) {
-			int i_22_ = DrawingArea.topX - i_11_;
+		if (i_11_ < Rasterizer2D.leftX) {
+			int i_22_ = Rasterizer2D.leftX - i_11_;
 			i_13_ -= i_22_;
-			i_11_ = DrawingArea.topX;
+			i_11_ = Rasterizer2D.leftX;
 			i_20_ += i_22_;
 			i_17_ += i_22_;
 			i_19_ += i_22_;
 			i_18_ += i_22_;
 		}
-		if (i_11_ + i_13_ > DrawingArea.bottomX) {
-			int i_23_ = i_11_ + i_13_ - DrawingArea.bottomX;
+		if (i_11_ + i_13_ > Rasterizer2D.bottomX) {
+			int i_23_ = i_11_ + i_13_ - Rasterizer2D.bottomX;
 			i_13_ -= i_23_;
 			i_19_ += i_23_;
 			i_18_ += i_23_;
 		}
 		if (i_13_ > 0 && i_14_ > 0) {
-			createTransparentCharacterPixels(DrawingArea.pixels, fontPixels[i], i_15_, i_20_, i_17_, i_13_, i_14_,
+			createTransparentCharacterPixels(Rasterizer2D.pixels, fontPixels[i], i_15_, i_20_, i_17_, i_13_, i_14_,
 					i_18_, i_19_, i_16_);
 		}
 	}
 
-	public static void createCharacterPixels(int[] is, byte[] is_24_, int i, int i_25_, int i_26_, int i_27_, int i_28_,
-			int i_29_, int i_30_) {
-		int i_31_ = -(i_27_ >> 2);
-		i_27_ = -(i_27_ & 0x3);
-		for (int i_32_ = -i_28_; i_32_ < 0; i_32_++) {
-			for (int i_33_ = i_31_; i_33_ < 0; i_33_++) {
-				if (is_24_[i_25_++] != 0) {
-					is[i_26_++] = i;
-				} else {
-					i_26_++;
-				}
-				if (is_24_[i_25_++] != 0) {
-					is[i_26_++] = i;
-				} else {
-					i_26_++;
-				}
-				if (is_24_[i_25_++] != 0) {
-					is[i_26_++] = i;
-				} else {
-					i_26_++;
-				}
-				if (is_24_[i_25_++] != 0) {
-					is[i_26_++] = i;
-				} else {
-					i_26_++;
-				}
+	private void createCharacterPixels(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, int j1, int k1) {
+		int l1 = -(l >> 2);
+		l = -(l & 3);
+		for(int i2 = -i1; i2 < 0; i2++) {
+			for(int j2 = l1; j2 < 0; j2++) {
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
+				else
+					k++;
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
+				else
+					k++;
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
+				else
+					k++;
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
+				else
+					k++;
 			}
-			for (int i_34_ = i_27_; i_34_ < 0; i_34_++) {
-				if (is_24_[i_25_++] != 0) {
-					is[i_26_++] = i;
-				} else {
-					i_26_++;
-				}
-			}
-			i_26_ += i_29_;
-			i_25_ += i_30_;
+			for(int k2 = l; k2 < 0; k2++)
+				if(abyte0[j++] != 0)
+					drawAlpha(ai, k++, i, 255);
+				else
+					k++;
+
+			k += j1;
+			j += k1;
 		}
 	}
 
+
 	public void drawCharacter(int character, int i_35_, int i_36_, int i_37_, int i_38_, int i_39_, boolean bool) {
-		int i_40_ = i_35_ + i_36_ * DrawingArea.width;
-		int i_41_ = DrawingArea.width - i_37_;
+		int i_40_ = i_35_ + i_36_ * Rasterizer2D.width;
+		int i_41_ = Rasterizer2D.width - i_37_;
 		int i_42_ = 0;
 		int i_43_ = 0;
-		if (i_36_ < DrawingArea.topY) {
-			int i_44_ = DrawingArea.topY - i_36_;
+		if (i_36_ < Rasterizer2D.topY) {
+			int i_44_ = Rasterizer2D.topY - i_36_;
 			i_38_ -= i_44_;
-			i_36_ = DrawingArea.topY;
+			i_36_ = Rasterizer2D.topY;
 			i_43_ += i_44_ * i_37_;
-			i_40_ += i_44_ * DrawingArea.width;
+			i_40_ += i_44_ * Rasterizer2D.width;
 		}
-		if (i_36_ + i_38_ > DrawingArea.bottomY) {
-			i_38_ -= i_36_ + i_38_ - DrawingArea.bottomY;
+		if (i_36_ + i_38_ > Rasterizer2D.bottomY) {
+			i_38_ -= i_36_ + i_38_ - Rasterizer2D.bottomY;
 		}
-		if (i_35_ < DrawingArea.topX) {
-			int i_45_ = DrawingArea.topX - i_35_;
+		if (i_35_ < Rasterizer2D.leftX) {
+			int i_45_ = Rasterizer2D.leftX - i_35_;
 			i_37_ -= i_45_;
-			i_35_ = DrawingArea.topX;
+			i_35_ = Rasterizer2D.leftX;
 			i_43_ += i_45_;
 			i_40_ += i_45_;
 			i_42_ += i_45_;
 			i_41_ += i_45_;
 		}
-		if (i_35_ + i_37_ > DrawingArea.bottomX) {
-			int i_46_ = i_35_ + i_37_ - DrawingArea.bottomX;
+		if (i_35_ + i_37_ > Rasterizer2D.bottomX) {
+			int i_46_ = i_35_ + i_37_ - Rasterizer2D.bottomX;
 			i_37_ -= i_46_;
 			i_42_ += i_46_;
 			i_41_ += i_46_;
 		}
 		if (i_37_ > 0 && i_38_ > 0) {
-			createCharacterPixels(DrawingArea.pixels, fontPixels[character], i_39_, i_43_, i_40_, i_37_, i_38_, i_41_,
+			createCharacterPixels(Rasterizer2D.pixels, fontPixels[character], i_39_, i_43_, i_40_, i_37_, i_38_, i_41_,
 					i_42_);
 
 		}

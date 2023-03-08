@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.stream.IntStream;
 //import java.io.FileNotFoundException;
 //import java.io.IOException;
@@ -14,27 +15,27 @@ import java.util.stream.IntStream;
 //
 //import org.apache.commons.io.FileUtils;
 
-import com.client.Class36;
-import com.client.Client;
-import com.client.Configuration;
-import com.client.MRUNodes;
-import com.client.Model;
-import com.client.Buffer;
-import com.client.StreamLoader;
+import com.client.*;
 import com.client.model.Npcs;
 import com.client.utilities.FieldGenerator;
+import com.client.utilities.FileOperations;
 import com.client.utilities.TempWriter;
+import net.runelite.api.HeadIcon;
+import net.runelite.api.IterableHashTable;
+import net.runelite.rs.api.RSIterableNodeHashTable;
+import net.runelite.rs.api.RSNPCComposition;
 
-public final class NpcDefinition {
 
-	public static NpcDefinition forID(int i) {
+public final class NpcDefinition implements RSNPCComposition {
+
+	public static NpcDefinition lookup(int i) {
 		for (int j = 0; j < 20; j++)
 			if (cache[j].npcId == i)
 				return cache[j];
 
 		anInt56 = (anInt56 + 1) % 20;
 		NpcDefinition entityDef = cache[anInt56] = new NpcDefinition();
-		stream.currentOffset = streamIndices[i];
+		stream.currentPosition = streamIndices[i];
 		entityDef.npcId = i;
 		entityDef.readValues(stream);
 		if (i == Npcs.BOB_BARTER_HERBS) {
@@ -62,6 +63,17 @@ public final class NpcDefinition {
 		}
 		if (i == 7599) {
 			entityDef.name = "Skotos Guide";
+		}
+		if (i == 1) {
+			entityDef.name = "Nex";
+			entityDef.models[0] = 75278;
+			entityDef.actions = new String[]{null, "Attack", null, null, null};
+			entityDef.combatLevel = 1001;
+			entityDef.visible = true;
+			entityDef.npcWidth = 10;
+			entityDef.npcHeight = 50;
+			entityDef.readyanim = -1;
+			entityDef.walkanim = -1;
 		}
 		if (i == 4305) {
 			entityDef.name = "Drunken cannoneer";
@@ -93,6 +105,7 @@ public final class NpcDefinition {
 			entityDef.combatLevel = 0;
 			entityDef.name = "Ironman shop keeper";
 			entityDef.description = "A shop specifically for iron men.";
+
 		}
 		if (i == 8906) {
 			entityDef.combatLevel = 0;
@@ -104,7 +117,7 @@ public final class NpcDefinition {
 			entityDef.combatLevel = 0;
 			entityDef.name = "Crystal Seed Trader";
 			entityDef.description = "Use a seed on me to get a Crystal Bow.";
-					
+
 		}
 		if (i == 6970) {
 			entityDef.combatLevel = 0;
@@ -133,25 +146,11 @@ public final class NpcDefinition {
 			entityDef.actions = new String[] { "Talk-to", null, "Assignment", "Trade", "Rewards" };
 
 		}
-		if (i == 3400) {
-			entityDef.combatLevel = 0;
-			entityDef.name = "Giveaway Manager";
-			entityDef.actions = new String[] { "Open-manager", null, null, null, null };
-
-		}
 		if (i == 1013) {
 			entityDef.combatLevel = 0;
 			entityDef.name = "Gambler Shop";
 			entityDef.description = "A shop specifically for gamblers.";
-		}
-		if (i == 308) {
-			entityDef.combatLevel = 0;
-			entityDef.name = "PKP Manager";
-		}
-		if (i == 13) {
-			entityDef.combatLevel = 0;
-			entityDef.name = "Referral Tutor";
-			entityDef.description = "He manages referrals.";
+
 		}
 		if (i == 5293) {
 			entityDef.combatLevel = 0;
@@ -189,16 +188,11 @@ public final class NpcDefinition {
 			entityDef.actions = new String[] { "Small Net", null, "Harpoon", null, null };
 		}
 		if(i==8920){
-			
+
 			entityDef.actions = new String[] { null, "Attack", null, null, null };
 		}
 		if(i==8921){
 			entityDef.name = "Crystal Whirlwind";
-		}
-		if(i==9120){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Donator Shop";
-			entityDef.actions = new String[] { "Trade", null, "Rewards", null, null };
 		}
 		if(i == 2662){
 			entityDef.combatLevel = 0;
@@ -209,40 +203,21 @@ public final class NpcDefinition {
 			entityDef.combatLevel = 0;
 			entityDef.name = "Captain Kraken";
 			entityDef.actions = new String[] { "Talk-to", null, null, null, null };
-		}
-		if(i==7041){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Ticket Exchange";
-			entityDef.actions = new String[] { "Exchange", null, null, null, null };
+
 		}
 		if(i==3894){
 			entityDef.combatLevel = 0;
 			entityDef.name = "Sigmund The Merchant";
 			entityDef.actions = new String[] { "Trade", null, null, null, null };
 		}
-		
+
 		if (i==7413) {
-		    entityDef.name = "Max Dummy";
-		    entityDef.actions[0] = null;
-		}
-		if(i==9011){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Vote Shop";
-			entityDef.actions = new String[] { "Trade", null, null, null, null };
+			entityDef.name = "Max Dummy";
+			entityDef.actions[0] = null;
 		}
 		if(i==1933){
 			entityDef.combatLevel = 0;
 			entityDef.name = "Mills";
-			entityDef.actions = new String[] { "Trade", null, null, null, null };
-		}
-		if(i==8819){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Boss point shop";
-			entityDef.actions = new String[] { null, null, "Trade", null, null };
-		}
-		if(i==8688){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Fat Tony";
 			entityDef.actions = new String[] { "Trade", null, null, null, null };
 		}
 		if(i==7769){
@@ -274,11 +249,7 @@ public final class NpcDefinition {
 			entityDef.combatLevel = 0;
 			entityDef.name = "Crafting and Tanner";
 			entityDef.actions = new String[] { "Tan", null, "Trade", null, null };
-		}
-		if(i==555){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Sell Me Store";
-			entityDef.actions = new String[] { "Trade", null, null, null, null };
+
 		}
 		if(i==9168){
 			entityDef.combatLevel = 0;
@@ -307,48 +278,70 @@ public final class NpcDefinition {
 		if (i == 8781) {
 			entityDef.name = "@red@Queen Latsyrc";
 			entityDef.combatLevel = 982;
-			entityDef.onMinimap = true;
+			entityDef.drawmapdot = true;
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { null, "Attack", null, null, null };
 		}
-		if(i==1577){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Melee Shop";
-			entityDef.combatLevel = 0;
-			entityDef.actions = new String[] { "Trade", null, null, null, null };
+		if (i == 10520) {
+			entityDef.name = "@red@AvatarOfCreation";
+			entityDef.combatLevel = 1000;
+			entityDef.drawmapdot = true;
+			entityDef.readyanim = 8842;
+			entityDef.walkanim = 8843;
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { null, "Attack", null, null, null };
 		}
-		if(i==1576){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Range Shop";
-			entityDef.combatLevel = 0;
-			entityDef.actions = new String[] { "Trade", null, null, null, null };
-		}
-		if(i==1578){
-			entityDef.combatLevel = 0;
-			entityDef.name = "Mage Shop";
-			entityDef.combatLevel = 0;
-			entityDef.actions = new String[] { "Trade", null, null, null, null };
+		if (i == 11704) {
+			entityDef.name = "@red@Crondis";
+			entityDef.combatLevel = 1000;
+			entityDef.drawmapdot = true;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 8843;
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { null, "Attack", null, null, null };
 		}
 		if (i == 8026) {
 			entityDef.name = "Vorkath";
 			// entityDef.combatLevel = 732;
 			entityDef.models = new int[] { 35023 };
-			entityDef.standAnim = 7946;
-			entityDef.onMinimap = true;
+			entityDef.readyanim = 7946;
+			entityDef.drawmapdot = true;
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Poke", null, null, null, null };
-			entityDef.anInt86 = 100;
-			entityDef.anInt91 = 100;
+			entityDef.npcWidth = 100;
+			entityDef.npcHeight = 100;//46191
+		}
+		if (i == 11654) {
+			entityDef.name = "Apmeken";
+			// entityDef.combatLevel = 732;
+			entityDef.models = new int[] { 46191 };
+			entityDef.readyanim = 808;
+			entityDef.drawmapdot = true;
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { null, "Attack", null, null, null };
+			entityDef.npcWidth = 100;
+			entityDef.npcHeight = 100;//46191
+		}
+		if (i == 11655) {
+			entityDef.name = "Pyramids Of Doom";
+			entityDef.models = new int[] { 46210 };
+			entityDef.readyanim = 9524;
+			entityDef.walkanim = 9524;
+			entityDef.drawmapdot = true;
+			entityDef.originalColors = new int[]{8136, 8128};
+			entityDef.newColors = new int[]{960, 960};
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { null, "Attack", null, null, null };
 		}
 		if (i == 7852 || i == 7853 || i == 7884) {//Dawn
-			entityDef.standAnim = 7775;
-			entityDef.walkAnim = 7775;
+			entityDef.readyanim = 7775;
+			entityDef.walkanim = 7775;
 		}
 		if (i == 5518) {
-			entityDef.standAnim = 185;
+			entityDef.readyanim = 185;
 		}
 		if (i == 8019) {
-			entityDef.standAnim = 185;
+			entityDef.readyanim = 185;
 			entityDef.actions = new String[5];
 			entityDef.actions[0] = "Talk-to";
 			entityDef.actions[2] = "Trade";
@@ -361,13 +354,13 @@ public final class NpcDefinition {
 			entityDef.actions[4] = "Skull";
 		}
 		if (i == 6088) {
-			entityDef.standAnim = 185;
+			entityDef.readyanim = 185;
 			entityDef.actions = new String[5];
 			entityDef.actions[0] = "Talk-to";
 			entityDef.actions[2] = "Travel";
 		}
 		if (i == 1434 || i == 876 || i == 1612) {//gnome fix
-			entityDef.standAnim = 185;
+			entityDef.readyanim = 185;
 		}
 		if (i == 7674 || i == 8009 || i == 388 || i == 8010) {
 
@@ -387,8 +380,8 @@ public final class NpcDefinition {
 		}
 		if (i == 326 || i == 327) {
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 85;
-			entityDef.anInt91 = 85;
+			entityDef.npcWidth = 85;
+			entityDef.npcHeight = 85;
 			entityDef.name = "Vote Pet";
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", "Metamorphosis", null };
@@ -409,54 +402,55 @@ public final class NpcDefinition {
 		}
 		if (i == 6473) { //terror dog
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 50; //WIDTH
-			entityDef.anInt91 = 50; // HEIGH
+			entityDef.npcWidth = 50; //WIDTH
+			entityDef.npcHeight = 50; // HEIGH
 		}
 		if (i == 3510) { //outlast shop
 			entityDef.name = "Trader";
 			entityDef.combatLevel = 0;
-			entityDef.onMinimap = true;
-			entityDef.anInt86 = 150; //WIDTH
-			entityDef.anInt91 = 150; // HEIGH
+			entityDef.drawmapdot = true;
+			entityDef.npcWidth = 150; //WIDTH
+			entityDef.npcHeight = 150; // HEIGH
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Open-Shop", null, null, null, null };
 		}
 		if (i == 488) { //rain cloud
 			entityDef.combatLevel = 0;
 			entityDef.size = 1;
-			entityDef.onMinimap = true;
-			entityDef.anInt86 = 150; //WIDTH
-			entityDef.anInt91 = 150; // HEIGH
+			entityDef.drawmapdot = true;
+			entityDef.npcWidth = 150; //WIDTH
+			entityDef.npcHeight = 150; // HEIGH
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
 		}
 		if (i == 7668) { //voice of yama
+			System.out.println((7668 >> 16));
 			entityDef.name = "Kratos";
 			entityDef.size = 2;
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 90; //WIDTH
-			entityDef.anInt91 = 90; // HEIGH
+			entityDef.npcWidth = 90; //WIDTH
+			entityDef.npcHeight = 90; // HEIGH
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
 
 		}
 		if (i == 1377) {
 			entityDef.size = 3;
-			entityDef.anInt86 = 300; //WIDTH
-			entityDef.anInt91 = 300; // HEIGH
+			entityDef.npcWidth = 300; //WIDTH
+			entityDef.npcHeight = 300; // HEIGH
 			entityDef.actions[0] = null;
 
 
 		}
 		if (i == 2105) {
 			entityDef.size = 4;
-			entityDef.anInt86 = 600; //WIDTH
-			entityDef.anInt91 = 600; // HEIGH
+			entityDef.npcWidth = 600; //WIDTH
+			entityDef.npcHeight = 600; // HEIGH
 		}
 		if (i == 2107) {
 			entityDef.size = 4;
-			entityDef.anInt86 = 600; //WIDTH
-			entityDef.anInt91 = 600; // HEIGH
+			entityDef.npcWidth = 600; //WIDTH
+			entityDef.npcHeight = 600; // HEIGH
 		}
 		if (i == 2850) {
 			entityDef.name = "GIM Tracker";
@@ -466,15 +460,15 @@ public final class NpcDefinition {
 		if (i == 6119) { //weird monster
 			entityDef.size = 1;
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 30; //WIDTH
-			entityDef.anInt91 = 30; // HEIGH
+			entityDef.npcWidth = 30; //WIDTH
+			entityDef.npcHeight = 30; // HEIGH
 		}
 		if (i == 763) { //roc
 
 			entityDef.size = 1;
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 30; //WIDTH
-			entityDef.anInt91 = 30; // HEIGH
+			entityDef.npcWidth = 30; //WIDTH
+			entityDef.npcHeight = 30; // HEIGH
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", "Metamorphosis", null };
 
@@ -489,30 +483,30 @@ public final class NpcDefinition {
 		if (i == 4987 || i == 6292 || i == 6354 ) { //chronzon
 			entityDef.size = 1;
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 45; //WIDTH
-			entityDef.anInt91 = 45; // HEIGH
+			entityDef.npcWidth = 45; //WIDTH
+			entityDef.npcHeight = 45; // HEIGH
 		}
 		if (i == 8709) {
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
 			entityDef.name = "Corrupt Beast";
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 60; //WIDTH
-			entityDef.anInt91 = 60; // HEIGH
+			entityDef.npcWidth = 60; //WIDTH
+			entityDef.npcHeight = 60; // HEIGH
 			entityDef.size = 1;
 		}
 		if (i == 7025) { //guard dog
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.anInt86 = 85; //WIDTH
-			entityDef.anInt91 = 85; // HEIGH
+			entityDef.npcWidth = 85; //WIDTH
+			entityDef.npcHeight = 85; // HEIGH
 		}
 
 		if (i == 6716) {//prayer
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.anInt86 = 65; //WIDTH
-			entityDef.anInt91 = 65; // HEIGH
+			entityDef.npcWidth = 65; //WIDTH
+			entityDef.npcHeight = 65; // HEIGH
 			entityDef.combatLevel = 0;
 
 
@@ -520,8 +514,8 @@ public final class NpcDefinition {
 		if (i == 6723) {//healer
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.anInt86 = 65; //WIDTH
-			entityDef.anInt91 = 65; // HEIGH
+			entityDef.npcWidth = 65; //WIDTH
+			entityDef.npcHeight = 65; // HEIGH
 			entityDef.combatLevel = 0;
 
 		}
@@ -530,43 +524,447 @@ public final class NpcDefinition {
 			entityDef.models = new int[] { 38605 };
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.anInt86 = 65; //WIDTH
-			entityDef.anInt91 = 65; // HEIGH
+			entityDef.npcWidth = 65; //WIDTH
+			entityDef.npcHeight = 65; // HEIGH
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8372;
-			entityDef.walkAnim = 8372;
+			entityDef.readyanim = 8372;
+			entityDef.walkanim = 8372;
 			entityDef.models = new int[] { 38605 };
 
 		}
 		if (i == 1089) {
 			entityDef.name = "Lil mimic";
-			entityDef.models = new int[] { 37142 };
+			entityDef.models = new int[] { 37142 }; //37142
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.anInt86 = 25; //WIDTH
-			entityDef.anInt91 = 25; // HEIGH
+			entityDef.npcWidth = 25; //WIDTH
+			entityDef.npcHeight = 25; // HEIGH
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8307;
-			entityDef.walkAnim = 8306;
+			entityDef.readyanim = 8307;
+			entityDef.walkanim = 8306;
 			entityDef.models = new int[] { 37142 };
+		}
+		if (i == 4753) {
+			entityDef.name = "Supplies";
+			entityDef.models = new int[] { 60639 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 33; //WIDTH
+			entityDef.npcHeight = 35; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 4488;
+			entityDef.walkanim = 4488;
+			entityDef.models = new int[] { 60639 };
+		}
+		if (i == 8688) {
+			entityDef.name = "Supplies";
+			entityDef.models = new int[] { 60377 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 33; //WIDTH
+			entityDef.npcHeight = 35; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 9300;
+			entityDef.walkanim = 9300;
+			entityDef.models = new int[] { 60377 };
+		}
+		if (i == 1577) {
+			entityDef.name = "Melee Shop";
+			entityDef.models = new int[] { 61059 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 175; //WIDTH
+			entityDef.npcHeight = 175; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 450;
+			entityDef.walkanim = 450;
+			entityDef.models = new int[] { 61059 };
+		}
+		if (i == 1576) {
+			entityDef.name = "Ranging Store";
+			entityDef.models = new int[] { 59861 }; //59861
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 33; //WIDTH
+			entityDef.npcHeight = 35; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 59861 };
+		}
+		if (i == 8819) {
+			entityDef.name = "Boss Point Store";
+			entityDef.models = new int[] { 62733 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 33; //WIDTH
+			entityDef.npcHeight = 35; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 62733 };
+		}
+		if (i == 6075) {
+			entityDef.name = "tort";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 50; //WIDTH
+			entityDef.npcHeight = 50; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 3952;
+			entityDef.walkanim = 3953;
+		}
+		if (i == 6076) {
+			entityDef.name = "war tort";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 75; //WIDTH
+			entityDef.npcHeight = 75; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 3952;
+			entityDef.walkanim = 3953;
+		}
+		if (i == 3604) {
+			entityDef.name = "jubster";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 100; //WIDTH
+			entityDef.npcHeight = 100; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 6803;
+			entityDef.walkanim = 6804;
+		}
+		if (i == 8539) {
+			entityDef.name = "arc_test";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 125; //WIDTH
+			entityDef.npcHeight = 125; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 8202;
+			entityDef.walkanim = 8202;
+		}
+		if (i == 5802) {
+			entityDef.name = "Autumn Elemental";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 90; //WIDTH
+			entityDef.npcHeight = 90; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 5801;
+			entityDef.walkanim = 5802;
+		}
+		if (i == 8556) {
+			entityDef.name = "corkat";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 100; //WIDTH
+			entityDef.npcHeight = 100; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 8212;
+			entityDef.walkanim = 8213;
+		}
+		if (i == 282) {
+			entityDef.name = "Cormorant";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 125; //WIDTH
+			entityDef.npcHeight = 75; // HEIGHT
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 6772;;
+			entityDef.walkanim = 6774;
+		}
+		if (i == 9409) {
+			entityDef.name = "daer krand";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 125; //WIDTH
+			entityDef.npcHeight = 125; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 819;
+		}
+		if (i == 5079) {
+			entityDef.name = "delrith";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 50; //WIDTH
+			entityDef.npcHeight = 50; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 66;
+			entityDef.walkanim = 63;
+		}
+		if (i == 5341) {
+			entityDef.name = "Spirit of Zadimus";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 125; //WIDTH
+			entityDef.npcHeight = 125; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 5530;
+			entityDef.walkanim = 5531;
+		}
+		if (i == 8438) {
+			entityDef.name = "don't know what";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 125; //WIDTH
+			entityDef.npcHeight = 125; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 8156;
+			entityDef.walkanim = 8153;
+		}
+		if (i == 778) {
+			entityDef.name = "Ethereal Lady";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 125; //WIDTH
+			entityDef.npcHeight = 125; // HEIGHT
+			entityDef.originalColors = new int[]{ -31860, 410, -32236, -29529, 6573, -32500 };
+			entityDef.newColors = new int[] { -16190, 29902, -15292, 231, -11165, -30132 };
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 813;
+			entityDef.walkanim = 1205;
+		}
+		if (i == 4325) {
+			entityDef.name = "Light Creature";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 125; //WIDTH
+			entityDef.npcHeight = 125; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 2051;
+			entityDef.walkanim = 2051;
+		}
+		if (i == 7118) {
+			entityDef.name = "manaical monkey";
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 200; //WIDTH
+			entityDef.npcHeight = 200; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 1386;
+			entityDef.walkanim = 1382;
+		}
+		if (i == 11412) {
+			entityDef.name = "Xarpus";
+			entityDef.models = new int[] { 62389 }; //35383
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 75; //WIDTH
+			entityDef.npcHeight = 75; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 8058;
+			entityDef.walkanim = 8058;
+			entityDef.models = new int[] { 62389 };
+		}
+		if (i == 11413) {
+			entityDef.name = "Maiden";
+			entityDef.models = new int[] { 35385 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 70; //WIDTH
+			entityDef.npcHeight = 70; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 8090;
+			entityDef.walkanim = 8090;
+			entityDef.models = new int[] { 35385 };
+		}
+		if (i == 11414) {
+			entityDef.name = "Sotetseg";
+			entityDef.models = new int[] { 35403 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Pick-Up", "Talk-To", null, null, null };
+			entityDef.npcWidth = 57; //WIDTH
+			entityDef.npcHeight = 57; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 8137;
+			entityDef.walkanim = 8136;
+			entityDef.models = new int[] { 35403 };
+		}
+		if (i == 9120) {
+			entityDef.name = "Donation Store";
+			entityDef.models = new int[] { 62733 }; //63999
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 25; //WIDTH
+			entityDef.npcHeight = 25; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 62733 }; //63999
+		}
+		if (i == 7041) {
+			entityDef.name = "Ticket Exchange";
+			entityDef.models = new int[] { 62905 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 50; //WIDTH
+			entityDef.npcHeight = 50; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 62905 };
+		}
+		if (i == 9011) {
+			entityDef.name = "Vote";
+			entityDef.models = new int[] { 62901 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 50; //WIDTH
+			entityDef.npcHeight = 50; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 62901 };
+		}
+		if (i == 7456) {
+			entityDef.name = "Perdu";
+			entityDef.models = new int[] { 62900 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 60; //WIDTH
+			entityDef.npcHeight = 60; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 62900 };
+		}
+		if (i == 13) {
+			entityDef.name = "Referal Tutor";
+			entityDef.models = new int[] { 51285 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 33; //WIDTH
+			entityDef.npcHeight = 35; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 51285 };
 
+		}
+		if (i == 308) {
+			entityDef.name = "PKP Manager";
+			entityDef.models = new int[] { 55404 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 35; //WIDTH
+			entityDef.npcHeight = 35; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 55404 };
+		}
+		if (i == 555) {
+			entityDef.name = "Sell Me Store";
+			entityDef.models = new int[] { 52948 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 35; //WIDTH
+			entityDef.npcHeight = 35; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 52948 };
+		}
+		if (i == 1578) {
+			entityDef.name = "Magic Shop";
+			entityDef.models = new int[] { 59988 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { "Talk-to", null, "Trade", null, null };
+			entityDef.npcWidth = 150; //WIDTH
+			entityDef.npcHeight = 150; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 0;
+			entityDef.readyanim = 450;
+			entityDef.walkanim = 808;
+			entityDef.models = new int[] { 59988 };
+		}
+		if (i == 11500) {
+			entityDef.name = "Raptor";
+			entityDef.models = new int[] { 62231 };
+			entityDef.actions = new String[5];
+			entityDef.actions = new String[] { null, "Attack", null, null, null };
+			entityDef.npcWidth = 35; //WIDTH
+			entityDef.npcHeight = 35; // HEIGHT
+			entityDef.originalColors = null;
+			entityDef.newColors = null;
+			entityDef.combatLevel = 100;
+			entityDef.readyanim = 808;
+			entityDef.walkanim = 819;
+			entityDef.models = new int[] { 62231 };
 		}
 		if (i == 2120) {
 			entityDef.name = "Shadow Ranger";
 			entityDef.models = new int[] { 29267 };
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.anInt86 = 85; //WIDTH
-			entityDef.anInt91 = 85; // HEIGH
+			entityDef.npcWidth = 85; //WIDTH
+			entityDef.npcHeight = 85; // HEIGH
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8526;
-			entityDef.walkAnim = 8527;
+			entityDef.readyanim = 8526;
+			entityDef.walkanim = 8527;
 			entityDef.models = new int[] { 29267 };
 
 		}
@@ -575,13 +973,13 @@ public final class NpcDefinition {
 			entityDef.models = new int[] { 29268 };
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.anInt86 = 85; //WIDTH
-			entityDef.anInt91 = 85; // HEIGH
+			entityDef.npcWidth = 85; //WIDTH
+			entityDef.npcHeight = 85; // HEIGH
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8526;
-			entityDef.walkAnim = 8527;
+			entityDef.readyanim = 8526;
+			entityDef.walkanim = 8527;
 			entityDef.models = new int[] { 29268 };
 		}
 		if (i == 2122) {
@@ -589,13 +987,13 @@ public final class NpcDefinition {
 			entityDef.models = new int[] { 29266 };
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.anInt86 = 85; //WIDTH
-			entityDef.anInt91 = 85; // HEIGH
+			entityDef.npcWidth = 85; //WIDTH
+			entityDef.npcHeight = 85; // HEIGH
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8526;
-			entityDef.walkAnim = 8527;
+			entityDef.readyanim = 8526;
+			entityDef.walkanim = 8527;
 			entityDef.models = new int[] { 29266 };
 		}
 
@@ -636,8 +1034,8 @@ public final class NpcDefinition {
 		if (i == 1873) {//klik
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
-			entityDef.standAnim = 3345;
-			entityDef.walkAnim = 3346;
+			entityDef.readyanim = 3345;
+			entityDef.walkanim = 3346;
 
 		}
 		//dark pets
@@ -650,8 +1048,8 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 3948;
-			entityDef.walkAnim = 3947;
+			entityDef.readyanim = 3948;
+			entityDef.walkanim = 3947;
 		}
 		if (i == 2301) {
 			entityDef.name = "Dark imp";
@@ -661,8 +1059,8 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 171;
-			entityDef.walkAnim = 168;
+			entityDef.readyanim = 171;
+			entityDef.walkanim = 168;
 		}
 		if (i == 2302) {
 			entityDef.name = "Dark toucan";
@@ -672,8 +1070,8 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 6772;
-			entityDef.walkAnim = 6774;
+			entityDef.readyanim = 6772;
+			entityDef.walkanim = 6774;
 		}
 		if (i == 2303) {
 			entityDef.name = "Dark king penguin";
@@ -683,8 +1081,8 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 5668;
-			entityDef.walkAnim = 5666;
+			entityDef.readyanim = 5668;
+			entityDef.walkanim = 5666;
 		}
 		if (i == 2304) {
 			entityDef.name = "Dark k'klik";
@@ -694,8 +1092,8 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 3346;
-			entityDef.walkAnim = -1;
+			entityDef.readyanim = 3346;
+			entityDef.walkanim = -1;
 		}
 		if (i == 2305) {
 			entityDef.name = "Dark shadow warrior";
@@ -705,10 +1103,10 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8526;
-			entityDef.walkAnim = 8527;
-			entityDef.anInt86 = 85; //WIDTH
-			entityDef.anInt91 = 85; // HEIGH
+			entityDef.readyanim = 8526;
+			entityDef.walkanim = 8527;
+			entityDef.npcWidth = 85; //WIDTH
+			entityDef.npcHeight = 85; // HEIGH
 		}
 		if (i == 2306) {
 			entityDef.name = "Dark shadow archer";
@@ -718,23 +1116,23 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8526;
-			entityDef.walkAnim = 8527;
-			entityDef.anInt86 = 85; //WIDTH
-			entityDef.anInt91 = 85; // HEIGH
+			entityDef.readyanim = 8526;
+			entityDef.walkanim = 8527;
+			entityDef.npcWidth = 85; //WIDTH
+			entityDef.npcHeight = 85; // HEIGH
 		}
 		if (i == 2307) {
 			entityDef.name = "Dark shadow wizard";
 			entityDef.models = new int[] { 45900 };
 			entityDef.actions = new String[5];
-			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
+			entityDef.actions = new String[] { "Talk-to", "Examine", "Pick-Up", null, null };
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8526;
-			entityDef.walkAnim = 8527;
-			entityDef.anInt86 = 85; //WIDTH
-			entityDef.anInt91 = 85; // HEIGH
+			entityDef.readyanim = 8526;
+			entityDef.walkanim = 8527;
+			entityDef.npcWidth = 85; //WIDTH
+			entityDef.npcHeight = 85; // HEIGH
 		}
 		if (i == 2308) {
 			entityDef.name = "Dark healer death spawn";
@@ -743,11 +1141,11 @@ public final class NpcDefinition {
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
-			entityDef.anInt86 = 65; //WIDTH
-			entityDef.anInt91 = 65; // HEIGH
+			entityDef.npcWidth = 65; //WIDTH
+			entityDef.npcHeight = 65; // HEIGH
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 1539;
-			entityDef.walkAnim = 1539;
+			entityDef.readyanim = 1539;
+			entityDef.walkanim = 1539;
 		}
 		if (i == 2309) {
 			entityDef.name = "Dark holy death spawn";
@@ -756,11 +1154,11 @@ public final class NpcDefinition {
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
-			entityDef.anInt86 = 65; //WIDTH
-			entityDef.anInt91 = 65; // HEIGH
+			entityDef.npcWidth = 65; //WIDTH
+			entityDef.npcHeight = 65; // HEIGH
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 1539;
-			entityDef.walkAnim = 1539;
+			entityDef.readyanim = 1539;
+			entityDef.walkanim = 1539;
 		}
 		if (i == 2310) {
 			entityDef.name = "Dark seren";
@@ -770,10 +1168,10 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.standAnim = 8372;
-			entityDef.walkAnim = 8372;
-			entityDef.anInt86 = 65; //WIDTH
-			entityDef.anInt91 = 65; // HEIGH
+			entityDef.readyanim = 8372;
+			entityDef.walkanim = 8372;
+			entityDef.npcWidth = 65; //WIDTH
+			entityDef.npcHeight = 65; // HEIGH
 		}
 		if (i == 2311) {
 			entityDef.name = "Dark corrupt beast";
@@ -783,11 +1181,11 @@ public final class NpcDefinition {
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 60; //WIDTH
-			entityDef.anInt91 = 60; // HEIGH
+			entityDef.npcWidth = 60; //WIDTH
+			entityDef.npcHeight = 60; // HEIGH
 			entityDef.size = 1;
-			entityDef.standAnim = 5616;
-			entityDef.walkAnim = 5615;
+			entityDef.readyanim = 5616;
+			entityDef.walkanim = 5615;
 		}
 		if (i == 2312) {
 			entityDef.name = "Dark roc";
@@ -796,12 +1194,12 @@ public final class NpcDefinition {
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
-			entityDef.standAnim = 5021;
-			entityDef.walkAnim = 5022;
+			entityDef.readyanim = 5021;
+			entityDef.walkanim = 5022;
 			entityDef.size = 1;
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 30; //WIDTH
-			entityDef.anInt91 = 30; // HEIGH
+			entityDef.npcWidth = 30; //WIDTH
+			entityDef.npcHeight = 30; // HEIGH
 		}
 		if (i == 2313) {
 			entityDef.name = "Dark kratos";
@@ -810,79 +1208,79 @@ public final class NpcDefinition {
 			entityDef.actions = new String[] { "Talk-to", null, "Pick-Up", null, null };
 			entityDef.originalColors = null;
 			entityDef.newColors = null;
-			entityDef.standAnim = 7017;
-			entityDef.walkAnim = 7016;
+			entityDef.readyanim = 7017;
+			entityDef.walkanim = 7016;
 			entityDef.size = 2;
 			entityDef.combatLevel = 0;
-			entityDef.anInt86 = 90; //WIDTH
-			entityDef.anInt91 = 90; // HEIGH
+			entityDef.npcWidth = 90; //WIDTH
+			entityDef.npcHeight = 90; // HEIGH
 		}
 		if (i == 8027) {
 			entityDef.name = "Vorkath";
 			entityDef.combatLevel = 732;
 			entityDef.models = new int[] { 35023 };
-			entityDef.standAnim = 7950;
-			entityDef.onMinimap = true;
+			entityDef.readyanim = 7950;
+			entityDef.drawmapdot = true;
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { null, null, null, null, null };
-			entityDef.anInt86 = 100;
-			entityDef.anInt91 = 100;
+			entityDef.npcWidth = 100;
+			entityDef.npcHeight = 100;
 		}
 		if (i == 8028) {
 			entityDef.name = "Vorkath";
 			entityDef.combatLevel = 732;
 			entityDef.models = new int[] { 35023 };
-			entityDef.standAnim = 7948;
-			entityDef.onMinimap = true;
+			entityDef.readyanim = 7948;
+			entityDef.drawmapdot = true;
 			entityDef.actions = new String[5];
 			entityDef.actions = new String[] { null, "Attack", null, null, null };
-			entityDef.anInt86 = 100;
-			entityDef.anInt91 = 100;
+			entityDef.npcWidth = 100;
+			entityDef.npcHeight = 100;
 		}
 		if(i==7144){
-			entityDef.anInt75 = 0;
+			entityDef.headicon_prayer = 0;
 		}
 		if(i==963){
-			entityDef.anInt75 = 6;
+			entityDef.headicon_prayer = 6;
 		}
 		if(i==7145){
-			entityDef.anInt75 = 1;
+			entityDef.headicon_prayer = 1;
 		}
 		if(i==7146){
-			entityDef.anInt75 = 2;
+			entityDef.headicon_prayer = 2;
 		}
 		if (entityDef.name != null && entityDef.name.toLowerCase().contains("chinchompa") && !entityDef.name.toLowerCase().contains("baby")) {
 			entityDef.actions = new String[5];
 		}
 		return entityDef;
 	}
-
 	public static int totalAmount;
 
 	public static void dump() {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("./npc_defs.txt"))) {
 			for (int i = 0; i < 70_000; i++) {
 				try {
-					NpcDefinition def = NpcDefinition.forID(i);
+					NpcDefinition def = NpcDefinition.lookup(i);
 					if (def != null) {
 						writer.write("Npc=" + i);
 						writer.newLine();
-						writer.write("Stand animation=" + def.standAnim);
+						writer.write("Stand animation=" + def.readyanim);
 						writer.newLine();
-						writer.write("Walk animation=" + def.walkAnim);
+						writer.write("Walk animation=" + def.walkanim);
 						writer.newLine();
 						writer.newLine();
 					}
-				} catch (Exception e) {}
+				} catch (Exception e) {
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void unpackConfig(StreamLoader streamLoader) {
-		stream = new Buffer(streamLoader.getArchiveData("npc.dat"));
-		Buffer stream = new Buffer(streamLoader.getArchiveData("npc.idx"));
+
+	public static void unpackConfig(FileArchive streamLoader) {
+		stream = new Buffer(streamLoader.readFile("npc.dat"));
+		Buffer stream = new Buffer(streamLoader.readFile("npc.idx"));
 		totalAmount = stream.readUShort();
 		streamIndices = new int[totalAmount];
 		int i = 2;
@@ -895,7 +1293,7 @@ public final class NpcDefinition {
 		for (int k = 0; k < 20; k++)
 			cache[k] = new NpcDefinition();
 		for (int index = 0; index < totalAmount; index++) {
-			NpcDefinition ed = forID(index);
+			NpcDefinition ed = lookup(index);
 			if (ed == null)
 				continue;
 			if (ed.name == null)
@@ -908,9 +1306,10 @@ public final class NpcDefinition {
 			FieldGenerator generator = new FieldGenerator(writer2::writeLine);
 			IntStream.range(0, 100_000).forEach(id -> {
 				try {
-					NpcDefinition definition = NpcDefinition.forID(id);
+					NpcDefinition definition = NpcDefinition.lookup(id);
 					generator.add(definition.name, id);
-				} catch (Exception e) {}
+				} catch (Exception e) {
+				}
 			});
 			writer2.close();
 		}
@@ -921,12 +1320,12 @@ public final class NpcDefinition {
 	 * stream.readUnsignedByte(); if (i == 0) return; if (i == 1) { int j =
 	 * stream.readUnsignedByte(); models = new int[j]; for (int j1 = 0; j1 < j;
 	 * j1++) models[j1] = stream.readUnsignedWord();
-	 * 
+	 *
 	 * } else if (i == 2) name = stream.readString(); else if (i == 3) description =
 	 * stream.readString(); else if (i == 12) squareLength =
-	 * stream.readSignedByte(); else if (i == 13) standAnim =
-	 * stream.readUnsignedWord(); else if (i == 14) walkAnim =
-	 * stream.readUnsignedWord(); else if (i == 17) { walkAnim =
+	 * stream.readSignedByte(); else if (i == 13) standingAnimation =
+	 * stream.readUnsignedWord(); else if (i == 14) walkingAnimation =
+	 * stream.readUnsignedWord(); else if (i == 17) { walkingAnimation =
 	 * stream.readUnsignedWord(); anInt58 = stream.readUnsignedWord(); anInt83 =
 	 * stream.readUnsignedWord(); anInt55 = stream.readUnsignedWord(); if (anInt58
 	 * == 65535) { anInt58 = -1; } if (anInt83 == 65535) { anInt83 = -1; } if
@@ -937,18 +1336,19 @@ public final class NpcDefinition {
 	 * stream.readUnsignedByte(); originalColors = new int[k]; newColors = new
 	 * int[k]; for (int k1 = 0; k1 < k; k1++) { originalColors[k1] =
 	 * stream.readUnsignedWord(); newColors[k1] = stream.readUnsignedWord(); }
-	 * 
+	 *
 	 * } else if (i == 60) { int l = stream.readUnsignedByte(); dialogueModels = new
 	 * int[l]; for (int l1 = 0; l1 < l; l1++) dialogueModels[l1] =
 	 * stream.readUnsignedWord();
-	 * 
+	 *
 	 * } else if (i == 90) stream.readUnsignedWord(); else if (i == 91)
 	 * stream.readUnsignedWord(); else if (i == 92) stream.readUnsignedWord(); else
 	 * if (i == 93) minimapDot = false; else if (i == 95) combatLevel =
-	 * stream.readUnsignedWord(); else if (i == 97) anInt91 =
-	 * stream.readUnsignedWord(); else if (i == 98) anInt86 =
+	 * stream.readUnsignedWord(); else if (i == 97) npcHeight =
+	 * stream.readUnsignedWord(); else if (i == 98) npcWidth =
 	 * stream.readUnsignedWord(); else if (i == 99) aBoolean93 = true; else if (i ==
-	 * 100) anInt85 = stream.readSignedByte(); else if (i == 101) anInt92 =
+	 * 100) npcWidth = stream.readSignedByte(); else if (i == 101) npcHeight
+	 * =
 	 * stream.readSignedByte() * 5; else if (i == 102) anInt75 =
 	 * stream.readUnsignedByte(); else if (i == 103) getDegreesToTurn =
 	 * stream.readUnsignedByte(); else if (i == 106) { anInt57 =
@@ -957,204 +1357,179 @@ public final class NpcDefinition {
 	 * stream.readUnsignedByte(); childrenIDs = new int[i1 + 1]; for (int i2 = 0; i2
 	 * <= i1; i2++) { childrenIDs[i2] = stream.readUnsignedWord(); if
 	 * (childrenIDs[i2] == 65535) childrenIDs[i2] = -1; }
-	 * 
+	 *
 	 * } else if (i == 107) aBoolean84 = false; } while (true); }
 	 */
-	private void readValues(Buffer stream) {
+
+	public int category;
+
+	private void readValues(Buffer buffer) {
 		while (true) {
-			int opcode = stream.readUnsignedByte();
+			int opcode = buffer.get_unsignedbyte();
 			if (opcode == 0)
 				return;
 			if (opcode == 1) {
-				int j = stream.readUnsignedByte();
+				int j = buffer.get_unsignedbyte();
 				models = new int[j];
 				for (int j1 = 0; j1 < j; j1++)
-					models[j1] = stream.readUShort();
+					models[j1] = buffer.readUShort();
 
 			} else if (opcode == 2)
-				name = stream.readString();
-			else if (opcode == 3)
-				description = stream.readString();
+				name = buffer.readJagexString();
 			else if (opcode == 12)
-				size = stream.readSignedByte();
+				size = buffer.readSignedByte();
 			else if (opcode == 13)
-				standAnim = stream.readUShort();
+				readyanim = buffer.readUShort();
 			else if (opcode == 14)
-				walkAnim = stream.readUShort();
+				walkanim = buffer.readUShort();
+			else if (opcode == 15)
+				readyanim_l = buffer.readUShort();
+			else if (opcode == 16)
+				readyanim_r = buffer.readUShort();
 			else if (opcode == 17) {
-				walkAnim = stream.readUShort();
-				anInt58 = stream.readUShort();
-				anInt83 = stream.readUShort();
-				anInt55 = stream.readUShort();
-				if (anInt58 == 65535) {
-					anInt58 = -1;
+				walkanim = buffer.readUShort();
+				walkanim_b = buffer.readUShort();
+				walkanim_l = buffer.readUShort();
+				walkanim_r = buffer.readUShort();
+				if (walkanim_b == 65535) {
+					walkanim_b = -1;
 				}
-				if (anInt83 == 65535) {
-					anInt83 = -1;
+				if (walkanim_l == 65535) {
+					walkanim_l = -1;
 				}
-				if (anInt55 == 65535) {
-					anInt55 = -1;
+				if (walkanim_r == 65535) {
+					walkanim_r = -1;
 				}
-			} else if(opcode == 18){
-				 stream.readUShort();
-			} else if (opcode >= 30 && opcode < 40) {
+			} else if (opcode == 18) {
+				category = buffer.readUShort();
+			} else if (opcode >= 30 && opcode < 35) {
 				if (actions == null)
 					actions = new String[10];
-				actions[opcode - 30] = stream.readString();
+				actions[opcode - 30] = buffer.readString();
 				if (actions[opcode - 30].equalsIgnoreCase("hidden"))
 					actions[opcode - 30] = null;
 			} else if (opcode == 40) {
-				int k = stream.readUnsignedByte();
+				int k = buffer.get_unsignedbyte();
 				originalColors = new int[k];
 				newColors = new int[k];
 				for (int k1 = 0; k1 < k; k1++) {
-					originalColors[k1] = stream.readUShort();
-					newColors[k1] = stream.readUShort();
+					originalColors[k1] = buffer.readUShort();
+					newColors[k1] = buffer.readUShort();
 				}
 			} else if (opcode == 41) {
-				int k = stream.readUnsignedByte();
+				int k = buffer.get_unsignedbyte();
 				originalTextures = new short[k];
 				newTextures = new short[k];
 				for (int k1 = 0; k1 < k; k1++) {
-					originalTextures[k1] = (short) stream.readUShort();
-					newTextures[k1] = (short) stream.readUShort();
+					originalTextures[k1] = (short) buffer.readUShort();
+					newTextures[k1] = (short) buffer.readUShort();
 				}
 
 			} else if (opcode == 60) {
-				int l = stream.readUnsignedByte();
-				dialogueModels = new int[l];
+				int l = buffer.get_unsignedbyte();
+				chatheadModels = new int[l];
 				for (int l1 = 0; l1 < l; l1++)
-					dialogueModels[l1] = stream.readUShort();
+					chatheadModels[l1] = buffer.readUShort();
 
 			} else if (opcode == 93)
-				onMinimap = false;
+				drawmapdot = false;
 			else if (opcode == 95)
-				combatLevel = stream.readUShort();
+				combatLevel = buffer.readUShort();
 			else if (opcode == 97)
-				anInt91 = stream.readUShort();
+				npcHeight = buffer.readUShort();
 			else if (opcode == 98)
-				anInt86 = stream.readUShort();
+				npcWidth = buffer.readUShort();
 			else if (opcode == 99)
-				aBoolean93 = true;
+				visible = true;
 			else if (opcode == 100)
-				anInt85 = stream.readSignedByte();
+				ambient = buffer.readSignedByte();
 			else if (opcode == 101)
-				anInt92 = stream.readSignedByte();
-			else if (opcode == 102) {
-				int var3 = stream.readUnsignedByte();
-				int var4 = 0;
-
-				for(int var5 = var3; var5 != 0; var5 >>= 1) {
-					++var4;
-				}
-
-				this.headIconArchiveIds = new int[var4];
-				this.headIconSpriteIndex = new short[var4];
-
-				for(int var6 = 0; var6 < var4; ++var6) {
-					if ((var3 & 1 << var6) == 0) {
-						this.headIconArchiveIds[var6] = -1;
-						this.headIconSpriteIndex[var6] = -1;
-					} else {
-						this.headIconArchiveIds[var6] = stream.readNullableLargeSmart();
-						this.headIconSpriteIndex[var6] = (short)stream.readShortSmartSub();
-					}
-				}
-			} else if (opcode == 103)
-				getDegreesToTurn = stream.readUShort();
+				contrast = buffer.readSignedByte();
+			else if (opcode == 102)
+				headicon_prayer = buffer.readUShort();
+			else if (opcode == 103)
+				turnspeed = buffer.readUShort();
 			else if (opcode == 106 || opcode == 118) {
-				anInt57 = stream.readUShort();
-				if (anInt57 == 65535)
-					anInt57 = -1;
-				anInt59 = stream.readUShort();
-				if (anInt59 == 65535)
-					anInt59 = -1;
+				multivarbit = buffer.readUShort();
+				if (multivarbit == 65535)
+					multivarbit = -1;
+				multivarp = buffer.readUShort();
+				if (multivarp == 65535)
+					multivarp = -1;
 				int var3 = -1;
-				if(opcode == 118)
-					var3 = stream.readUShort();
-				int i1 = stream.readUnsignedByte();
-				childrenIDs = new int[i1 + 2];
+				if (opcode == 118)
+					var3 = buffer.readUShort();
+				int i1 = buffer.get_unsignedbyte();
+				multi = new int[i1 + 2];
 				for (int i2 = 0; i2 <= i1; i2++) {
-					childrenIDs[i2] = stream.readUShort();
-					if (childrenIDs[i2] == 65535)
-						childrenIDs[i2] = -1;
+					multi[i2] = buffer.readUShort();
+					if (multi[i2] == 65535)
+						multi[i2] = -1;
 				}
-				childrenIDs[i1 + 1] = var3;
+				multi[i1 + 1] = var3;
 			} else if (opcode == 107) {
-				aBoolean84 = false;
-			} else if(opcode == 109) {
-				this.isClickable = false;
-			} else if(opcode == 111) {
-				this.aBool2190 = true;
-			} else if(opcode == 114) {
-				this.field1914 = stream.readUShort();
-				if(this.field1914 == '\uffff') {
-					this.field1914 = -1;
-				}
-			} else if(opcode == 115) {
-				this.field1914 = stream.readUShort();
-				this.field1919 = stream.readUShort();
-				this.field1918 = stream.readUShort();
-				this.field1938 = stream.readUShort();
-				if(this.field1914 == '\uffff') {
-					this.field1914 = -1;
-				}
-				if(this.field1919 == '\uffff') {
-					this.field1919 = -1;
-				}
-				if(this.field1918 == '\uffff') {
-					this.field1918 = -1;
-				}
-				if(this.field1938 == '\uffff') {
-					this.field1938 = -1;
-				}
-			} else if(opcode == 116) {
-				this.field1920 = stream.readUShort();
-				if(this.field1920 == '\uffff') {
-					this.field1920 = -1;
-				}
-			} else if(opcode == 117) {
-				this.field1920 = stream.readUShort();
-				this.field1933 = stream.readUShort();
-				this.field1922 = stream.readUShort();
-				this.field1923 = stream.readUShort();
-				if(this.field1920 == '\uffff') {
-					this.field1920 = -1;
-				}
-				if(this.field1933 == '\uffff') {
-					this.field1933 = -1;
-				}
-				if(this.field1922 == '\uffff') {
-					this.field1922 = -1;
-				}
-				if(this.field1923 == '\uffff') {
-					this.field1923 = -1;
+				active = false;
+			} else if (opcode == 109) {
+				this.smoothwalk = false;
+			} else if (opcode == 111) {
+				this.is_follower = true;
+			} else if (opcode == 114) {
+				this.runanim = buffer.get_unsignedshort();
+			} else if (opcode == 115) {
+				this.runanim = buffer.get_unsignedshort();
+				this.runanim_b = buffer.get_unsignedshort();
+				this.runanim_l = buffer.get_unsignedshort();
+				this.runanim_r = buffer.get_unsignedshort();
+			} else if (opcode == 116) {
+				this.crawlanim = buffer.get_unsignedshort();
+			} else if (opcode == 117) {
+				this.crawlanim = buffer.get_unsignedshort();
+				this.crawlanim_b = buffer.get_unsignedshort();
+				this.crawlanim_l = buffer.get_unsignedshort();
+				this.crawlanim_r = buffer.get_unsignedshort();
+			} else if (opcode == 249) {
+				int length = buffer.get_unsignedbyte();
+
+				params = new HashMap<>(length);
+
+				for (int i = 0; i < length; i++) {
+					boolean isString = buffer.get_unsignedbyte() == 1;
+					int key = buffer.read24Int();
+					Object value;
+
+					if (isString) {
+						value = buffer.readString();
+					} else {
+						value = buffer.readInt();
+					}
+
+					params.put(key, value);
 				}
 			}
 		}
 	}
 
 	public Model method160() {
-		if (childrenIDs != null) {
-			NpcDefinition entityDef = method161();
+		if (multi != null) {
+			NpcDefinition entityDef = get_multi_npctype();
 			if (entityDef == null)
 				return null;
 			else
 				return entityDef.method160();
 		}
-		if (dialogueModels == null) {
+		if (chatheadModels == null) {
 			return null;
 		}
 		boolean flag1 = false;
-		for (int i = 0; i < dialogueModels.length; i++)
-			if (!Model.method463(dialogueModels[i]))
+		for (int i = 0; i < chatheadModels.length; i++)
+			if (!Model.isCached(chatheadModels[i]))
 				flag1 = true;
 
 		if (flag1)
 			return null;
-		Model aclass30_sub2_sub4_sub6s[] = new Model[dialogueModels.length];
-		for (int j = 0; j < dialogueModels.length; j++)
-			aclass30_sub2_sub4_sub6s[j] = Model.method462(dialogueModels[j]);
+		Model aclass30_sub2_sub4_sub6s[] = new Model[chatheadModels.length];
+		for (int j = 0; j < chatheadModels.length; j++)
+			aclass30_sub2_sub4_sub6s[j] = Model.getModel(chatheadModels[j]);
 
 		Model model;
 		if (aclass30_sub2_sub4_sub6s.length == 1)
@@ -1174,45 +1549,45 @@ public final class NpcDefinition {
 		return model;
 	}
 
-	public NpcDefinition method161() {
+	public NpcDefinition get_multi_npctype() {
 		int j = -1;
-		if (anInt57 != -1 && anInt57 <= 2113) {
-			VarBit varBit = VarBit.cache[anInt57];
-			int k = varBit.anInt648;
-			int l = varBit.anInt649;
-			int i1 = varBit.anInt650;
-			int j1 = Client.anIntArray1232[i1 - l];
+		if (multivarbit != -1 && multivarbit <= 2113) {
+			VarBit varBit = VarBit.cache[multivarbit];
+			int k = varBit.setting;
+			int l = varBit.start;
+			int i1 = varBit.end;
+			int j1 = Client.BIT_MASKS[i1 - l];
 			j = clientInstance.variousSettings[k] >> l & j1;
-		} else if (anInt59 != -1)
-			j = clientInstance.variousSettings[anInt59];
+		} else if (multivarp != -1)
+			j = clientInstance.variousSettings[multivarp];
 		int var3;
-		if (j >= 0 && j < childrenIDs.length)
-			var3 = childrenIDs[j];
+		if (j >= 0 && j < multi.length)
+			var3 = multi[j];
 		else
-			var3 = childrenIDs[childrenIDs.length - 1];
-		return var3 == -1 ? null : forID(var3);
+			var3 = multi[multi.length - 1];
+		return var3 == -1 ? null : lookup(var3);
 	}
 
-	public Model method164(int j, int k, int ai[]) {
-		if (childrenIDs != null) {
-			NpcDefinition entityDef = method161();
+	public Model get_animated_entity_model(int primary_index, AnimationDefinition primary_seq, int[] ai, int secondary_index, AnimationDefinition secondary_seq) {
+		if (multi != null) {
+			NpcDefinition entityDef = get_multi_npctype();
 			if (entityDef == null)
 				return null;
 			else
-				return entityDef.method164(j, k, ai);
+				return entityDef.get_animated_entity_model(primary_index, primary_seq, ai, secondary_index, secondary_seq);
 		}
-		Model model = (Model) mruNodes.insertFromCache(npcId);
+		Model model = (Model) mruNodes.get(npcId);
 		if (model == null) {
 			boolean flag = false;
 			for (int i1 = 0; i1 < models.length; i1++)
-				if (!Model.method463(models[i1]))
+				if (!Model.isCached(models[i1]))
 					flag = true;
 
 			if (flag)
 				return null;
 			Model aclass30_sub2_sub4_sub6s[] = new Model[models.length];
 			for (int j1 = 0; j1 < models.length; j1++)
-				aclass30_sub2_sub4_sub6s[j1] = Model.method462(models[j1]);
+				aclass30_sub2_sub4_sub6s[j1] = Model.getModel(models[j1]);
 
 			if (aclass30_sub2_sub4_sub6s.length == 1)
 				model = aclass30_sub2_sub4_sub6s[0];
@@ -1224,51 +1599,63 @@ public final class NpcDefinition {
 
 			}
 			if (originalTextures != null) {
-				for (int k2 = 0; k2 < originalTextures.length; k2++) {
-					model.retexture(originalTextures[k2], newTextures[k2]);
-				}
-
+				for (int i1 = 0; i1 < originalTextures.length; i1++)
+					model.retexture(originalTextures[i1], newTextures[i1]);
 			}
-			model.method469();
-			model.light(64 + anInt85, 850 + anInt92, -30, -50, -30, true);
-			// model.method479(84 + anInt85, 1000 + anInt92, -90, -580, -90, true);
-			mruNodes.removeFromCache(model, npcId);
+
+			model.light(64 + ambient, 850 + contrast, -30, -50, -30, true);
+			// model.method479(84 + npcWidth, 1000 + npcHeight
+			//, -90, -580, -90, true);
+			mruNodes.put(model, npcId);
 		}
-		Model model_1 = Model.EMPTY_MODEL;
-		model_1.method464(model, Class36.method532(k) & Class36.method532(j));
-		if (k != -1 && j != -1)
-			model_1.method471(ai, j, k);
-		else if (k != -1)
-			model_1.method470(k);
-		if (anInt91 != 128 || anInt86 != 128)
-			model_1.method478(anInt91, anInt91, anInt86);
-		model_1.calculateDistances();
-		model_1.faceGroups = null;
-		model_1.vertexGroups = null;
+
+//		Model model_1 = Model.emptyModel;
+//		model_1.replaceModel(model, AnimFrame.noAnimationInProgress(primary_index) & AnimFrame.noAnimationInProgress(secondary_index));
+//		if (primary_index != -1 && secondary_index != -1) {
+//			model_1.animate_dual_either(primary_seq, primary_index, secondary_seq, secondary_index);
+//		} else if (primary_index != -1) {
+//			model_1.animate_either(primary_seq, primary_index);
+//		}
+		Model model_1;
+		if (primary_seq != null && secondary_seq != null) {
+			model_1 = primary_seq.animate_multiple(model, primary_index, secondary_seq, secondary_index);
+		} else if (primary_seq != null) {
+			model_1 = primary_seq.animate_either(model, primary_index);
+		} else if (secondary_seq != null) {
+			model_1 = secondary_seq.animate_either(model, secondary_index);
+		} else {
+			model_1 = model.bake_shared_animation_model(true);
+		}
+		if (npcHeight != 128 || npcWidth != 128)
+			model_1.scale(npcHeight, npcHeight, npcWidth);
+		model_1.calculateBoundsCylinder();
+		model_1.face_label_groups = null;
+		model_1.vertex_label_groups = null;
 		if (size == 1)
-			model_1.fits_on_single_square = true;
+			model_1.singleTile = true;
 		return model_1;
 	}
 
 	private NpcDefinition() {
-		anInt55 = -1;
-		anInt57 = walkAnim;
-		anInt58 = walkAnim;
-		anInt59 = walkAnim;
+		walkanim = -1;
+		walkanim_r = -1;
+		multivarbit = -1;
+		walkanim_b = -1;
+		multivarp = -1;
 		combatLevel = -1;
 		anInt64 = 1834;
-		walkAnim = -1;
+		walkanim = -1;
 		size = 1;
-		anInt75 = -1;
-		standAnim = -1;
+		headicon_prayer = -1;
+		readyanim = -1;
 		npcId = -1L;
-		getDegreesToTurn = 32;
-		anInt83 = -1;
-		aBoolean84 = true;
-		anInt86 = 128;
-		onMinimap = true;
-		anInt91 = 128;
-		aBoolean93 = false;
+		turnspeed = 32;
+		walkanim_l = -1;
+		active = true;
+		npcWidth = 128;
+		drawmapdot = true;
+		npcHeight = 128;
+		visible = false;
 	}
 
 	@Override
@@ -1278,10 +1665,10 @@ public final class NpcDefinition {
 				", combatLevel=" + combatLevel +
 				", name='" + name + '\'' +
 				", actions=" + Arrays.toString(actions) +
-				", walkAnim=" + walkAnim +
+				", walkingAnimation=" + walkanim +
 				", size=" + size +
-				", standAnim=" + standAnim +
-				", childrenIDs=" + Arrays.toString(childrenIDs) +
+				", standingAnimation=" + readyanim +
+				", childrenIDs=" + Arrays.toString(multi) +
 				", models=" + Arrays.toString(models) +
 				'}';
 	}
@@ -1303,10 +1690,10 @@ public final class NpcDefinition {
 
 			try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 				for (int i = 0; i < totalAmount; i++) {
-					NpcDefinition definition = forID(i);
+					NpcDefinition definition = lookup(i);
 					if (definition != null) {
 						writer.write("npc = " + i + "\t" + definition.name + "\t" + definition.combatLevel + "\t"
-								+ definition.standAnim + "\t" + definition.walkAnim + "\t");
+								+ definition.readyanim + "\t" + definition.walkanim + "\t");
 						writer.newLine();
 					}
 				}
@@ -1328,7 +1715,7 @@ public final class NpcDefinition {
 
 			try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 				for (int i = 0; i < totalAmount; i++) {
-					NpcDefinition definition = forID(i);
+					NpcDefinition definition = lookup(i);
 					if (definition != null) {
 						writer.write(i + "	" + definition.size);
 						writer.newLine();
@@ -1341,53 +1728,168 @@ public final class NpcDefinition {
 			e.printStackTrace();
 		}
 	}
+	public HashMap<Integer, Object> params;
+	public boolean smoothwalk = true;
+	public boolean is_follower = false;
+	public int runanim_r = -1;
+	public int readyanim_r = -1;
+	public int readyanim_l = -1;
+	public int walkanim_b = -1;
 
-	public int anInt55;
+	public int walkanim_r = -1;
+	public int runanim = -1;
+	public int crawlanim = -1;
+	public int runanim_l = -1;
+	public int crawlanim_b = -1;
+	public int runanim_b = -1;
+	public int combatlevel = -1;
+	public int crawlanim_r = -1;
+	public int crawlanim_l = -1;
+
+
 	public static int anInt56;
-	public int anInt57;
-	public int anInt58;
-	public int anInt59;
+	public int multivarbit;
+
+	public int multivarp;
 	public static Buffer stream;
 	public int combatLevel;
 	public final int anInt64;
 	public String name;
 	public String actions[];
-	public int walkAnim;
+	public int walkanim;
 	public byte size;
 	public int[] newColors;
 	public static int[] streamIndices;
-	public int[] dialogueModels;
-	public int anInt75;
+	public int[] chatheadModels;
+	public int headicon_prayer;
 	public int[] originalColors;
 	public short[] originalTextures, newTextures;
-	public int standAnim;
+	public int readyanim;
 	public long npcId;
-	public int getDegreesToTurn;
+	public int turnspeed;
 	public static NpcDefinition[] cache;
 	public static Client clientInstance;
-	public int anInt83;
-	public boolean aBoolean84;
-	int[] headIconArchiveIds = null;
-	short[] headIconSpriteIndex = null;
-	public int anInt85;
-	public boolean isClickable = true;
-	public boolean aBool2190 = false;
-	public int field1914 = -1;
-	public int field1919 = -1;
-	public int field1918 = -1;
-	public int field1938 = -1;
-	public int field1920 = -1;
-	public int field1933 = -1;
-	public int field1922 = -1;
-	public int field1923 = -1;
-	public int anInt86;
-	public boolean onMinimap;
-	public int childrenIDs[];
+	public int walkanim_l;
+	public boolean active;
+	public int ambient;
+	public int npcWidth;
+	public boolean drawmapdot;
+	public int multi[];
 	public String description;
-	public int anInt91;
-	public int anInt92;
-	public boolean aBoolean93;
+	public int npcHeight;
+	public int contrast;
+	public boolean visible;
 	public int[] models;
-	public static MRUNodes mruNodes = new MRUNodes(70);
+	public static ReferenceCache mruNodes = new ReferenceCache(70);
 	public int[] anIntArray76;
+
+	@Override
+	public HeadIcon getOverheadIcon() {
+		return null;
+	}
+
+	@Override
+	public int getIntValue(int paramID) {
+		return 0;
+	}
+
+	@Override
+	public void setValue(int paramID, int value) {
+
+	}
+
+	@Override
+	public String getStringValue(int paramID) {
+		return null;
+	}
+
+	@Override
+	public void setValue(int paramID, String value) {
+
+	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
+
+	@Override
+	public int[] getModels() {
+		return new int[0];
+	}
+
+	@Override
+	public String[] getActions() {
+		return new String[0];
+	}
+
+	@Override
+	public boolean isClickable() {
+		return false;
+	}
+
+	@Override
+	public boolean isFollower() {
+		return false;
+	}
+
+	@Override
+	public boolean isInteractible() {
+		return false;
+	}
+
+	@Override
+	public boolean isMinimapVisible() {
+		return false;
+	}
+
+	@Override
+	public boolean isVisible() {
+		return false;
+	}
+
+	@Override
+	public int getId() {
+		return 0;
+	}
+
+	@Override
+	public int getCombatLevel() {
+		return 0;
+	}
+
+	@Override
+	public int[] getConfigs() {
+		return new int[0];
+	}
+
+	@Override
+	public RSNPCComposition transform() {
+		return null;
+	}
+
+	@Override
+	public int getSize() {
+		return 0;
+	}
+
+	@Override
+	public int getRsOverheadIcon() {
+		return 0;
+	}
+
+	@Override
+	public RSIterableNodeHashTable getParams() {
+		return null;
+	}
+
+	@Override
+	public void setParams(IterableHashTable params) {
+
+	}
+
+	@Override
+	public void setParams(RSIterableNodeHashTable params) {
+
+	}
 }

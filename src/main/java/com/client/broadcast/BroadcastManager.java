@@ -1,11 +1,6 @@
 package com.client.broadcast;
 
 import com.client.Client;
-import com.client.features.gameframe.ScreenMode;
-import com.google.common.collect.Lists;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class BroadcastManager {
 
@@ -79,9 +74,9 @@ public class BroadcastManager {
         if (b.time < System.currentTimeMillis())
             return;
 
-        int yPosition = (client.currentScreenMode == ScreenMode.FIXED ? 330 : client.currentGameHeight - 173);
+        int yPosition = (!Client.instance.isResized() ? 330 : client.canvasHeight - 173);
         if (client.isServerUpdating())
             yPosition -= 13;
-        client.newRegularFont.drawBasicString(b.getDecoratedMessage(), client.currentScreenMode == ScreenMode.FIXED ? 5 : 0, yPosition, 0xffff00, 0);
+        client.newRegularFont.drawBasicString(b.getDecoratedMessage(), !Client.instance.isResized() ? 5 : 0, yPosition, 0xffff00, 0);
     }
 }

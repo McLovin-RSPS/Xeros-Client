@@ -24,8 +24,8 @@ public class SpriteLoader {
 		try {
 			Buffer index = new Buffer(FileOperations.readFile(Signlink.getCacheDirectory() + "sprites.idx"));
 			Buffer data = new Buffer(FileOperations.readFile(Signlink.getCacheDirectory() + "sprites.dat"));
-			DataInputStream indexFile = new DataInputStream(new GZIPInputStream(new ByteArrayInputStream(index.buffer)));
-			DataInputStream dataFile = new DataInputStream(new GZIPInputStream(new ByteArrayInputStream(data.buffer)));
+			DataInputStream indexFile = new DataInputStream(new GZIPInputStream(new ByteArrayInputStream(index.payload)));
+			DataInputStream dataFile = new DataInputStream(new GZIPInputStream(new ByteArrayInputStream(data.payload)));
 			int totalSprites = indexFile.readInt();
 			if (cache == null) {
 				cache = new SpriteLoader[totalSprites];
@@ -90,8 +90,8 @@ public class SpriteLoader {
 					sprite.spriteData);
 		}
 		sprites[sprite.id] = new Sprite(sprite.spriteData);
-		sprites[sprite.id].anInt1442 = sprite.drawOffsetX;
-		sprites[sprite.id].anInt1443 = sprite.drawOffsetY;
+		sprites[sprite.id].drawOffsetX = sprite.drawOffsetX;
+		sprites[sprite.id].drawOffsetY = sprite.drawOffsetY;
 	}
 
 	/**

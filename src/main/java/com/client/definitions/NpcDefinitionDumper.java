@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lombok.Data;
 
 public class NpcDefinitionDumper {
 
@@ -16,7 +15,7 @@ public class NpcDefinitionDumper {
         Map<Integer, Npc> npcs = new HashMap<>();
         for (int i = 0; i < 100_000; i++) {
             try {
-                NpcDefinition def = NpcDefinition.forID(i);
+                NpcDefinition def = NpcDefinition.lookup(i);
                 if (def != null) {
                     npcs.put(i, new Npc(def.name, def.combatLevel, def.size));
                 }

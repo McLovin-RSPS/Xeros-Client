@@ -4,21 +4,25 @@ import com.client.Client;
 import com.client.Configuration;
 import com.client.Sprite;
 import com.client.TextDrawingArea;
-import com.client.features.gameframe.ScreenMode;
+
 import com.client.graphics.interfaces.Configs;
 import com.client.graphics.interfaces.MenuItem;
 import com.client.graphics.interfaces.RSInterface;
-import com.client.graphics.interfaces.builder.impl.*;
 import com.client.graphics.interfaces.builder.impl.GroupIronmanBank;
 import com.client.graphics.interfaces.builder.impl.LeaderboardInterface;
+import com.client.graphics.interfaces.builder.impl.NotificationTab;
+import com.client.graphics.interfaces.builder.impl.PerduLostPropertyShop;
+import com.client.graphics.interfaces.builder.impl.PlayerPartyInterface;
+import com.client.graphics.interfaces.builder.impl.QuestInterface;
+import com.client.graphics.interfaces.builder.impl.WildWarning;
 import com.client.graphics.interfaces.builder.impl.tasks.TaskInterface;
 import com.client.graphics.interfaces.builder.impl.tob.TobFoodChest;
 import com.client.graphics.interfaces.builder.impl.tob.TobPartyOverlay;
 import com.client.graphics.interfaces.builder.impl.tob.TobRewardsInterface;
 import com.client.graphics.interfaces.daily.DailyRewards;
+import com.client.graphics.interfaces.dropdown.KeybindingMenu;
 import com.client.graphics.interfaces.eventcalendar.EventCalendar;
 import com.client.graphics.interfaces.settings.SettingsInterface;
-import com.client.graphics.interfaces.dropdown.KeybindingMenu;
 
 public final class Interfaces extends RSInterface {
 
@@ -45,7 +49,7 @@ public final class Interfaces extends RSInterface {
 		bankPin(defaultTextDrawingAreas);
 		clanChatTab(defaultTextDrawingAreas);
 		clanChatSetup(defaultTextDrawingAreas);
-		teleportInterface(defaultTextDrawingAreas);
+		teleportationInterface2(defaultTextDrawingAreas);
 		SettingsTabWidget.widget(defaultTextDrawingAreas);
 		emoteTab();
 		bountyHunterWidget(defaultTextDrawingAreas);
@@ -112,10 +116,13 @@ public final class Interfaces extends RSInterface {
 		cataTele(defaultTextDrawingAreas);
 		groupInformation(defaultTextDrawingAreas);
 		groupLeaderboard(defaultTextDrawingAreas);
+		RandomTeleInt(defaultTextDrawingAreas);
 		new MonsterDropViewer().OsDropViewer(defaultTextDrawingAreas);
 		dropTable(defaultTextDrawingAreas);
 		new TobPartyOverlay().build();
 		new TobRewardsInterface().build();
+//		new TombsOfAmascutRewardsInterface().build();
+//		new TombsOfAmascutFoodChest().build();
 		new TobFoodChest().build();
 		new GroupIronmanBank().build();
 		new PlayerPartyInterface().build();
@@ -123,6 +130,289 @@ public final class Interfaces extends RSInterface {
 		new PerduLostPropertyShop().build();
 		new LeaderboardInterface().build();
 		new QuestInterface().build();
+	}
+
+	private static void RandomTeleInt(TextDrawingArea[] tda) {
+		//Main Interface ID, and calling the addinterface method
+		RSInterface tab = RSInterface.addInterface(13400);
+
+		//Scroll bar Interface ID.
+		RSInterface scrollTableft = RSInterface.addInterface(13430);
+		int xOffset = 4;
+		int yOffset = -8;
+
+		//Scroll bar for drops
+		RSInterface scrollTabright = RSInterface.addInterface(13498);
+
+		//Main Interface Sprites
+		RSInterface.addSprite(13401, new Sprite("teleport/background 0"));
+
+		//Interface Text
+		RSInterface.addText(13402, "Preview", tda, 2, 0xFF9900, true, true);
+		RSInterface.addText(13403, "Description", tda, 2, 0xFF9900, true, true);
+		RSInterface.addText(13404, "Drops", tda, 2, 0xFF9900, true, true);
+		RSInterface.addText(13405, "Boss Names", tda, 2, 0xFF9900, true, true);
+
+		//Category Buttons
+		RSInterface.addButton(13406, 1, "teleport/button", "Select");
+		RSInterface.addButton(13407, 1, "teleport/button", "Select");
+		RSInterface.addButton(13408, 1, "teleport/button", "Select");
+		RSInterface.addButton(13409, 1, "teleport/button", "Select");
+		RSInterface.addButton(13410, 1, "teleport/button", "Select");
+		RSInterface.addButton(13411, 1, "teleport/button", "Select");
+
+		//Category Text
+		RSInterface.addText(13412, "Bosses", tda, 0, 0xFF9900, true, true);
+		RSInterface.addText(13413, "Monsters", tda, 0, 0xFF9900, true, true);
+		RSInterface.addText(13414, "Wilderness", tda, 0, 0xFF9900, true, true);
+		RSInterface.addText(13415, "Skilling", tda, 0, 0xFF9900, true, true);
+		RSInterface.addText(13416, "Minigames", tda, 0, 0xFF9900, true, true);
+		RSInterface.addText(13417, "Cities", tda, 0, 0xFF9900, true, true);
+
+		//Description Text.
+		RSInterface.addText(13418, "Name:", tda, 1, 0xFF9900, true, true);
+		RSInterface.addText(13419, "Hitpoints:", tda, 1, 0xFF9900, true, true);
+		RSInterface.addText(13420, "Recom Team Size:", tda, 1, 0xFF9900, true, true);
+		RSInterface.addText(13421, "Attack Styles:", tda, 1, 0xFF9900, true, true);
+		RSInterface.addText(13422, "Difficulty:", tda, 1, 0xFF9900, true, true);
+
+		//Teleport Button
+		RSInterface.addButton(13423,0,"teleport/teleport","Teleport");
+
+		//Description Text.
+		RSInterface.addText(13424, "1:", tda, 1, 0xfff000, true, true);
+			RSInterface.addText(13425, "2:", tda, 1, 0xfff000, true, true);
+		RSInterface.addText(13426, "3:", tda, 1, 0xfff000, true, true);
+		RSInterface.addText(13427, "4:", tda, 1, 0xfff000, true, true);
+		RSInterface.addText(13428, "5:", tda, 1, 0xfff000, true, true);
+
+		RSInterface.addText(13429, "Teleport", tda, 2, 0xfff000, true, true);
+
+		addItemContainer(13499, 8, 5, 8, 8, false,
+				null, null, null, null, null);
+
+		//Adds the NPC Onto the interface.
+//		RSInterface.addPet(13500);
+
+		//Positionining and Interface child
+		RSInterface.setChildren(31, tab);
+		tab.child(0, 13401, 7, 10);
+		tab.child(1, 13402, 215, 68);
+		tab.child(2, 13403, 405, 68);
+		tab.child(3, 13404, 210, 244);
+		tab.child(4, 13405, 85, 50);
+
+		tab.child(5, 13406, 23, 17);
+		tab.child(6, 13407, 102, 17);
+		tab.child(7, 13408, 181, 17);
+		tab.child(8, 13409, 260, 17);
+		tab.child(9, 13410, 339, 17);
+		tab.child(10, 13411, 419, 17);
+
+		tab.child(11, 13412, 56, 23);
+		tab.child(12, 13413, 134, 23);
+		tab.child(13, 13414, 215, 23);
+		tab.child(14, 13415, 295, 23);
+		tab.child(15, 13416, 374, 23);
+		tab.child(16, 13417, 454, 23);
+
+		//Scrollbar positioning
+		tab.child(17, 13430, 20 + xOffset, 82 + yOffset);
+
+		//Description Text Positioning
+		tab.child(18, 13418, 357, 90);
+		tab.child(19, 13419, 366, 105);
+		tab.child(20, 13420, 387, 120);
+		tab.child(21, 13421, 378, 135);
+		tab.child(22, 13422, 368, 150);
+
+		//Teleport Button Positioning
+		tab.child(23, 13423, 155, 208);
+
+
+		//Text Input fields Positoning
+		tab.child(24, 13424, 420, 90);
+		tab.child(25, 13425, 410, 105);
+		tab.child(26, 13426, 450, 120);
+		tab.child(27, 13427, 441, 135);
+		tab.child(28, 13428, 430, 150);
+		tab.child(29, 13429, 220, 212);
+		tab.child(30, 13498, 150, 265);
+
+
+
+		//Scoll bar size, witdh and scrolling size.
+		scrollTableft.width = 101;
+		scrollTableft.height = 247;
+		scrollTableft.scrollMax = 450;
+
+		//Scroll bar size, width and scrolling size.
+		scrollTabright.width = 334;
+		scrollTabright.height = 60;
+		scrollTabright.scrollMax = 200;
+
+		int npcList = 50;
+		int y = 1;
+
+		for (int i = 0; i < npcList; i++) {
+			RSInterface.addClickableText(13431 + i, "Teleport Name", "Teleport",tda, 1,0xFFA500, false, false, 150, 15);
+		}
+
+		RSInterface.setChildren(npcList, scrollTableft);
+
+		for (int i = 0; i < npcList; i++) {
+			scrollTableft.child(i, 13431 + i, 0, y);
+			y += 15;
+		}
+
+
+		RSInterface.setChildren(1, scrollTabright);
+
+		scrollTabright.child(0, 13499, 20, 10);
+
+	}
+
+	public static void teleportationInterface2(TextDrawingArea[] tda) {
+		RSInterface rsInterface = addInterface(63000);
+		rsInterface.width = 530;
+		addSprite(63001, 0, "interfaces/teleInterface/background");
+		addSprite(63002, 0, "interfaces/teleInterface/icon");
+		addSpriteOnHover(63121, "interfaces/teleInterface/close", 0, 1, 16, 16, "", -1, 3);
+
+		//addSprite(63117, 0, "interfaces/teleInterface/box");
+		RSInterface teleportName = addText(63119, "Teleport Name", tda, 0, 0xc99f38, true, true);//tele name
+		teleportName.width = 128;
+		teleportName.height = 15;
+		teleportName.centerVertically = true;
+
+
+		addText(63230, "Line 1 text here", tda, 0, 0xFF981F, false, true);//tele name
+		addText(63231, "Line 2 text here", tda, 0, 0xFF981F, false, true);//tele name
+		addText(63232, "Line 3 text here", tda, 0, 0xFF981F, false, true);//tele name
+		//addText(63233, "Line 3 text here", tda, 0, 0xFF981F, false, true);//tele name
+		RSInterface infoText = addText(63129, "Information", tda, 0, 0xc99f38, false, true);//tele name
+		infoText.height = 20;
+		int buttonWidth = 73, buttonHeight = 17;
+		addClickableText1(63055, "Monsters", "Monster & Slayer Teleports", tda, 0, 0xFF981F, true, true, buttonWidth, buttonHeight);
+		addClickableText1(63056, "Bosses", "Boss Teleports", tda, 0, 0xFF981F, true, true, buttonWidth, buttonHeight);
+		addClickableText1(63057, "Minigames", "Minigame Teleports", tda, 0, 0xFF981F, true, true, buttonWidth, buttonHeight);
+		addClickableText1(63058, "Skilling", "Skilling Teleports", tda, 0, 0xFF981F, true, true, buttonWidth, buttonHeight);
+		addClickableText1(63059, "Wilderness", "Wilderness Teleports", tda, 0, 0xFF981F, true, true, buttonWidth, buttonHeight);
+		addClickableText1(63060, "Cities", "City & Donator Teleports", tda, 0, 0xFF981F, true, true, buttonWidth, buttonHeight);
+
+		addClickableText1(63120, "Select Teleport", "Teleport to selected location", tda, 0, 0xFF981F, true, true, 160, 25);//confirm text
+		addText(63123, "", tda, 1, 0xFF981F, false, true);//rightside name
+
+		int itemListX = 348;
+		int itemListY = 228;
+		RSInterface lootRewards = addTabInterface(63114);
+
+		lootRewards.height = 51;
+		lootRewards.width = 123;
+		lootRewards.contentType = 3000;
+		lootRewards.totalChildren(1);
+		RSInterface inventoryWidget = RSInterface.addInterface(63115);
+		inventoryWidget.type = 2;
+		inventoryWidget.width = 4;
+		inventoryWidget.height = 30;
+
+		inventoryWidget.inventoryItemId = new int[inventoryWidget.width * inventoryWidget.height];
+		inventoryWidget.inventoryAmounts = new int[inventoryWidget.width * inventoryWidget.height];
+		inventoryWidget.spritesX = new int[inventoryWidget.width * inventoryWidget.height];
+		inventoryWidget.spritesY = new int[inventoryWidget.width * inventoryWidget.height];
+
+		lootRewards.child(0, 63115, 8, 5);
+
+
+		addPet(63116);
+
+		RSInterface scroller = addTabInterface(63004);//teleports scrollbar
+		scroller.height = 235;
+		scroller.width = 303;
+		scroller.contentType = 63000;
+
+		int buttonCount = 20;
+
+		scroller.totalChildren(buttonCount * 4);
+
+		int firstRowX = 26;
+		int secondRowX = 163;
+		int startingButtonY = 10;
+		int startingId = 63005;
+		int startingTextId = 63131;
+		int clickableButtonWidth = 126;
+		int childId = 0;
+		Sprite selectedTeleportSprite = imageLoader(2, "interfaces/teleInterface/teleport");
+		for(int i = 0;i<buttonCount;i++) {
+			RSInterface leftBtn = addSpriteOnHover(startingId, "interfaces/teleInterface/teleport", 0, 1, 126, 35, "", -1, 0);
+			leftBtn.backgroundSprites = new Sprite[] { selectedTeleportSprite, leftBtn.sprite1 };
+			setBounds(startingId, firstRowX, startingButtonY, childId++, scroller);//teleports row 1
+
+
+			RSInterface text = addClickableText1(startingTextId, "", "", tda, 0, 0xFF981F, true, true, clickableButtonWidth, 35);
+			text.centerVertically = true;
+			text.underSpriteWidget = startingId;
+			setBounds(startingTextId++, firstRowX, startingButtonY, childId++, scroller);//teleports row 1
+
+			startingId++;
+
+			RSInterface rightBtn = addSpriteOnHover(startingId, "interfaces/teleInterface/teleport", 0, 1, 126, 35, "", -1, 0);
+			rightBtn.backgroundSprites = new Sprite[] { selectedTeleportSprite, rightBtn.sprite1};
+
+			setBounds(startingId, secondRowX, startingButtonY, childId++, scroller);//teleports row 1
+
+			text = addClickableText1(startingTextId, "", "", tda, 0, 0xFF981F, true, true, clickableButtonWidth, 35);
+			text.centerVertically = true;
+			text.underSpriteWidget = startingId;
+
+			setBounds(startingTextId++, secondRowX, startingButtonY, childId++, scroller);//teleports row 1
+
+			startingId++;
+
+			startingButtonY += 40;
+		}
+
+
+
+		scroller.scrollMax = startingButtonY + 10;
+
+		setChildren(19, rsInterface);
+
+		setBounds(63001, 5, 10, 0, rsInterface);//background
+		setBounds(63002, 14, 17, 1, rsInterface);//Monsters sprite
+		setBounds(63121, 488, 18, 2, rsInterface);//exit sprite
+		setBounds(63004, 6, 79, 3, rsInterface);//scroll bar
+
+		int categoryTextY = 53;
+
+		setBounds(63055, 20, categoryTextY, 4, rsInterface);//Category Text// monsters
+		setBounds(63056, 103, categoryTextY, 5, rsInterface);//bosses
+		setBounds(63057, 183, categoryTextY - 1, 6, rsInterface);//minigames
+		setBounds(63058, 264, categoryTextY - 1, 7, rsInterface);//skilling
+		setBounds(63059, 345, categoryTextY, 8, rsInterface);//wilderness
+		setBounds(63060, 425, categoryTextY, 9, rsInterface);//cities
+
+		setBounds(63114, itemListX, itemListY, 10, rsInterface);//Loot rewards overlay
+		setBounds(63116, itemListX, 70 + 15, 11, rsInterface);//Loot rewards text
+
+		//setBounds(63117, 337, 76, 12, rsInterface);//npc
+		//setBounds(63118, 348, 107, 13, rsInterface);//overlay
+		setBounds(63119, 355, 89, 12, rsInterface);//tele name
+		setBounds(63120, 337, 290, 13, rsInterface);//confirm teleport button
+
+		setBounds(63123, 366, 94, 14, rsInterface);//rightside name
+
+		//Info text
+		setBounds(63230, 355, 224, 15, rsInterface);
+		setBounds(63231, 355, 241, 16, rsInterface);
+		setBounds(63232, 355, 258, 17, rsInterface);
+
+
+		setBounds(63129, 373, 202, 18, rsInterface);//Info
+
+		//setBounds(63004, 55, 70, 3, rsInterface);//Monsters Text
+		//setBounds(63005, 135, 70, 4, rsInterface);//Bosses Text
+
 	}
 
 	public static void questInterface(TextDrawingArea[] TDA) {
@@ -716,21 +1006,21 @@ public final class Interfaces extends RSInterface {
 		//Config = 519
 		RSInterface widget = addInterface(23110);
 		int childId = 23111;
-		
-		addSprite(childId++, 0, "Interfaces/CollectionLog/BACKGROUND");
-		
-		addText(childId++, "Collection Log", tda, 2, 0xFF9300, true, true);
-		
-		addHoverButton(childId++, "Interfaces/CollectionLog/CLOSE", 0, 16, 16, "Close", -1, childId, 1);
+
+		addSprite(childId++, 0, "Interfaces/CollectionLog/BACKGROUND");//23112
+
+		addText(childId++, "Collection Log", tda, 2, 0xFF9300, true, true);//23113
+
+		addHoverButton(childId++, "Interfaces/CollectionLog/CLOSE", 0, 16, 16, "Close", -1, childId, 1);//23114
 		addHoveredButton(childId++, "Interfaces/CollectionLog/CLOSE", 1, 16, 16, childId++);
-		
+
 		addConfigButton(childId++, 618, 0, 1, "Interfaces/CollectionLog/TAB", 96, 20, "Select Bosses", 1, 1, 519);
 		addText(childId++, "Bosses", tda, 1, 0xFF9300, true, true);
-		
+
 		addText(childId++, "Boss Name Here", tda, 2, 0xFF9300, false, true);
 		addText(childId++, "Obtained: @red@10/11", tda, 0, 0xFF9300, false, true);
 		addText(childId++, "Boss Name count: @whi@125", tda, 0, 0xFF9300, true, true);
-		
+
 		RSInterface tableView = addInterface(childId++);
 		int scrollChildId = childId;
 		int scrollFrame = 0;
@@ -738,7 +1028,7 @@ public final class Interfaces extends RSInterface {
 		tableView.height = 246;
 		tableView.scrollMax = 750;
 		tableView.totalChildren(50 * 2);
-		
+
 		int scrollX = 0;
 		int scrollY = 0;
 		for(int i = 0; i < 50; i++) {
@@ -748,55 +1038,55 @@ public final class Interfaces extends RSInterface {
 				addConfigButton(scrollChildId, 23122, 2, 1, "Interfaces/CollectionLog/CELL", 187, 15, "Select Boss", 1, 1, 520 + i);
 			}
 			tableView.child(scrollFrame++, scrollChildId++, scrollX, scrollY);
-			
+
 			addText(scrollChildId, "Boss Name Here", tda, 1, 0xFF9300, false, true);
 			tableView.child(scrollFrame++, scrollChildId++, scrollX + 4, scrollY);
-			
+
 			scrollY += 15;
 		}
-		
+
 		widget.totalChildren(childId - 23111 - 1 + (8) + 1);
 		childId = 23111;
 		int frame = 0;
-		
+
 		widget.child(frame++, childId++, 9, 11);//Background
 		widget.child(frame++, childId++, 257, 20);//Title
-		
+
 		widget.child(frame++, childId++, 482, 20);
 		widget.child(frame++, childId++, 482, 20);
 		childId++;
-		
+
 		widget.child(frame++, childId++, 19, 47);
 		widget.child(frame++, childId++, 60, 50);
-		
+
 		widget.child(frame++, childId++, 230, 70);
 		widget.child(frame++, childId++, 230, 94);
 		widget.child(frame++, childId++, 433, 94);
-		
+
 		widget.child(frame++, childId++, 20, 68);
-		
+
 		//Had to add these on
 		int nextChildId = scrollChildId;
 		addConfigButton(nextChildId, 23111, 0, 1, "Interfaces/CollectionLog/TAB", 96, 20, "Select Wilderness", 1, 1, 571);
 		widget.child(frame++, nextChildId++, 19 + 96, 47);
 		addText(nextChildId, "Wilderness", tda, 1, 0xFF9300, true, true);
 		widget.child(frame++, nextChildId++, 60 + 96, 50);
-		
+
 		addConfigButton(nextChildId, 23111, 0, 1, "Interfaces/CollectionLog/TAB", 96, 20, "Select Raids", 1, 1, 572);
 		widget.child(frame++, nextChildId++, 19 + 96 + 96, 47);
 		addText(nextChildId, "Raids", tda, 1, 0xFF9300, true, true);
 		widget.child(frame++, nextChildId++, 60 + 96 + 96, 50);
-		
+
 		addConfigButton(nextChildId, 23111, 0, 1, "Interfaces/CollectionLog/TAB", 96, 20, "Select Minigames", 1, 1, 573);
 		widget.child(frame++, nextChildId++, 19 + 96 + 96 + 96, 47);
 		addText(nextChildId, "Minigames", tda, 1, 0xFF9300, true, true);
 		widget.child(frame++, nextChildId++, 60 + 96 + 96 + 96, 50);
-		
+
 		addConfigButton(nextChildId, 23111, 0, 1, "Interfaces/CollectionLog/TAB", 96, 20, "Select Clue Scroll", 1, 1, 574);
 		widget.child(frame++, nextChildId++, 19 + 96 + 96 + 96 + 96, 47);
 		addText(nextChildId, "Other", tda, 1, 0xFF9300, true, true);
 		widget.child(frame++, nextChildId++, 60 + 96 + 96 + 96 + 96, 50);
-		
+
 		int itemScrollId = nextChildId;
 		RSInterface scroll = addInterface(itemScrollId);
 		widget.child(frame++, itemScrollId++, 232, 114);
@@ -805,11 +1095,10 @@ public final class Interfaces extends RSInterface {
 		scroll.height = 200;
 		scroll.scrollMax = 2000;
 		scroll.totalChildren(1);
-		
+
 		addToItemGroup(itemScrollId, 6, 33, 9, 6, false, null, null, null);
 		scroll.child(itemScrollFrame++, itemScrollId++, 0, 0);
 	}
-	
 	/**
 	 * @author Grant_ | www.rune-server.ee/members/grant_ | 10/6/19
 	 * @param tda
@@ -1262,7 +1551,7 @@ public final class Interfaces extends RSInterface {
 		addText(35425, "Abyssal Demon: 5", tda, 1, 0xF7FE2E, true, true);
 		setChildren(1, rsInterface);
 		rsInterface.child(0, 35425,
-				Client.currentScreenMode == ScreenMode.FIXED ? 250 : (Client.currentGameWidth - 300), 10); // Assignment
+				!Client.instance.isResized() ? 250 : (Client.canvasWidth - 300), 10); // Assignment
 	}
 
 	private static void skotizo(TextDrawingArea[] tda) {
@@ -1990,35 +2279,6 @@ public final class Interfaces extends RSInterface {
 		rsi.id = index;
 		rsi.type = 2;
 	}
-
-//	public static void groundItemCustomizing(TextDrawingArea[] tda) {
-//		RSInterface r = addInterface(37700);
-//		addSprite(37701, 2, "Interfaces/GroundItems/IMAGE");// they got saved as jpgs, need 2 convert lol il plz do
-//		addText(37702, "Ground items customizer", tda, 2, 0xFE9624, true, true);
-//		addHoverButton(37703, "Interfaces/GroundItems/IMAGE", 0, 16, 16, "Close", -1, 37704, 3);
-//		addHoveredButton(37704, "Interfaces/GroundItems/IMAGE", 1, 16, 16, 37705);
-//		addButton(37706, 4, "Interfaces/GroundItems/IMAGE", "Choose color");
-//		addText(37707, "Choose a color below!", tda, 2, 0xffffff, true, true);
-//		addButton(37708, 3, "Interfaces/GroundItems/IMAGE", "Enter Item Name");
-//		addText(37709, "Set Color To Item", tda, 0, 0xFE9624, true, true);
-//		addButton(37710, 3, "Interfaces/GroundItems/IMAGE", "Enter Minimum Item Value");
-//		addText(37711, "Enter Min. Value", tda, 0, 0xFE9624, true, true);
-//		addButton(37712, 3, "Interfaces/GroundItems/IMAGE", "Reset All Item Colors");
-//		addText(37713, "Reset All Colors", tda, 0, 0xFE9624, true, true);
-//		r.totalChildren(12);
-//		r.child(0, 37701, 130, 75);// opn skype need 2 send u some imgs
-//		r.child(1, 37702, 245, 85);
-//		r.child(2, 37703, 334, 85);
-//		r.child(3, 37704, 334, 85);
-//		r.child(4, 37706, 137, 215);
-//		r.child(5, 37707, 240, 195);
-//		r.child(6, 37708, 150, 120);
-//		r.child(7, 37709, 192, 125);
-//		r.child(8, 37710, 250, 120);
-//		r.child(9, 37711, 292, 125);
-//		r.child(10, 37712, 150, 150);
-//		r.child(11, 37713, 192, 155);
-//	}
 
 	public static void helpDatabaseComponent(TextDrawingArea[] tda) {
 		RSInterface widget = addInterface(59550);
@@ -3469,7 +3729,7 @@ interfaceId+=5000;
 		setBounds(28052, 48, 30, 1, subWidget);
 	}
 
-	public static void shopWidget(TextDrawingArea[] tda) {
+	public static void shopWidget(TextDrawingArea[] tda) { // did it happen before the client change? nope client sided sooo here
 		// Interface background
 		RSInterface widget = addInterface(64000);
 		setChildren(5, widget);
@@ -3498,7 +3758,7 @@ interfaceId+=5000;
 		RSInterface subWidget = addInterface(64017);
 		setChildren(2, subWidget);
 		addSprite(64018, 2, "Interfaces/BountyHunter/IMAGE");
-		addText(64019, "PKP", tda, 1, 0xFFFF00, false, true);
+		addText(64019, "Blood Money Store", tda, 1, 0xFFFF00, false, true);
 		setBounds(64018, 20, 20, 0, subWidget);
 		setBounds(64019, 48, 20, 1, subWidget);
 	}
@@ -3518,8 +3778,8 @@ interfaceId+=5000;
 		setBounds(28006, 359, 47, 4, widget);
 
 		/** TODO WIldy Skull **/
-		setBounds(196, Client.currentScreenMode != ScreenMode.FIXED ? 600 : 420,
-				Client.currentScreenMode != ScreenMode.FIXED ? 186 : 286, 5, widget);
+		setBounds(196, Client.instance.isResized() ? 600 : 420,
+			Client.instance.isResized() ? 186 : 286, 5, widget);
 
 		addText(250, "", tda, 1, 0xFFFF00, true, true);
 		RSInterface skullWidget = RSInterface.interfaceCache[196];

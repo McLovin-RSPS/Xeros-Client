@@ -1,6 +1,12 @@
 package com.client.graphics.interfaces.impl;
 
 
+import com.client.Client;
+import com.client.Sprite;
+import com.client.graphics.interfaces.Configs;
+import com.client.graphics.interfaces.RSInterface;
+import com.client.model.Spell;
+import com.google.common.base.Preconditions;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,13 +14,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import com.client.Client;
-import com.client.Sprite;
-import com.client.graphics.interfaces.Configs;
-import com.client.graphics.interfaces.RSInterface;
-import com.client.model.Spell;
-import com.google.common.base.Preconditions;
 
 public class Autocast extends RSInterface {
 

@@ -30,9 +30,9 @@ final class Sounds {
 
 	private void method242(Buffer stream) {
 		for (int i = 0; i < 10; i++) {
-			int j = stream.readUnsignedByte();
+			int j = stream.get_unsignedbyte();
 			if (j != 0) {
-				stream.currentOffset--;
+				stream.currentPosition--;
 				aClass6Array329[i] = new Class6();
 				aClass6Array329[i].method169(stream);
 			}
@@ -65,7 +65,7 @@ final class Sounds {
 
 	private Buffer method244(int i) {
 		int k = method245(i);
-		aStream_328.currentOffset = 0;
+		aStream_328.currentPosition = 0;
 		aStream_328.writeDWord(0x52494646);
 		aStream_328.method403(36 + k);
 		aStream_328.writeDWord(0x57415645);
@@ -79,7 +79,7 @@ final class Sounds {
 		aStream_328.method400(8);
 		aStream_328.writeDWord(0x64617461);
 		aStream_328.method403(k);
-		aStream_328.currentOffset += k;
+		aStream_328.currentPosition += k;
 		return aStream_328;
 	}
 

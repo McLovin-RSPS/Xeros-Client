@@ -1,8 +1,7 @@
 package com.client.graphics.interfaces.impl;
 
-import java.awt.event.KeyEvent;
-
 import com.client.Client;
+import java.awt.event.KeyEvent;
 /**
  * Handles bindings for the gameframe tabs.
  * @author Professor Oak

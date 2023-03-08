@@ -18,7 +18,7 @@ public class QuestTab extends RSInterface {
     public static final int TAB_3 = 24_500;//29475; // Diaries
     public static final int TAB_4 = 50614; // Quests
 
-    public static final int[] INTERFACE_PLACEHOLDERS = {TAB_1, TAB_2, TAB_3, TAB_4};
+    public static final int[] INTERFACE_PLACEHOLDERS = {TAB_1, /*TAB_2,*/ TAB_3, TAB_4};
 
     private static final String SPRITE_FOLDER = "/Info Tab/";
     private static final String TAB = SPRITE_FOLDER + "TAB";
@@ -30,7 +30,7 @@ public class QuestTab extends RSInterface {
 
     private enum Button {
         INFORMATION(1, DEFAULT_SCROLL_MAX + 200),
-        COIN(2, DEFAULT_SCROLL_MAX + 120),
+       // COIN(2, DEFAULT_SCROLL_MAX + 120),
         DIARIES(3, 0),
         QUEST_LIST(5, DEFAULT_SCROLL_MAX)
         ;
