@@ -109,25 +109,13 @@ dependencies {
 }
 
 tasks {
+
     jar {
+        destinationDirectory.set(file("$buildDir/libs"))
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
         archiveBaseName.set("${project.name}-Client")
-        from(configurations.compileClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-        manifest {
-            attributes(
-                mapOf(
-                    "Main-Class" to "net.runelite.client.RuneLite"
-                )
-            )
-        }
     }
 
-    // This task is optional and can be used to create a fat jar that includes all dependencies
-    task("fatJar", type = Jar::class) {
-        archiveClassifier.set("fat")
-        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-        with(jar)
-    }
 }
 
 application {
