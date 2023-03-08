@@ -21,7 +21,7 @@ repositories {
 plugins {
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.lombok") version "1.5.21"
-    application
+    id("application")
 }
 
 
@@ -108,16 +108,34 @@ dependencies {
 
 }
 
-tasks {
+repositories {
+    mavenCentral()
+}
 
-    jar {
-        destinationDirectory.set(file("$buildDir/libs"))
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        archiveBaseName.set("${project.name}-Client")
-    }
-
+dependencies {
+    implementation("com.google.guava:guava:30.1-jre")
 }
 
 application {
     mainClass.set("net.runelite.client.RuneLite")
 }
+
+tasks {
+    jar {
+        destinationDirectory.set(file("$buildDir/libs"))
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        archiveBaseName.set("${project.name}-Client")
+        manifest {
+            attributes["Main-Class"] = "net.runelite.client.RuneLite"
+        }
+        from(configurations.runtimeClasspath.get().filter { it.exists() }.map { if (it.isDirectory) it else zipTree(it) })
+    }
+}
+
+application {
+    mainClass.set("net.runelite.client.RuneLite")
+}
+
+
+
+
