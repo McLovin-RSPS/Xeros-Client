@@ -2,3 +2,5 @@
 /.gradle/
 /build/
 /build/classes/java/main/
+console_output.txt
+log.txt

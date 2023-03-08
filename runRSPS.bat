@@ -1,6 +1,3 @@
 @echo off
-set JDK_PATH=C:\Program Files\zulu\zulu-15\bin\java.exe
-set JAR_FILE=Surge-Client-Client.jar
-set MAIN_CLASS=net.runelite.client.RuneLite
-
-"%JDK_PATH%" -cp "%JAR_FILE%" "%MAIN_CLASS%" >> output.txt
+"C:\Program Files\Zulu\zulu-15\bin\java.exe" -Xmx900m -XX:GCTimeRatio=19 -jar Surge-Client-Client-1.0.jar > C:\Users\smoke\Xeros-Client\log.txt
+pause

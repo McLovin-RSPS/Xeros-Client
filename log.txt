@@ -1,241 +1,225 @@
-14:20:03.684 [main] INFO net.runelite.client.RuneLite - RuneLite runelite-1.8.19-SNAPSHOT (launcher version unknown) starting up, args: none
-14:20:03.728 [main] INFO net.runelite.client.RuneLite - Java VM arguments: -Dfile.encoding=windows-1252
-14:20:04.830 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.http.api.ws.messages.LoginResponse - EventBus.Subscriber(object=net.runelite.client.account.SessionManager@687ef2e0, method=public void net.runelite.client.account.SessionManager.onLoginResponse(net.runelite.http.api.ws.messages.LoginResponse), priority=0.0, lambda=net.runelite.client.account.SessionManager$$Lambda$276/0x0000000800e538b8@15dcfae7)
-14:20:04.861 [main] DEBUG net.runelite.client.input.KeyManager - Registering key listener: net.runelite.client.ui.overlay.OverlayRenderer@7642df8f
-14:20:04.862 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ClientTick - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayRenderer@7642df8f, method=protected void net.runelite.client.ui.overlay.OverlayRenderer.onClientTick(net.runelite.api.events.ClientTick), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayRenderer$$Lambda$277/0x0000000800e56840@63a270c9)
-14:20:04.862 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.FocusChanged - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayRenderer@7642df8f, method=public void net.runelite.client.ui.overlay.OverlayRenderer.onFocusChanged(net.runelite.api.events.FocusChanged), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayRenderer$$Lambda$278/0x0000000800e56a70@1199fe66)
-14:20:04.863 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.BeforeRender - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayRenderer@7642df8f, method=public void net.runelite.client.ui.overlay.OverlayRenderer.onBeforeRender(net.runelite.api.events.BeforeRender), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayRenderer$$Lambda$279/0x0000000800e56ca0@2d96543c)
-14:20:04.865 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.ui.overlay.infobox.InfoBoxManager@436bc36, method=public void net.runelite.client.ui.overlay.infobox.InfoBoxManager.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.ui.overlay.infobox.InfoBoxManager$$Lambda$280/0x0000000800e57300@5fe1ce85)
-14:20:04.866 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.InfoBoxMenuClicked - EventBus.Subscriber(object=net.runelite.client.ui.overlay.infobox.InfoBoxManager@436bc36, method=public void net.runelite.client.ui.overlay.infobox.InfoBoxManager.onInfoBoxMenuClicked(net.runelite.client.events.InfoBoxMenuClicked), priority=0.0, lambda=net.runelite.client.ui.overlay.infobox.InfoBoxManager$$Lambda$281/0x0000000800e57530@66fdec9)
-14:20:04.871 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.chat.ChatMessageManager@6c45ee6e, method=public void net.runelite.client.chat.ChatMessageManager.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.chat.ChatMessageManager$$Lambda$282/0x0000000800e60578@6b3e12b5)
-14:20:04.872 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ResizeableChanged - EventBus.Subscriber(object=net.runelite.client.chat.ChatMessageManager@6c45ee6e, method=public void net.runelite.client.chat.ChatMessageManager.onResizeableChanged(net.runelite.api.events.ResizeableChanged), priority=0.0, lambda=net.runelite.client.chat.ChatMessageManager$$Lambda$283/0x0000000800e607a8@42463763)
-14:20:04.873 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ScriptCallbackEvent - EventBus.Subscriber(object=net.runelite.client.chat.ChatMessageManager@6c45ee6e, method=public void net.runelite.client.chat.ChatMessageManager.onScriptCallbackEvent(net.runelite.api.events.ScriptCallbackEvent), priority=0.0, lambda=net.runelite.client.chat.ChatMessageManager$$Lambda$284/0x0000000800e609d8@7ca33c24)
-14:20:04.873 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.VarbitChanged - EventBus.Subscriber(object=net.runelite.client.chat.ChatMessageManager@6c45ee6e, method=public void net.runelite.client.chat.ChatMessageManager.onVarbitChanged(net.runelite.api.events.VarbitChanged), priority=0.0, lambda=net.runelite.client.chat.ChatMessageManager$$Lambda$285/0x0000000800e60c08@41dd05a)
-14:20:04.894 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ScriptCallbackEvent - EventBus.Subscriber(object=net.runelite.client.callback.Hooks@616fe72b, method=public void net.runelite.client.callback.Hooks.onScriptCallbackEvent(net.runelite.api.events.ScriptCallbackEvent), priority=0.0, lambda=net.runelite.client.callback.Hooks$$Lambda$286/0x0000000800e642c0@37efd131)
-14:20:04.894 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameStateChanged - EventBus.Subscriber(object=net.runelite.client.callback.Hooks@616fe72b, method=public void net.runelite.client.callback.Hooks.onGameStateChanged(net.runelite.api.events.GameStateChanged), priority=0.0, lambda=net.runelite.client.callback.Hooks$$Lambda$287/0x0000000800e644f0@7e5d9a50)
+15:08:27.138 [main] INFO net.runelite.client.RuneLite - RuneLite runelite-1.8.19-SNAPSHOT (launcher version unknown) starting up, args: none
+15:08:27.178 [main] INFO net.runelite.client.RuneLite - Java VM arguments: -Xmx900m -XX:GCTimeRatio=19
+15:08:28.157 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.http.api.ws.messages.LoginResponse - EventBus.Subscriber(object=net.runelite.client.account.SessionManager@15dcfae7, method=public void net.runelite.client.account.SessionManager.onLoginResponse(net.runelite.http.api.ws.messages.LoginResponse), priority=0.0, lambda=net.runelite.client.account.SessionManager$$Lambda$276/0x0000000800e534c8@3da05287)
+15:08:28.196 [main] DEBUG net.runelite.client.input.KeyManager - Registering key listener: net.runelite.client.ui.overlay.OverlayRenderer@3e30646a
+15:08:28.197 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ClientTick - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayRenderer@3e30646a, method=protected void net.runelite.client.ui.overlay.OverlayRenderer.onClientTick(net.runelite.api.events.ClientTick), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayRenderer$$Lambda$277/0x0000000800e56450@37c7595)
+15:08:28.197 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.FocusChanged - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayRenderer@3e30646a, method=public void net.runelite.client.ui.overlay.OverlayRenderer.onFocusChanged(net.runelite.api.events.FocusChanged), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayRenderer$$Lambda$278/0x0000000800e56680@614df0a4)
+15:08:28.198 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.BeforeRender - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayRenderer@3e30646a, method=public void net.runelite.client.ui.overlay.OverlayRenderer.onBeforeRender(net.runelite.api.events.BeforeRender), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayRenderer$$Lambda$279/0x0000000800e568b0@73a2e526)
+15:08:28.201 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.ui.overlay.infobox.InfoBoxManager@5fe1ce85, method=public void net.runelite.client.ui.overlay.infobox.InfoBoxManager.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.ui.overlay.infobox.InfoBoxManager$$Lambda$280/0x0000000800e56f10@604c5de8)
+15:08:28.202 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.InfoBoxMenuClicked - EventBus.Subscriber(object=net.runelite.client.ui.overlay.infobox.InfoBoxManager@5fe1ce85, method=public void net.runelite.client.ui.overlay.infobox.InfoBoxManager.onInfoBoxMenuClicked(net.runelite.client.events.InfoBoxMenuClicked), priority=0.0, lambda=net.runelite.client.ui.overlay.infobox.InfoBoxManager$$Lambda$281/0x0000000800e57140@57abad67)
+15:08:28.211 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.chat.ChatMessageManager@6b3e12b5, method=public void net.runelite.client.chat.ChatMessageManager.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.chat.ChatMessageManager$$Lambda$282/0x0000000800e60578@5aac4250)
+15:08:28.212 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.VarbitChanged - EventBus.Subscriber(object=net.runelite.client.chat.ChatMessageManager@6b3e12b5, method=public void net.runelite.client.chat.ChatMessageManager.onVarbitChanged(net.runelite.api.events.VarbitChanged), priority=0.0, lambda=net.runelite.client.chat.ChatMessageManager$$Lambda$283/0x0000000800e607a8@59f63e24)
+15:08:28.212 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ScriptCallbackEvent - EventBus.Subscriber(object=net.runelite.client.chat.ChatMessageManager@6b3e12b5, method=public void net.runelite.client.chat.ChatMessageManager.onScriptCallbackEvent(net.runelite.api.events.ScriptCallbackEvent), priority=0.0, lambda=net.runelite.client.chat.ChatMessageManager$$Lambda$284/0x0000000800e609d8@fade1fc)
+15:08:28.213 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ResizeableChanged - EventBus.Subscriber(object=net.runelite.client.chat.ChatMessageManager@6b3e12b5, method=public void net.runelite.client.chat.ChatMessageManager.onResizeableChanged(net.runelite.api.events.ResizeableChanged), priority=0.0, lambda=net.runelite.client.chat.ChatMessageManager$$Lambda$285/0x0000000800e60c08@613a8ee1)
+15:08:28.236 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameStateChanged - EventBus.Subscriber(object=net.runelite.client.callback.Hooks@37efd131, method=public void net.runelite.client.callback.Hooks.onGameStateChanged(net.runelite.api.events.GameStateChanged), priority=0.0, lambda=net.runelite.client.callback.Hooks$$Lambda$286/0x0000000800e642c0@7e7b159b)
+15:08:28.237 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ScriptCallbackEvent - EventBus.Subscriber(object=net.runelite.client.callback.Hooks@37efd131, method=public void net.runelite.client.callback.Hooks.onScriptCallbackEvent(net.runelite.api.events.ScriptCallbackEvent), priority=0.0, lambda=net.runelite.client.callback.Hooks$$Lambda$287/0x0000000800e644f0@60957c0f)
 Init3423
-14:20:04.978 [main] DEBUG net.runelite.client.config.ConfigManager - Loading in config from disk
-14:20:04.989 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanChatGuestMessageHighlight: -1
-14:20:04.993 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.environmentalLighting: true
-14:20:04.993 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hidePlayers2D: true
-14:20:04.993 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.fogDepth: 0
-14:20:04.993 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.projectileLights: true
-14:20:04.993 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.tooltipFontType: SMALL
-14:20:04.993 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaquePrivateMessageSentHighlight: -16767101
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.maxDynamicLights: SOME
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.enableModelCaching: false
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value minimap.hideMinimap: false
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.trayIcon: true
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.colorBlindMode: NONE
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.unlockFps: false
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.expandShadowDraw: false
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.overrideSky: false
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.fpsTarget: 60
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.underwaterCaustics: true
-14:20:04.994 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanInfoHighlight: -65536
-14:20:04.995 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideNPCs: false
-14:20:04.995 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.enableModelBatching: false
-14:20:04.995 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.hdInfernalTexture: true
-14:20:04.995 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentGameMessageHighlight: -1109984
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.drawDistance: 50
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.limitFpsUnfocused: false
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.anisotropicFilteringLevel: 16
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.blockExtraMouseButtons: true
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideIgnores: false
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.objectTextures: true
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.groundBlending: true
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.overlayBackgroundColor: -1673118414
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.maxFps: 50
-14:20:04.996 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.tooltipPosition: UNDER_CURSOR
-14:20:04.997 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.useWikiItemPrices: true
-14:20:04.997 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.smoothBanding: false
-14:20:04.997 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideProjectiles: false
-14:20:04.997 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.fpsplugin: false
-14:20:04.997 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.useComputeShaders: true
-14:20:04.997 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value stretchedmode.keepAspectRatio: false
-14:20:04.997 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentPublicChatHighlight: -1
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.uiEnableCustomChrome: true
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.infoBoxVertical: false
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideLocalPlayer2D: false
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.vsyncMode: ADAPTIVE
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.hdminimapplugin: false
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationFlashColor: 1191116800
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.gameAlwaysOnTop: false
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.vsyncMode: ADAPTIVE
-14:20:04.998 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanMessageHighlight: -16777216
-14:20:04.999 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentPrivateMessageSentHighlight: -1
-14:20:04.999 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value minimap.zoom: true
-14:20:04.999 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationRequestFocus: OFF
-14:20:04.999 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationFocused: false
-14:20:04.999 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.fogDepth: 5
-14:20:04.999 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.unlockFps: false
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanInfoHighlight: -65536
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideClanMates: false
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.groundFog: true
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.groundTextures: true
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.brightTextures: false
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value stretchedmode.integerScaling: false
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.fontType: SMALL
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.clientBounds: 447:142:773:539
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value stretchedmode.scalingFactor: 50
-14:20:05.000 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.infoBoxTextOutline: false
-14:20:05.001 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.flashingEffects: false
-14:20:05.001 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentExamineHighlight: -16711936
-14:20:05.002 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.rememberScreenBounds: true
-14:20:05.002 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.uiWindowOpacity: 100
-14:20:05.002 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentPrivateMessageReceivedHighlight: -1
-14:20:05.002 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.entityhiderplugin: false
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationTray: true
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.lockWindowSize: false
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideAttackers: false
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hidePlayers: true
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideClanChatMembers: false
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.colorBlindMode: NONE
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.defaultSkyColor: DEFAULT
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.containInScreen2: RESIZING
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaquePublicChatHighlight: -16777216
-14:20:05.003 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationTimeout: 10000
-14:20:05.004 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaquePrivateMessageReceivedHighlight: -16767101
-14:20:05.004 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanChatMessageHighlight: -16777216
-14:20:05.004 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.shadowsEnabled: true
-14:20:05.004 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanChatGuestMessageHighlight: -16777216
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationGameMessage: false
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.uiScalingMode: LINEAR
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.npcLights: true
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.fpsTarget: 60
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.pluginUpdateMessage: 1
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.modelCacheSizeMiB: 2048
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.hdplugin: true
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hidePets: false
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value stretchedmode.increasedPerformance: false
-14:20:05.005 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.contrast: DEFAULT
-14:20:05.006 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanChatInfoHighlight: -65536
-14:20:05.007 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideLocalPlayer: false
-14:20:05.007 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideNPCs2D: false
-14:20:05.007 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.macosIntelWorkaround: false
-14:20:05.007 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.textureResolution: RES_256
-14:20:05.007 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.drawFps: true
-14:20:05.007 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueGameMessageHighlight: -1109984
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.antiAliasingMode: DISABLED
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.colorBlindnessIntensity: 100
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.limitFps: false
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.automaticResizeType: KEEP_GAME_SIZE
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.tzhaarHD: true
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.winterTheme0: false
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.hideBakedEffects: true
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.loadingClearCache: false
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.fogDepthMode: DYNAMIC
-14:20:05.008 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.infoBoxSize: 35
-14:20:05.009 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanMessageHighlight: -1
-14:20:05.009 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.panelToggleKey: 123:128
-14:20:05.009 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.antiAliasingMode: DISABLED
-14:20:05.009 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideFriends: false
-14:20:05.009 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.warningOnExit: LOGGED_IN
-14:20:05.009 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.maxFpsUnfocused: 50
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueExamineHighlight: -16776961
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value minimap.hdminimap: false
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.brightness2: 20
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.drawDistance: 25
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.reduceOverExposure: false
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.uiScalingMode: LINEAR
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanChatMessageHighlight: -1
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.menuEntryShift: true
-14:20:05.010 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanGuestInfoHighlight: -65536
-14:20:05.011 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.interfaceFontType: REGULAR
-14:20:05.011 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.anisotropicFilteringLevel: 0
-14:20:05.011 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value rsprofile.loginSalt: VFwAvOFbAj2MhrjBFbHJ
-14:20:05.011 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.usernameInTitle: true
-14:20:05.011 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanChatInfoHighlight: -65536
-14:20:05.011 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.gameSize: 765x503
-14:20:05.011 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.flashNotification: DISABLED
-14:20:05.011 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanGuestInfoHighlight: -65536
-14:20:05.012 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.shadowDistance: DISTANCE_30
-14:20:05.012 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.sidebarToggleKey: 122:128
-14:20:05.012 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.shadowResolution: RES_1024
-14:20:05.012 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationSound: NATIVE
-14:20:05.012 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.saturation: DEFAULT
-14:20:05.012 [main] INFO net.runelite.client.account.SessionManager - No session file exists
-14:20:05.357 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin ConfigPlugin
-14:20:05.365 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin StretchedModePlugin
-14:20:05.380 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin GpuPlugin
-14:20:05.384 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin MinimapPlugin
-14:20:05.387 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin EntityHiderPlugin
-14:20:05.485 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin HdPlugin
-14:20:05.492 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin FpsPlugin
-14:20:05.494 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin HdMinimapPlugin
-14:20:05.508 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ClientShutdown - EventBus.Subscriber(object=net.runelite.client.ClientSessionManager@2e77b8cf, method=private void net.runelite.client.ClientSessionManager.onClientShutdown(net.runelite.client.events.ClientShutdown), priority=0.0, lambda=net.runelite.client.ClientSessionManager$$Lambda$339/0x0000000800ee9058@2c4ca0f9)
-14:20:05.643 [pool-1-thread-1] DEBUG net.runelite.client.ClientSessionManager - Opened session 5535bee0-f409-43f5-97aa-a8ae6a0348ee
-14:20:06.053 [AWT-EventQueue-0] DEBUG net.runelite.client.input.KeyManager - Registering key listener: net.runelite.client.ui.ClientUI$2@46e61011
-14:20:06.054 [AWT-EventQueue-0] DEBUG net.runelite.client.input.KeyManager - Registering key listener: net.runelite.client.ui.ClientUI$3@155af219
-14:20:06.195 [Client] INFO org.reflections.Reflections - Reflections took 870 ms to scan 1 urls, producing 2 keys and 6 values
-14:20:06.220 [main] INFO net.runelite.client.discord.DiscordService - Initializing Discord RPC service.
-14:20:06.250 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.ui.ClientUI@51f49060, method=public void net.runelite.client.ui.ClientUI.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.ui.ClientUI$$Lambda$458/0x0000000800f93008@514eedd8)
-14:20:06.251 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameStateChanged - EventBus.Subscriber(object=net.runelite.client.ui.ClientUI@51f49060, method=public void net.runelite.client.ui.ClientUI.onGameStateChanged(net.runelite.api.events.GameStateChanged), priority=0.0, lambda=net.runelite.client.ui.ClientUI$$Lambda$459/0x0000000800f93238@6970140a)
-14:20:06.252 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.NavigationButtonAdded - EventBus.Subscriber(object=net.runelite.client.ui.ClientUI@51f49060, method=public void net.runelite.client.ui.ClientUI.onNavigationButtonAdded(net.runelite.client.events.NavigationButtonAdded), priority=0.0, lambda=net.runelite.client.ui.ClientUI$$Lambda$460/0x0000000800f93468@245a26e1)
-14:20:06.253 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.NavigationButtonRemoved - EventBus.Subscriber(object=net.runelite.client.ui.ClientUI@51f49060, method=public void net.runelite.client.ui.ClientUI.onNavigationButtonRemoved(net.runelite.client.events.NavigationButtonRemoved), priority=0.0, lambda=net.runelite.client.ui.ClientUI$$Lambda$461/0x0000000800f93698@5b800468)
-14:20:06.255 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.SessionOpen - EventBus.Subscriber(object=net.runelite.client.plugins.PluginManager@5f7f2382, method=public void net.runelite.client.plugins.PluginManager.onSessionOpen(net.runelite.client.events.SessionOpen), priority=0.0, lambda=net.runelite.client.plugins.PluginManager$$Lambda$463/0x0000000800f938c8@407cf41)
-14:20:06.256 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.SessionClose - EventBus.Subscriber(object=net.runelite.client.plugins.PluginManager@5f7f2382, method=public void net.runelite.client.plugins.PluginManager.onSessionClose(net.runelite.client.events.SessionClose), priority=0.0, lambda=net.runelite.client.plugins.PluginManager$$Lambda$464/0x0000000800f93f70@60094a13)
-14:20:06.257 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.SessionOpen - EventBus.Subscriber(object=net.runelite.client.externalplugins.ExternalPluginManager@1c32886a, method=public void net.runelite.client.externalplugins.ExternalPluginManager.onSessionOpen(net.runelite.client.events.SessionOpen), priority=0.0, lambda=net.runelite.client.externalplugins.ExternalPluginManager$$Lambda$467/0x0000000800f945b8@3a4b0e5d)
-14:20:06.257 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.SessionClose - EventBus.Subscriber(object=net.runelite.client.externalplugins.ExternalPluginManager@1c32886a, method=public void net.runelite.client.externalplugins.ExternalPluginManager.onSessionClose(net.runelite.client.events.SessionClose), priority=0.0, lambda=net.runelite.client.externalplugins.ExternalPluginManager$$Lambda$469/0x0000000800f94c00@3d3f761a)
-14:20:06.258 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayManager@579d011c, method=public void net.runelite.client.ui.overlay.OverlayManager.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayManager$$Lambda$471/0x0000000800f94e30@3670f00)
-14:20:06.342 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.PluginChanged - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayManager@579d011c, method=public void net.runelite.client.ui.overlay.OverlayManager.onPluginChanged(net.runelite.client.events.PluginChanged), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayManager$$Lambda$477/0x0000000800f96de8@790174f2)
+15:08:28.324 [main] DEBUG net.runelite.client.config.ConfigManager - Loading in config from disk
+15:08:28.334 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanChatGuestMessageHighlight: -1
+15:08:28.339 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.environmentalLighting: true
+15:08:28.339 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hidePlayers2D: true
+15:08:28.339 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.fogDepth: 0
+15:08:28.339 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.projectileLights: true
+15:08:28.339 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.tooltipFontType: SMALL
+15:08:28.339 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaquePrivateMessageSentHighlight: -16767101
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.maxDynamicLights: SOME
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.enableModelCaching: false
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value minimap.hideMinimap: false
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.trayIcon: true
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.colorBlindMode: NONE
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.unlockFps: false
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.expandShadowDraw: false
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.overrideSky: false
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.fpsTarget: 60
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.underwaterCaustics: true
+15:08:28.340 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanInfoHighlight: -65536
+15:08:28.341 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideNPCs: false
+15:08:28.341 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.enableModelBatching: false
+15:08:28.341 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.hdInfernalTexture: true
+15:08:28.341 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentGameMessageHighlight: -1109984
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.drawDistance: 50
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.limitFpsUnfocused: false
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.anisotropicFilteringLevel: 16
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.blockExtraMouseButtons: true
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideIgnores: false
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.objectTextures: true
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.groundBlending: true
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.overlayBackgroundColor: -1673118414
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.maxFps: 50
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.tooltipPosition: UNDER_CURSOR
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.useWikiItemPrices: true
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.smoothBanding: false
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideProjectiles: false
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.fpsplugin: false
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.useComputeShaders: true
+15:08:28.342 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value stretchedmode.keepAspectRatio: false
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentPublicChatHighlight: -1
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.uiEnableCustomChrome: true
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.infoBoxVertical: false
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideLocalPlayer2D: false
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.vsyncMode: ADAPTIVE
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.hdminimapplugin: false
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationFlashColor: 1191116800
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.gameAlwaysOnTop: false
+15:08:28.343 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.vsyncMode: ADAPTIVE
+15:08:28.344 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanMessageHighlight: -16777216
+15:08:28.344 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentPrivateMessageSentHighlight: -1
+15:08:28.345 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value minimap.zoom: true
+15:08:28.345 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationRequestFocus: OFF
+15:08:28.345 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationFocused: false
+15:08:28.345 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.fogDepth: 5
+15:08:28.345 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.unlockFps: false
+15:08:28.345 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanInfoHighlight: -65536
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideClanMates: false
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.groundFog: true
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.groundTextures: true
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.brightTextures: false
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value stretchedmode.integerScaling: false
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.fontType: SMALL
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.clientBounds: 447:142:773:539
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value stretchedmode.scalingFactor: 50
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.infoBoxTextOutline: false
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.flashingEffects: false
+15:08:28.346 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentExamineHighlight: -16711936
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.rememberScreenBounds: true
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.uiWindowOpacity: 100
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentPrivateMessageReceivedHighlight: -1
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.entityhiderplugin: false
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationTray: true
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.lockWindowSize: false
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideAttackers: false
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hidePlayers: true
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideClanChatMembers: false
+15:08:28.347 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.colorBlindMode: NONE
+15:08:28.348 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.defaultSkyColor: DEFAULT
+15:08:28.348 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.containInScreen2: RESIZING
+15:08:28.348 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaquePublicChatHighlight: -16777216
+15:08:28.348 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationTimeout: 10000
+15:08:28.348 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaquePrivateMessageReceivedHighlight: -16767101
+15:08:28.349 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanChatMessageHighlight: -16777216
+15:08:28.349 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.shadowsEnabled: true
+15:08:28.349 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanChatGuestMessageHighlight: -16777216
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationGameMessage: false
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.uiScalingMode: LINEAR
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.npcLights: true
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.fpsTarget: 60
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.pluginUpdateMessage: 1
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.modelCacheSizeMiB: 2048
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.hdplugin: true
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hidePets: false
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value stretchedmode.increasedPerformance: false
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.contrast: DEFAULT
+15:08:28.350 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanChatInfoHighlight: -65536
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideLocalPlayer: false
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideNPCs2D: false
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.macosIntelWorkaround: false
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.textureResolution: RES_256
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.drawFps: true
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueGameMessageHighlight: -1109984
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.antiAliasingMode: DISABLED
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.colorBlindnessIntensity: 100
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.limitFps: false
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.automaticResizeType: KEEP_GAME_SIZE
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.tzhaarHD: true
+15:08:28.351 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.winterTheme0: false
+15:08:28.352 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.hideBakedEffects: true
+15:08:28.352 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.loadingClearCache: false
+15:08:28.352 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.fogDepthMode: DYNAMIC
+15:08:28.352 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.infoBoxSize: 35
+15:08:28.354 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanMessageHighlight: -1
+15:08:28.354 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.panelToggleKey: 123:128
+15:08:28.354 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.antiAliasingMode: DISABLED
+15:08:28.354 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value entityhider.hideFriends: false
+15:08:28.354 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.warningOnExit: LOGGED_IN
+15:08:28.354 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value fpscontrol.maxFpsUnfocused: 50
+15:08:28.354 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueExamineHighlight: -16776961
+15:08:28.355 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value minimap.hdminimap: false
+15:08:28.355 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.brightness2: 20
+15:08:28.355 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.drawDistance: 25
+15:08:28.355 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.reduceOverExposure: false
+15:08:28.355 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.uiScalingMode: LINEAR
+15:08:28.355 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanChatMessageHighlight: -1
+15:08:28.356 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.menuEntryShift: true
+15:08:28.356 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.opaqueClanGuestInfoHighlight: -65536
+15:08:28.356 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.interfaceFontType: REGULAR
+15:08:28.356 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value gpu.anisotropicFilteringLevel: 0
+15:08:28.356 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value rsprofile.loginSalt: VFwAvOFbAj2MhrjBFbHJ
+15:08:28.356 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.usernameInTitle: true
+15:08:28.356 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanChatInfoHighlight: -65536
+15:08:28.357 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.gameSize: 765x503
+15:08:28.357 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.flashNotification: DISABLED
+15:08:28.357 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value textrecolor.transparentClanGuestInfoHighlight: -65536
+15:08:28.357 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.shadowDistance: DISTANCE_30
+15:08:28.357 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.sidebarToggleKey: 122:128
+15:08:28.357 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.shadowResolution: RES_1024
+15:08:28.357 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value runelite.notificationSound: NATIVE
+15:08:28.357 [main] DEBUG net.runelite.client.config.ConfigManager - Loading configuration value hd.saturation: DEFAULT
+15:08:28.357 [main] INFO net.runelite.client.account.SessionManager - No session file exists
+15:08:28.589 [Client] INFO org.reflections.Reflections - Reflections took 220 ms to scan 1 urls, producing 2 keys and 6 values
+15:08:28.593 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin MinimapPlugin
+15:08:28.605 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin FpsPlugin
+15:08:28.607 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin HdMinimapPlugin
+15:08:28.616 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin EntityHiderPlugin
+15:08:28.643 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin ConfigPlugin
+15:08:28.660 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin GpuPlugin
+15:08:28.666 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin StretchedModePlugin
 Loaded 4 client scripts.
-14:20:06.343 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.WorldChanged - EventBus.Subscriber(object=net.runelite.client.config.ConfigManager@687a762c, method=private void net.runelite.client.config.ConfigManager.onWorldChanged(net.runelite.api.events.WorldChanged), priority=0.0, lambda=net.runelite.client.config.ConfigManager$$Lambda$478/0x0000000800f97018@1a2e2935)
-14:20:06.343 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ClientShutdown - EventBus.Subscriber(object=net.runelite.client.config.ConfigManager@687a762c, method=private void net.runelite.client.config.ConfigManager.onClientShutdown(net.runelite.client.events.ClientShutdown), priority=-100.0, lambda=net.runelite.client.config.ConfigManager$$Lambda$479/0x0000000800f97248@70925b45)
-14:20:06.345 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.UsernameChanged - EventBus.Subscriber(object=net.runelite.client.config.ConfigManager@687a762c, method=private void net.runelite.client.config.ConfigManager.onUsernameChanged(net.runelite.api.events.UsernameChanged), priority=0.0, lambda=net.runelite.client.config.ConfigManager$$Lambda$480/0x0000000800f97478@55e7a35c)
-14:20:06.346 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.PlayerChanged - EventBus.Subscriber(object=net.runelite.client.config.ConfigManager@687a762c, method=private void net.runelite.client.config.ConfigManager.onPlayerChanged(net.runelite.api.events.PlayerChanged), priority=0.0, lambda=net.runelite.client.config.ConfigManager$$Lambda$481/0x0000000800f976a8@4263b080)
-14:20:06.388 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ExternalPluginsChanged - EventBus.Subscriber(object=net.runelite.client.plugins.config.PluginListPanel[,0,0,0x0,invalid,layout=java.awt.FlowLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=], method=private void net.runelite.client.plugins.config.PluginListPanel.onExternalPluginsChanged(net.runelite.client.events.ExternalPluginsChanged), priority=0.0, lambda=net.runelite.client.plugins.config.PluginListPanel$$Lambda$485/0x0000000800f9bae8@1d7e64a3)
-14:20:06.418 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.PluginChanged - EventBus.Subscriber(object=net.runelite.client.plugins.config.PluginListPanel[,0,0,0x0,invalid,layout=java.awt.FlowLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=], method=public void net.runelite.client.plugins.config.PluginListPanel.onPluginChanged(net.runelite.client.events.PluginChanged), priority=0.0, lambda=net.runelite.client.plugins.config.PluginListPanel$$Lambda$490/0x0000000800f9bd18@7c4c3616)
-java.lang.NullPointerException: Cannot invoke "java.awt.Graphics.setColor(java.awt.Color)" because "graphics" is null
-	at com.client.engine.GameEngine.drawInitial(GameEngine.java:510)
-	at com.client.Client.drawLoadingText(Client.java:4781)
-	at com.client.Client.startUp(Client.java:10643)
-	at com.client.engine.GameEngine.run(GameEngine.java:635)
-	at com.client.Client.run(Client.java:6737)
-	at java.base/java.lang.Thread.run(Thread.java:832)
-Mar 08, 2023 2:20:06 PM com.client.CacheDownloader downloadCache
-INFO: Cache version local=55, remote=55
-14:20:06.583 [AWT-EventQueue-0] DEBUG net.runelite.client.plugins.PluginManager - Plugin ConfigPlugin is now running
-14:20:06.584 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.OverlayMenuClicked - EventBus.Subscriber(object=net.runelite.client.plugins.config.ConfigPlugin@28d6290, method=public void net.runelite.client.plugins.config.ConfigPlugin.onOverlayMenuClicked(net.runelite.client.events.OverlayMenuClicked), priority=0.0, lambda=net.runelite.client.plugins.config.ConfigPlugin$$Lambda$538/0x0000000800fc9c80@604e6277)
-14:20:06.607 [AWT-EventQueue-0] DEBUG net.runelite.client.plugins.PluginManager - Plugin MinimapPlugin is now running
-14:20:06.608 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ScriptPostFired - EventBus.Subscriber(object=net.runelite.client.plugins.minimap.MinimapPlugin@76c7beb3, method=public void net.runelite.client.plugins.minimap.MinimapPlugin.onScriptPostFired(net.runelite.api.events.ScriptPostFired), priority=0.0, lambda=net.runelite.client.plugins.minimap.MinimapPlugin$$Lambda$545/0x0000000800fcb180@3301550f)
-14:20:06.609 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.plugins.minimap.MinimapPlugin@76c7beb3, method=public void net.runelite.client.plugins.minimap.MinimapPlugin.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.plugins.minimap.MinimapPlugin$$Lambda$546/0x0000000800fcb3b0@553202dc)
-14:20:06.611 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameStateChanged - EventBus.Subscriber(object=net.runelite.client.plugins.minimap.MinimapPlugin@76c7beb3, method=public void net.runelite.client.plugins.minimap.MinimapPlugin.onGameStateChanged(net.runelite.api.events.GameStateChanged), priority=0.0, lambda=net.runelite.client.plugins.minimap.MinimapPlugin$$Lambda$547/0x0000000800fcb5e0@65def060)
-14:20:06.614 [AWT-EventQueue-0] DEBUG net.runelite.client.plugins.PluginManager - Plugin HdPlugin is now running
-14:20:06.615 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.BeforeRender - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onBeforeRender(net.runelite.api.events.BeforeRender), priority=-1.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$549/0x0000000800fcba30@73aa60ad)
-14:20:06.615 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$550/0x0000000800fcbc60@111d6c92)
-14:20:06.616 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameStateChanged - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onGameStateChanged(net.runelite.api.events.GameStateChanged), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$551/0x0000000800fcbe90@460becb2)
-14:20:06.617 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GroundObjectDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onGroundObjectDespawned(net.runelite.api.events.GroundObjectDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$552/0x0000000800fcc0c0@1e777ca2)
-14:20:06.617 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GraphicsObjectCreated - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onGraphicsObjectCreated(net.runelite.api.events.GraphicsObjectCreated), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$553/0x0000000800fcc2f0@616e1288)
-14:20:06.618 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.WallObjectSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onWallObjectSpawned(net.runelite.api.events.WallObjectSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$554/0x0000000800fcc520@215c3819)
-14:20:06.618 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameObjectDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onGameObjectDespawned(net.runelite.api.events.GameObjectDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$555/0x0000000800fcc750@7cd0067e)
-14:20:06.619 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.WallObjectDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onWallObjectDespawned(net.runelite.api.events.WallObjectDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$556/0x0000000800fcc980@387f5f87)
-14:20:06.619 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.DecorativeObjectSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onDecorativeObjectSpawned(net.runelite.api.events.DecorativeObjectSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$557/0x0000000800fccbb0@2a8ffc69)
-14:20:06.620 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.DecorativeObjectDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onDecorativeObjectDespawned(net.runelite.api.events.DecorativeObjectDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$558/0x0000000800fccde0@6a3b235c)
-14:20:06.620 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameObjectSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onGameObjectSpawned(net.runelite.api.events.GameObjectSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$559/0x0000000800fcd010@f3e11ed)
-14:20:06.621 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GroundObjectSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onGroundObjectSpawned(net.runelite.api.events.GroundObjectSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$560/0x0000000800fcd240@6718ca31)
-14:20:06.621 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ChatMessage - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onChatMessage(net.runelite.api.events.ChatMessage), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$561/0x0000000800fcd470@57a978f2)
-14:20:06.622 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ProjectileMoved - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onProjectileMoved(net.runelite.api.events.ProjectileMoved), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$562/0x0000000800fcd6a0@32684879)
-14:20:06.622 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.NpcChanged - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onNpcChanged(net.runelite.api.events.NpcChanged), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$563/0x0000000800fcd8d0@667bfaa4)
-14:20:06.622 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.NpcSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onNpcSpawned(net.runelite.api.events.NpcSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$564/0x0000000800fcdb00@51a330de)
-14:20:06.623 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.NpcDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onNpcDespawned(net.runelite.api.events.NpcDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$565/0x0000000800fcdd30@ffa942c)
-14:20:06.623 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameTick - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@6e521c1e, method=public void net.runelite.client.plugins.hd.HdPlugin.onGameTick(net.runelite.api.events.GameTick), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$566/0x0000000800fcdf60@d9dd645)
-WARNING: An illegal reflective access operation has occurred
-WARNING: Illegal reflective access by net.runelite.client.util.ReflectUtil (file:/C:/Users/smoke/Xeros-Client/build/libs/Surge-Client-Client-1.0.jar) to field java.lang.reflect.Executable.declaredAnnotations
-WARNING: Please consider reporting this to the maintainers of net.runelite.client.util.ReflectUtil
-WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
-WARNING: All illegal access operations will be denied in a future release
-14:20:06.782 [main] DEBUG net.runelite.client.util.ReflectUtil - null
+15:08:28.747 [main] DEBUG net.runelite.client.plugins.PluginManager - Loaded plugin HdPlugin
+15:08:28.760 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ClientShutdown - EventBus.Subscriber(object=net.runelite.client.ClientSessionManager@2e77b8cf, method=private void net.runelite.client.ClientSessionManager.onClientShutdown(net.runelite.client.events.ClientShutdown), priority=0.0, lambda=net.runelite.client.ClientSessionManager$$Lambda$396/0x0000000800f05658@2c4ca0f9)
+15:08:28.848 [pool-1-thread-1] DEBUG net.runelite.client.ClientSessionManager - Opened session 07f07e4c-8ae7-4f52-a58f-867322789e04
+15:08:29.143 [AWT-EventQueue-0] DEBUG net.runelite.client.input.KeyManager - Registering key listener: net.runelite.client.ui.ClientUI$2@7ae72e4c
+15:08:29.144 [AWT-EventQueue-0] DEBUG net.runelite.client.input.KeyManager - Registering key listener: net.runelite.client.ui.ClientUI$3@41291714
+15:08:29.279 [main] INFO net.runelite.client.discord.DiscordService - Initializing Discord RPC service.
+15:08:29.344 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.ui.ClientUI@51f49060, method=public void net.runelite.client.ui.ClientUI.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.ui.ClientUI$$Lambda$472/0x0000000800f9e840@514eedd8)
+15:08:29.344 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameStateChanged - EventBus.Subscriber(object=net.runelite.client.ui.ClientUI@51f49060, method=public void net.runelite.client.ui.ClientUI.onGameStateChanged(net.runelite.api.events.GameStateChanged), priority=0.0, lambda=net.runelite.client.ui.ClientUI$$Lambda$473/0x0000000800f9ea70@6970140a)
+15:08:29.345 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.NavigationButtonAdded - EventBus.Subscriber(object=net.runelite.client.ui.ClientUI@51f49060, method=public void net.runelite.client.ui.ClientUI.onNavigationButtonAdded(net.runelite.client.events.NavigationButtonAdded), priority=0.0, lambda=net.runelite.client.ui.ClientUI$$Lambda$474/0x0000000800f9eca0@245a26e1)
+15:08:29.346 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.NavigationButtonRemoved - EventBus.Subscriber(object=net.runelite.client.ui.ClientUI@51f49060, method=public void net.runelite.client.ui.ClientUI.onNavigationButtonRemoved(net.runelite.client.events.NavigationButtonRemoved), priority=0.0, lambda=net.runelite.client.ui.ClientUI$$Lambda$475/0x0000000800f9eed0@5b800468)
+15:08:29.346 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.SessionOpen - EventBus.Subscriber(object=net.runelite.client.plugins.PluginManager@5f7f2382, method=public void net.runelite.client.plugins.PluginManager.onSessionOpen(net.runelite.client.events.SessionOpen), priority=0.0, lambda=net.runelite.client.plugins.PluginManager$$Lambda$476/0x0000000800f9f100@407cf41)
+15:08:29.347 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.SessionClose - EventBus.Subscriber(object=net.runelite.client.plugins.PluginManager@5f7f2382, method=public void net.runelite.client.plugins.PluginManager.onSessionClose(net.runelite.client.events.SessionClose), priority=0.0, lambda=net.runelite.client.plugins.PluginManager$$Lambda$477/0x0000000800f9f330@60094a13)
+15:08:29.348 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.SessionOpen - EventBus.Subscriber(object=net.runelite.client.externalplugins.ExternalPluginManager@1c32886a, method=public void net.runelite.client.externalplugins.ExternalPluginManager.onSessionOpen(net.runelite.client.events.SessionOpen), priority=0.0, lambda=net.runelite.client.externalplugins.ExternalPluginManager$$Lambda$478/0x0000000800f9f560@3a4b0e5d)
+15:08:29.348 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.SessionClose - EventBus.Subscriber(object=net.runelite.client.externalplugins.ExternalPluginManager@1c32886a, method=public void net.runelite.client.externalplugins.ExternalPluginManager.onSessionClose(net.runelite.client.events.SessionClose), priority=0.0, lambda=net.runelite.client.externalplugins.ExternalPluginManager$$Lambda$479/0x0000000800f9f790@3d3f761a)
+15:08:29.349 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayManager@579d011c, method=public void net.runelite.client.ui.overlay.OverlayManager.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayManager$$Lambda$480/0x0000000800f9f9c0@3670f00)
+15:08:29.350 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.PluginChanged - EventBus.Subscriber(object=net.runelite.client.ui.overlay.OverlayManager@579d011c, method=public void net.runelite.client.ui.overlay.OverlayManager.onPluginChanged(net.runelite.client.events.PluginChanged), priority=0.0, lambda=net.runelite.client.ui.overlay.OverlayManager$$Lambda$481/0x0000000800f9fbf0@790174f2)
+15:08:29.351 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ClientShutdown - EventBus.Subscriber(object=net.runelite.client.config.ConfigManager@7689ddef, method=private void net.runelite.client.config.ConfigManager.onClientShutdown(net.runelite.client.events.ClientShutdown), priority=-100.0, lambda=net.runelite.client.config.ConfigManager$$Lambda$482/0x0000000800fa0040@1a2e2935)
+15:08:29.352 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.UsernameChanged - EventBus.Subscriber(object=net.runelite.client.config.ConfigManager@7689ddef, method=private void net.runelite.client.config.ConfigManager.onUsernameChanged(net.runelite.api.events.UsernameChanged), priority=0.0, lambda=net.runelite.client.config.ConfigManager$$Lambda$483/0x0000000800e87d50@70925b45)
+15:08:29.353 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.PlayerChanged - EventBus.Subscriber(object=net.runelite.client.config.ConfigManager@7689ddef, method=private void net.runelite.client.config.ConfigManager.onPlayerChanged(net.runelite.api.events.PlayerChanged), priority=0.0, lambda=net.runelite.client.config.ConfigManager$$Lambda$484/0x0000000800fa0270@55e7a35c)
+15:08:29.353 [main] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.WorldChanged - EventBus.Subscriber(object=net.runelite.client.config.ConfigManager@7689ddef, method=private void net.runelite.client.config.ConfigManager.onWorldChanged(net.runelite.api.events.WorldChanged), priority=0.0, lambda=net.runelite.client.config.ConfigManager$$Lambda$485/0x0000000800fa04a0@4263b080)
+15:08:29.377 [AWT-EventQueue-0] DEBUG net.runelite.client.plugins.PluginManager - Plugin MinimapPlugin is now running
+15:08:29.378 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.plugins.minimap.MinimapPlugin@58e6d4b8, method=public void net.runelite.client.plugins.minimap.MinimapPlugin.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.plugins.minimap.MinimapPlugin$$Lambda$489/0x0000000800fa4498@2dc9aa7c)
+15:08:29.378 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameStateChanged - EventBus.Subscriber(object=net.runelite.client.plugins.minimap.MinimapPlugin@58e6d4b8, method=public void net.runelite.client.plugins.minimap.MinimapPlugin.onGameStateChanged(net.runelite.api.events.GameStateChanged), priority=0.0, lambda=net.runelite.client.plugins.minimap.MinimapPlugin$$Lambda$490/0x0000000800fa46c8@7d0bd52f)
+15:08:29.379 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ScriptPostFired - EventBus.Subscriber(object=net.runelite.client.plugins.minimap.MinimapPlugin@58e6d4b8, method=public void net.runelite.client.plugins.minimap.MinimapPlugin.onScriptPostFired(net.runelite.api.events.ScriptPostFired), priority=0.0, lambda=net.runelite.client.plugins.minimap.MinimapPlugin$$Lambda$491/0x0000000800fa48f8@1b13a083)
+15:08:29.383 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.PluginChanged - EventBus.Subscriber(object=net.runelite.client.plugins.config.PluginListPanel[,0,0,0x0,invalid,layout=java.awt.FlowLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=], method=public void net.runelite.client.plugins.config.PluginListPanel.onPluginChanged(net.runelite.client.events.PluginChanged), priority=0.0, lambda=net.runelite.client.plugins.config.PluginListPanel$$Lambda$493/0x0000000800fa4f50@58d701ec)
+15:08:29.411 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ExternalPluginsChanged - EventBus.Subscriber(object=net.runelite.client.plugins.config.PluginListPanel[,0,0,0x0,invalid,layout=java.awt.FlowLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=], method=private void net.runelite.client.plugins.config.PluginListPanel.onExternalPluginsChanged(net.runelite.client.events.ExternalPluginsChanged), priority=0.0, lambda=net.runelite.client.plugins.config.PluginListPanel$$Lambda$494/0x0000000800fa5180@35bfefe2)
+15:08:29.578 [AWT-EventQueue-0] DEBUG net.runelite.client.plugins.PluginManager - Plugin ConfigPlugin is now running
+15:08:29.579 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.OverlayMenuClicked - EventBus.Subscriber(object=net.runelite.client.plugins.config.ConfigPlugin@44c79f32, method=public void net.runelite.client.plugins.config.ConfigPlugin.onOverlayMenuClicked(net.runelite.client.events.OverlayMenuClicked), priority=0.0, lambda=net.runelite.client.plugins.config.ConfigPlugin$$Lambda$543/0x0000000800fcae50@652de773)
+15:08:29.588 [AWT-EventQueue-0] DEBUG net.runelite.client.plugins.PluginManager - Plugin HdPlugin is now running
+15:08:29.589 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.client.events.ConfigChanged - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onConfigChanged(net.runelite.client.events.ConfigChanged), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$549/0x0000000800fcbd30@17967045)
+15:08:29.590 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameStateChanged - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onGameStateChanged(net.runelite.api.events.GameStateChanged), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$550/0x0000000800fcbf60@6eb3769e)
+15:08:29.591 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.WallObjectDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onWallObjectDespawned(net.runelite.api.events.WallObjectDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$551/0x0000000800fcc190@33f75e46)
+15:08:29.591 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.WallObjectSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onWallObjectSpawned(net.runelite.api.events.WallObjectSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$552/0x0000000800fcc3c0@60127e5a)
+15:08:29.592 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.DecorativeObjectDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onDecorativeObjectDespawned(net.runelite.api.events.DecorativeObjectDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$553/0x0000000800fcc5f0@53af052e)
+15:08:29.593 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameObjectDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onGameObjectDespawned(net.runelite.api.events.GameObjectDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$554/0x0000000800fcc820@6816e804)
+15:08:29.593 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.DecorativeObjectSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onDecorativeObjectSpawned(net.runelite.api.events.DecorativeObjectSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$555/0x0000000800fcca50@3c4fbdd5)
+15:08:29.594 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameObjectSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onGameObjectSpawned(net.runelite.api.events.GameObjectSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$556/0x0000000800fccc80@39685b1b)
+15:08:29.595 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GroundObjectSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onGroundObjectSpawned(net.runelite.api.events.GroundObjectSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$557/0x0000000800fcceb0@70cc0dc8)
+15:08:29.596 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GroundObjectDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onGroundObjectDespawned(net.runelite.api.events.GroundObjectDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$558/0x0000000800fcd0e0@5b2eafe3)
+15:08:29.597 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GraphicsObjectCreated - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onGraphicsObjectCreated(net.runelite.api.events.GraphicsObjectCreated), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$559/0x0000000800fcd310@70617d6d)
+15:08:29.598 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.BeforeRender - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onBeforeRender(net.runelite.api.events.BeforeRender), priority=-1.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$560/0x0000000800fcd540@777389a6)
+15:08:29.598 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ChatMessage - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onChatMessage(net.runelite.api.events.ChatMessage), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$561/0x0000000800fcd770@26a7bb0)
+15:08:29.599 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.NpcSpawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onNpcSpawned(net.runelite.api.events.NpcSpawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$562/0x0000000800fcd9a0@1e91fc22)
+15:08:29.599 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.GameTick - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onGameTick(net.runelite.api.events.GameTick), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$563/0x0000000800fcdbd0@59390e5b)
+15:08:29.600 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.ProjectileMoved - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onProjectileMoved(net.runelite.api.events.ProjectileMoved), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$564/0x0000000800fcde00@14652a8f)
+15:08:29.600 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.NpcDespawned - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onNpcDespawned(net.runelite.api.events.NpcDespawned), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$565/0x0000000800fce030@18d23d0d)
+15:08:29.601 [AWT-EventQueue-0] DEBUG net.runelite.client.eventbus.EventBus - Registering class net.runelite.api.events.NpcChanged - EventBus.Subscriber(object=net.runelite.client.plugins.hd.HdPlugin@332a7fce, method=public void net.runelite.client.plugins.hd.HdPlugin.onNpcChanged(net.runelite.api.events.NpcChanged), priority=0.0, lambda=net.runelite.client.plugins.hd.HdPlugin$$Lambda$566/0x0000000800fce260@c3253d4)
+15:08:29.648 [main] DEBUG net.runelite.client.util.ReflectUtil - null
 java.lang.NoSuchFieldException: root
 	at java.base/java.lang.Class.getDeclaredField(Class.java:2569)
 	at net.runelite.client.util.ReflectUtil.uncacheAnnotations(ReflectUtil.java:224)
 	at net.runelite.client.util.ReflectUtil.invalidateAnnotationCaches(ReflectUtil.java:169)
 	at net.runelite.client.RuneLite.start(RuneLite.java:388)
 	at net.runelite.client.RuneLite.main(RuneLite.java:274)
-14:20:06.783 [main] INFO net.runelite.client.RuneLite - Client initialization took 3055ms. Uptime: 4666ms
-14:20:07.286 [AWT-EventQueue-0] INFO net.runelite.client.ui.ClientUI - Showing frame net.runelite.client.ui.ContainableFrame[frame0,447,142,809x539,invalid,layout=java.awt.BorderLayout,title=Surge,resizable,normal,defaultCloseOperation=DO_NOTHING_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,809x539,layout=org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI$SubstanceRootLayout,alignmentX=0.0,alignmentY=0.0,border=org.pushingpixels.substance.internal.utils.border.SubstancePaneBorder@5a0f39b4,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]
-Mar 08, 2023 2:20:09 PM com.client.definitions.server.ItemDef load
-INFO: Loaded 13225 item definitions.
+15:08:29.648 [main] INFO net.runelite.client.RuneLite - Client initialization took 2470ms. Uptime: 3804ms
+15:08:29.941 [AWT-EventQueue-0] INFO net.runelite.client.ui.ClientUI - Showing frame net.runelite.client.ui.ContainableFrame[frame0,447,142,809x539,invalid,layout=java.awt.BorderLayout,title=Surge,resizable,normal,defaultCloseOperation=DO_NOTHING_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,809x539,layout=org.pushingpixels.substance.internal.ui.SubstanceRootPaneUI$SubstanceRootLayout,alignmentX=0.0,alignmentY=0.0,border=org.pushingpixels.substance.internal.utils.border.SubstancePaneBorder@634f1eba,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]
 Repacking custom maps..
 Packed .\data\custom_maps\0.gz to index 4
 Pack 0.gz to index 4
@@ -17733,102 +17717,199 @@ Loaded: 27697 items
 0
 Loaded: 879 Areas
 message:
-14:20:48.112 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Using device: Intel(R) HD Graphics 530
-14:20:48.112 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Using driver: 4.6.0 - Build 31.0.101.2115
-14:20:48.112 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Client is 64-bit
-14:20:50.238 [Client] DEBUG net.runelite.client.plugins.hd.scene.TextureManager - Loading Textures...
-14:20:50.554 [Client] DEBUG net.runelite.client.plugins.hd.scene.LightManager - Loaded 1629 lights
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23810 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23811 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23775 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23826 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23835 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23836 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23837 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23838 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23839 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23841 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23844 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23744 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23806 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23885 clashes between entries 'FALADOR_STEPS_1' and 'VARROCK_WALLS'
-14:20:50.621 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23808 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23809 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23810 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23801 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23802 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23803 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23804 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23805 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23806 clashes between entries 'KOUREND_WALLS' and 'FALADOR_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23807 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:20:50.622 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - Loaded 2144 model overrides
-14:20:50.658 [Client] DEBUG net.runelite.client.callback.Hooks - Graphics reset!
-14:48:07.329 [pool-1-thread-1] WARN net.runelite.client.ClientSessionManager - Resetting session
-java.net.UnknownHostException: No such host is known (api.runelite.net)
-	at java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
-	at java.base/java.net.InetAddress$PlatformNameService.lookupAllHostAddr(InetAddress.java:932)
-	at java.base/java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1532)
-	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:851)
-	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1522)
-	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1380)
-	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1304)
-	at okhttp3.Dns$Companion$DnsSystem.lookup(Dns.kt:49)
-	at okhttp3.internal.connection.RouteSelector.resetNextInetSocketAddress(RouteSelector.kt:164)
-	at okhttp3.internal.connection.RouteSelector.nextProxy(RouteSelector.kt:129)
-	at okhttp3.internal.connection.RouteSelector.next(RouteSelector.kt:71)
-	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:205)
-	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
-	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
-	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
-	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
-	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
-	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
-	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
-	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
-	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
-	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
-	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
-	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
-	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
-	at net.runelite.client.SessionClient.ping(SessionClient.java:91)
-	at net.runelite.client.ClientSessionManager.ping(ClientSessionManager.java:130)
-	at net.runelite.client.util.RunnableExceptionLogger.run(RunnableExceptionLogger.java:41)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
-	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
-	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
-	at java.base/java.lang.Thread.run(Thread.java:832)
-14:48:07.377 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - resetting the plugin after probable OS suspend
-14:48:20.049 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Using device: Intel(R) HD Graphics 530
-14:48:20.049 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Using driver: 4.6.0 - Build 31.0.101.2115
-14:48:20.049 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Client is 64-bit
-14:48:22.730 [Client] DEBUG net.runelite.client.plugins.hd.scene.TextureManager - Loading Textures...
-14:48:22.838 [Client] DEBUG net.runelite.client.plugins.hd.scene.LightManager - Loaded 1629 lights
-14:48:22.911 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23810 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23811 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23775 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23826 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23835 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23836 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23837 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23838 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23839 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23841 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23844 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23744 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23806 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23885 clashes between entries 'FALADOR_STEPS_1' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23808 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23809 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23810 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23801 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23802 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23803 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23804 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23805 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23806 clashes between entries 'KOUREND_WALLS' and 'FALADOR_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23807 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
-14:48:22.912 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - Loaded 2144 model overrides
-14:48:22.916 [Client] DEBUG net.runelite.client.callback.Hooks - Graphics reset!
+15:08:53.445 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Using device: Intel(R) HD Graphics 530
+15:08:53.445 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Using driver: 4.6.0 - Build 31.0.101.2115
+15:08:53.445 [Client] INFO net.runelite.client.plugins.hd.HdPlugin - Client is 64-bit
+15:08:59.411 [Client] DEBUG net.runelite.client.plugins.hd.scene.TextureManager - Loading Textures...
+15:08:59.866 [Client] DEBUG net.runelite.client.plugins.hd.scene.LightManager - Loaded 1629 lights
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23810 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23811 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23775 clashes between entries 'VARROCK_WALLS' and 'GRAND_EXCHANGE_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23826 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23835 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23836 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23837 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23838 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23839 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23841 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23844 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23744 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23806 clashes between entries 'FALADOR_WALLS' and 'VARROCK_WALLS'
+15:09:00.004 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23885 clashes between entries 'FALADOR_STEPS_1' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23808 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23809 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23810 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23801 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23802 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23803 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23804 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23805 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23806 clashes between entries 'KOUREND_WALLS' and 'FALADOR_WALLS'
+15:09:00.005 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - ID 23807 clashes between entries 'KOUREND_WALLS' and 'VARROCK_WALLS'
+15:09:00.006 [Client] DEBUG net.runelite.client.plugins.hd.scene.ModelOverrideManager - Loaded 2144 model overrides
+15:09:00.163 [Client] DEBUG net.runelite.client.callback.Hooks - Graphics reset!
+15:51:49.198 [Client] DEBUG Client - Took 41ms to finish POW.
+15:51:49.995 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - Adding environments for scene AABB{min=(0,0), max=(102,102)}
+15:51:49.995 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - Added environment WINTER to sceneArea list
+15:51:49.995 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - Added environment ALL to sceneArea list
+15:51:49.995 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - SceneArea: WINTER
+15:51:49.995 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - SceneArea: ALL
+15:51:50.025 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - procedural data generation took 30ms to complete
+15:51:50.025 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - -- calculateTerrainNormals: 0ms
+15:51:50.025 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - -- generateTerrainData: 14ms
+15:51:50.025 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - -- generateUnderwaterTerrain: 16ms
+15:51:50.027 [Client] DEBUG net.runelite.client.plugins.hd.scene.SceneUploader - Scene upload time: 1.914 ms
+15:51:50.058 [Client] DEBUG Client - Login accepted, rights=3, flagged=false
+15:51:59.528 [Client] DEBUG net.runelite.client.plugins.hd.scene.TextureManager - Loaded 116 vanilla textures
+15:52:00.274 [Client] DEBUG net.runelite.client.plugins.hd.scene.TextureManager - Loaded 56 HD textures
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+frame:1688 should be 1688
+i23:1, wearid
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - Adding environments for scene AABB{min=(3032,3440), max=(3134,3542)}
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - Added environment WILDERNESS_LOW to sceneArea list
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - Added environment WILDERNESS to sceneArea list
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - Added environment OVERWORLD to sceneArea list
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - Added environment ALL to sceneArea list
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - SceneArea: WILDERNESS_LOW
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - SceneArea: WILDERNESS
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - SceneArea: OVERWORLD
+15:52:06.233 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - SceneArea: ALL
+15:52:10.500 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - procedural data generation took 4218ms to complete
+15:52:10.502 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - -- calculateTerrainNormals: 162ms
+15:52:10.502 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - -- generateTerrainData: 3624ms
+15:52:10.502 [Client] DEBUG net.runelite.client.plugins.hd.HdPlugin - -- generateUnderwaterTerrain: 432ms
+15:52:18.968 [Client] DEBUG net.runelite.client.plugins.hd.scene.SceneUploader - Scene upload time: 8.466 s
+15:52:19.460 [Client] DEBUG Client - Map region loaded.
+15:52:19.606 [Client] DEBUG net.runelite.client.plugins.hd.scene.EnvironmentManager - currentEnvironment changed to OVERWORLD
+null frame 58392579, index 3, group: 891 in anim 481
+null frame 58392580, index 4, group: 891 in anim 481
+null frame 58392578, index 2, group: 891 in anim 481
+null frame 38731776, index 0, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 58392576, index 0, group: 891 in anim 481
+null frame 38731781, index 5, group: 591 in anim 1868
+null frame 58392577, index 1, group: 891 in anim 481
+null frame 163708930, index 2, group: 2498 in anim 8655
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 38731781, index 5, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 58392576, index 0, group: 891 in anim 481
+null frame 54853634, index 2, group: 837 in anim 475
+null frame 54853636, index 4, group: 837 in anim 475
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 164233224, index 8, group: 2506 in anim 8697
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 164233230, index 14, group: 2506 in anim 8697
+null frame 164233241, index 25, group: 2506 in anim 8697
+null frame 164233219, index 3, group: 2506 in anim 8697
+null frame 164233222, index 6, group: 2506 in anim 8697
+null frame 58392578, index 2, group: 891 in anim 481
+null frame 58392576, index 0, group: 891 in anim 481
+null frame 164233239, index 23, group: 2506 in anim 8697
+null frame 164233241, index 25, group: 2506 in anim 8697
+null frame 110493723, index 27, group: 1686 in anim 6646
+null frame 38731776, index 0, group: 591 in anim 1868
+null frame 164233216, index 0, group: 2506 in anim 8697
+null frame 110493739, index 43, group: 1686 in anim 6646
+null frame 164233218, index 2, group: 2506 in anim 8697
+null frame 164233226, index 10, group: 2506 in anim 8697
+null frame 164233230, index 14, group: 2506 in anim 8697
+null frame 164233238, index 22, group: 2506 in anim 8697
+null frame 38731781, index 5, group: 591 in anim 1868
+null frame 164233228, index 12, group: 2506 in anim 8697
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731776, index 0, group: 591 in anim 1868
+null frame 38731781, index 5, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 41943069, index 29, group: 640 in anim 1908
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 110493744, index 48, group: 1686 in anim 6646
+null frame 38731776, index 0, group: 591 in anim 1868
+null frame 58392580, index 4, group: 891 in anim 481
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 58392578, index 2, group: 891 in anim 481
+null frame 58392579, index 3, group: 891 in anim 481
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 133955589, index 5, group: 2044 in anim 7939
+null frame 58392576, index 0, group: 891 in anim 481
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 58392577, index 1, group: 891 in anim 481
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731781, index 5, group: 591 in anim 1868
+null frame 58392579, index 3, group: 891 in anim 481
+null frame 58392580, index 4, group: 891 in anim 481
+null frame 58392577, index 1, group: 891 in anim 481
+null frame 58392576, index 0, group: 891 in anim 481
+null frame 58392578, index 2, group: 891 in anim 481
+null frame 12320768, index 0, group: 188 in anim 2416
+null frame 38731781, index 5, group: 591 in anim 1868
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731780, index 4, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731776, index 0, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731779, index 3, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 38731777, index 1, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 38731778, index 2, group: 591 in anim 1868
+null frame 11599874, index 2, group: 177 in anim 2657
+null frame 53018624, index 0, group: 809 in anim 2714
+null frame 118489095, index 7, group: 1808 in anim 7156
+null frame 118489093, index 5, group: 1808 in anim 7156
+null frame 68091906, index 2, group: 1039 in anim 1071
+null frame 68091905, index 1, group: 1039 in anim 1071
+null frame 68091905, index 1, group: 1039 in anim 1071
+15:53:55.321 [AWT-EventQueue-0] DEBUG net.runelite.client.config.ConfigManager - Setting configuration value for runelite.clientSidebarClosed to true
+15:53:55.393 [Client] DEBUG net.runelite.client.callback.Hooks - Graphics reset!
+15:53:55.493 [Client] DEBUG net.runelite.client.callback.Hooks - Graphics reset!
+frame:1688 should be 1688
+i23:12960, wearid
