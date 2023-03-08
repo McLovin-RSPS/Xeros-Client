@@ -42,9 +42,9 @@ public class Configuration {
 	public static String CUSTOM_MAP_DIRECTORY = "./data/custom_maps/";
 	public static String CUSTOM_MODEL_DIRECTORY = "./data/custom_models/";
 	public static String CUSTOM_ANIMATION_DIRECTORY = "./data/custom_animations/";
-	public static boolean developerMode = false;
+	public static boolean developerMode = true;
 	public static boolean packIndexData = true;  // turn to true to pack maps and items etc......
-	public static boolean dumpMaps = false;
+	public static boolean dumpMaps = true;
 	public static boolean dumpAnimationData = false;
 	public static boolean dumpDataLists = false;
 	public static boolean newFonts; // TODO text offsets (i.e. spacing between characters) are incorrect, needs automatic fix from kourend
