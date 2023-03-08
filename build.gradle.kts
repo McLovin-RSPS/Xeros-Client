@@ -1,5 +1,4 @@
 import proguard.gradle.ProGuardTask
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 group = "com.client"
 version = "1.0"
@@ -23,19 +22,6 @@ plugins {
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.lombok") version "1.5.21"
     application
-    id("com.github.johnrengelman.shadow") version "7.1.0"
-}
-
-tasks.register<ShadowJar>("shadowJar") {
-    // Configure the task here
-    // ...
-    manifest.attributes["Main-Class"] = "net.runelite.client.RuneLite"
-    configurations.forEach {
-        from(it)
-    }
-    exclude("META-INF/*.RSA")
-    exclude("META-INF/*.SF")
-    exclude("META-INF/*.DSA")
 }
 
 
@@ -123,13 +109,25 @@ dependencies {
 }
 
 tasks {
-
     jar {
-        destinationDirectory.set(file("$buildDir/libs"))
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
         archiveBaseName.set("${project.name}-Client")
+        from(configurations.compileClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+        manifest {
+            attributes(
+                mapOf(
+                    "Main-Class" to "net.runelite.client.RuneLite"
+                )
+            )
+        }
     }
 
+    // This task is optional and can be used to create a fat jar that includes all dependencies
+    task("fatJar", type = Jar::class) {
+        archiveClassifier.set("fat")
+        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+        with(jar)
+    }
 }
 
 application {
