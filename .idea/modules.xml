@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Surge-Client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Surge-Client.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.client.Surge-Client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.client.Surge-Client.main.iml" />
     </modules>
   </component>
 </project>

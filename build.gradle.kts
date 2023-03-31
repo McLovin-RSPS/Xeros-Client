@@ -1,17 +1,6 @@
-import proguard.gradle.ProGuardTask
 
 group = "com.client"
 version = "1.0"
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("com.guardsquare:proguard-gradle:7.3.0")
-    }
-}
-
 
 repositories {
     mavenCentral()
@@ -19,11 +8,19 @@ repositories {
 }
 
 plugins {
+    id("java")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.lombok") version "1.5.21"
-    id("application")
+    application
 }
-
+//configure<com.mark.bootstrap.BootstrapPluginExtension> {
+//    uploadType.set(com.mark.bootstrap.UploadType.FTP)
+//    releaseType.set("normal") //allows u to make beta versions in launcher
+//    baseLink.set("https://shurge.online")
+//    passiveMode.set(false)
+//
+//}
 
 dependencies {
 
@@ -108,34 +105,18 @@ dependencies {
 
 }
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("com.google.guava:guava:30.1-jre")
-}
-
-application {
-    mainClass.set("net.runelite.client.RuneLite")
-}
-
 tasks {
+
     jar {
         destinationDirectory.set(file("$buildDir/libs"))
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
         archiveBaseName.set("${project.name}-Client")
-        manifest {
-            attributes["Main-Class"] = "net.runelite.client.RuneLite"
-        }
-        from(configurations.runtimeClasspath.get().filter { it.exists() }.map { if (it.isDirectory) it else zipTree(it) })
     }
+
 }
 
 application {
     mainClass.set("net.runelite.client.RuneLite")
 }
-
-
 
 
