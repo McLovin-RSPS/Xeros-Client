@@ -32,7 +32,6 @@ import lombok.Value;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigDescriptor;
 import net.runelite.client.externalplugins.ExternalPluginManager;
-import net.runelite.client.externalplugins.ExternalPluginManifest;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.util.LinkBrowser;
 
@@ -76,7 +75,7 @@ class PluginConfigurationDescriptor
 	@Nullable
 	JMenuItem createSupportMenuItem()
 	{
-		ExternalPluginManifest mf = getExternalPluginManifest();
+		ExternalPluginManager.ExternalPluginManifest mf = getExternalPluginManifest();
 		if (mf != null)
 		{
 			if (mf.getSupport() == null)
@@ -95,7 +94,7 @@ class PluginConfigurationDescriptor
 	}
 
 	@Nullable
-	ExternalPluginManifest getExternalPluginManifest()
+    ExternalPluginManager.ExternalPluginManifest getExternalPluginManifest()
 	{
 		if (plugin == null)
 		{

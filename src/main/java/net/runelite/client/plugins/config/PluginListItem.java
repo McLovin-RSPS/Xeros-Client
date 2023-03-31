@@ -47,7 +47,7 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import lombok.Getter;
-import net.runelite.client.externalplugins.ExternalPluginManifest;
+import net.runelite.client.externalplugins.ExternalPluginManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.util.ImageUtil;
@@ -94,7 +94,7 @@ class PluginListItem extends JPanel implements SearchablePlugin
 		Collections.addAll(keywords, pluginConfig.getName().toLowerCase().split(" "));
 		Collections.addAll(keywords, pluginConfig.getDescription().toLowerCase().split(" "));
 		Collections.addAll(keywords, pluginConfig.getTags());
-		ExternalPluginManifest mf = pluginConfig.getExternalPluginManifest();
+		ExternalPluginManager.ExternalPluginManifest mf = pluginConfig.getExternalPluginManifest();
 		if (mf != null)
 		{
 			keywords.add("pluginhub");

@@ -34,13 +34,13 @@ import net.runelite.client.util.ReflectUtil;
 class ExternalPluginClassLoader extends URLClassLoader implements ReflectUtil.PrivateLookupableClassLoader
 {
 	@Getter
-	private final ExternalPluginManifest manifest;
+	private final ExternalPluginManager.ExternalPluginManifest manifest;
 
 	@Getter
 	@Setter
 	private MethodHandles.Lookup lookup;
 
-	ExternalPluginClassLoader(ExternalPluginManifest manifest, URL[] urls)
+	ExternalPluginClassLoader(ExternalPluginManager.ExternalPluginManifest manifest, URL[] urls)
 	{
 		super(urls, ExternalPluginClassLoader.class.getClassLoader());
 		this.manifest = manifest;

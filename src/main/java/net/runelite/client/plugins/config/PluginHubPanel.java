@@ -76,7 +76,6 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.externalplugins.ExternalPluginClient;
 import net.runelite.client.externalplugins.ExternalPluginManager;
-import net.runelite.client.externalplugins.ExternalPluginManifest;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.ui.ColorScheme;
@@ -120,7 +119,7 @@ class PluginHubPanel extends PluginPanel
 		private static final int ICON_WIDTH = 48;
 		private static final int BOTTOM_LINE_HEIGHT = 16;
 
-		private final ExternalPluginManifest manifest;
+		private final ExternalPluginManager.ExternalPluginManifest manifest;
 
 		@Getter
 		private final List<String> keywords = new ArrayList<>();
@@ -131,9 +130,9 @@ class PluginHubPanel extends PluginPanel
 		@Getter
 		private final boolean installed;
 
-		PluginItem(ExternalPluginManifest newManifest, Collection<Plugin> loadedPlugins, int userCount, boolean installed)
+		PluginItem(ExternalPluginManager.ExternalPluginManifest newManifest, Collection<Plugin> loadedPlugins, int userCount, boolean installed)
 		{
-			ExternalPluginManifest loaded = null;
+			ExternalPluginManager.ExternalPluginManifest loaded = null;
 			if (!loadedPlugins.isEmpty())
 			{
 				loaded = ExternalPluginManager.getExternalPluginManifest(loadedPlugins.iterator().next().getClass());
@@ -502,7 +501,7 @@ class PluginHubPanel extends PluginPanel
 
 		executor.submit(() ->
 		{
-			List<ExternalPluginManifest> manifest;
+			List<ExternalPluginManager.ExternalPluginManifest> manifest;
 			try
 			{
 				manifest = externalPluginClient.downloadManifest();
@@ -536,16 +535,16 @@ class PluginHubPanel extends PluginPanel
 		});
 	}
 
-	private void reloadPluginList(List<ExternalPluginManifest> manifest, Map<String, Integer> pluginCounts)
+	private void reloadPluginList(List<ExternalPluginManager.ExternalPluginManifest> manifest, Map<String, Integer> pluginCounts)
 	{
-		Map<String, ExternalPluginManifest> manifests = manifest.stream()
-			.collect(ImmutableMap.toImmutableMap(ExternalPluginManifest::getInternalName, Function.identity()));
+		Map<String, ExternalPluginManager.ExternalPluginManifest> manifests = manifest.stream()
+			.collect(ImmutableMap.toImmutableMap(ExternalPluginManager.ExternalPluginManifest::getInternalName, Function.identity()));
 
 		Multimap<String, Plugin> loadedPlugins = HashMultimap.create();
 		for (Plugin p : pluginManager.getPlugins())
 		{
 			Class<? extends Plugin> clazz = p.getClass();
-			ExternalPluginManifest mf = ExternalPluginManager.getExternalPluginManifest(clazz);
+			ExternalPluginManager.ExternalPluginManifest mf = ExternalPluginManager.getExternalPluginManifest(clazz);
 			if (mf != null)
 			{
 				loadedPlugins.put(mf.getInternalName(), p);

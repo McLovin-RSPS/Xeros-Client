@@ -45,10 +45,14 @@ import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.RuneLiteProperties;
@@ -433,4 +437,58 @@ public class ExternalPluginManager
 
 		builtinExternals = plugins;
 	}
+
+    @Data
+    public static class ExternalPluginManifest
+    {
+        private String internalName;
+        private String commit;
+        private String hash;
+        private int size;
+        private String[] plugins;
+
+        private String displayName;
+        private String version;
+        private String author;
+        @Nullable
+        private String description;
+        @Nullable
+        private String warning;
+        @Nullable
+        private String[] tags;
+        @EqualsAndHashCode.Exclude
+        private URL support;
+        private boolean hasIcon;
+
+        public boolean hasIcon()
+        {
+            return hasIcon;
+        }
+
+        File getJarFile()
+        {
+            return new File(RuneLite.PLUGINS_DIR, internalName + commit + ".jar");
+        }
+
+        boolean isValid()
+        {
+            File file = getJarFile();
+
+            try
+            {
+                if (file.exists())
+                {
+                    String hash = Files.asByteSource(file).hash(Hashing.sha256()).toString();
+                    if (this.hash.equals(hash))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+            }
+            return false;
+        }
+    }
 }

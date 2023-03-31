@@ -1167,9 +1167,9 @@ public class Client extends GameEngine implements RSClient {
 				e.printStackTrace();
 			}
 		}
-		packCustomMaps();
-		packCustomModels();
-		packCustomAnimations();
+		//packCustomMaps();
+		//packCustomModels();
+		//packCustomAnimations();
 	}
 
 	public byte[] fileToByteArray(File file) {
@@ -10718,7 +10718,7 @@ public class Client extends GameEngine implements RSClient {
 			//repackCacheIndex(4);
 			//repackCacheIndex(2);
 			if (Configuration.packIndexData) {
-				repackCacheAll();
+				//repackCacheAll();
 			}
 			//packCustomAnimations();
 			//packCustomModels();

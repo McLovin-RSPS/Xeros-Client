@@ -76,7 +76,7 @@ public class ExternalPluginClient
 		this.apiBase = apiBase;
 	}
 
-	public List<ExternalPluginManifest> downloadManifest() throws IOException, VerificationException
+	public List<ExternalPluginManager.ExternalPluginManifest> downloadManifest() throws IOException, VerificationException
 	{
 		HttpUrl manifest = RuneLiteProperties.getPluginHubBase()
 			.newBuilder()
@@ -105,7 +105,7 @@ public class ExternalPluginClient
 			}
 
 			return gson.fromJson(new String(data, StandardCharsets.UTF_8),
-				new TypeToken<List<ExternalPluginManifest>>()
+				new TypeToken<List<ExternalPluginManager.ExternalPluginManifest>>()
 				{
 				}.getType());
 		}
@@ -115,7 +115,7 @@ public class ExternalPluginClient
 		}
 	}
 
-	public BufferedImage downloadIcon(ExternalPluginManifest plugin) throws IOException
+	public BufferedImage downloadIcon(ExternalPluginManager.ExternalPluginManifest plugin) throws IOException
 	{
 		if (!plugin.hasIcon())
 		{
