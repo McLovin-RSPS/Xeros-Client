@@ -1,0 +1,163 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://repo.runelite.net/' }
+        maven { url 'https://jitpack.io' }
+        //maven { url 'https://maven.minnced.com/releases/' } // Add this line
+    }
+    dependencies {
+        //  classpath 'net.sf.proguard:proguard-gradle:7.2.0'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'io.franzbecker.gradle-lombok' version '5.0.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.0'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.1'
+}
+
+apply plugin: 'java'
+apply plugin: 'io.franzbecker.gradle-lombok'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven { url 'https://repo.runelite.net/' }
+    maven { url 'https://jitpack.io' }
+    //maven { url 'https://maven.minnced.com/releases/' } // Add this line
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources/'
+        }
+    }
+}
+
+// Application Configuration
+application {
+    mainClassName = 'com.client.Client'
+}
+
+// Java & Kotlin Configuration
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+}
+
+// Repositories
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://repo.runelite.net' }
+    maven { url 'https://jitpack.io' }
+}
+
+// Versions
+def lombokVersion = "1.18.26"
+
+// Dependencies
+dependencies {
+
+    // Core Libraries
+    implementation 'io.github.benas:xstream:0.1'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'ch.qos.logback:logback-classic:1.2.9'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.1'
+    implementation 'io.netty:netty-all:4.1.72.Final'
+    implementation 'org.jboss.netty:netty:3.2.10.Final'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation 'com.mchange:c3p0:0.9.5.5'
+    implementation 'mysql:mysql-connector-java:8.0.28'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'com.dorkbox:Notify:3.7'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'net.oneandone.reflections8:reflections8:0.11.7'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.20'
+    implementation 'com.google.inject:guice:5.0.1'
+    implementation 'me.tongfei:progressbar:0.9.5'
+    implementation 'org.jetbrains:annotations:24.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.1'
+    implementation 'org.openjfx:javafx-controls:11'
+    implementation 'org.openjfx:javafx-swing:11'
+    implementation 'net.java.dev.jna:jna:4.5.1'
+    implementation 'com.apple:AppleJavaExtensions:1.4'
+    implementation 'com.jwebmp:commons-text:0.66.0.1'
+    implementation 'net.sf.jopt-simple:jopt-simple:5.0.1'
+    implementation 'club.minnced:java-discord-rpc:2.0.1'
+    implementation 'net.runelite:discord:1.2'
+    implementation 'net.runelite.pushingpixels:substance:8.0.02' 
+    implementation 'net.runelite.pushingpixels:trident:1.5.00'
+
+    implementation ('com.google.guava:guava:28.1-jre') {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+        exclude group: 'com.google.j2objc', module: 'j2objc-annotations'
+        exclude group: 'org.codehaus.mojo', module: 'animal-sniffer-annotations'
+    }
+
+    // Lombok
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    // Testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+// Lombok Configuration
+lombok {
+    version = lombokVersion
+}
+
+// Shadow Plugin Configuration
+shadowJar {
+    archiveBaseName.set('Eco-PS-Client')
+    manifest {
+        attributes 'Main-Class': 'com.client.Client'
+    }
+}
+
+// Tasks
+tasks.register('RunNormal', JavaExec) {
+    group = 'Runelite'
+    description = 'Run Runelite in Normal Mode'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.client.Client'
+}
+
+tasks.register('RunDevelopment', JavaExec) {
+    group = 'Runelite'
+    description = 'Run Runelite in Development Mode'
+    enableAssertions = true
+    args '--developer-mode'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.client.Client'
+}
